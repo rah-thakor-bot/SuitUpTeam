@@ -51,15 +51,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutUs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutUs.Designer.cs">
+      <DependentUpon>AboutUs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master Module\frmStudMas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Master Module\frmStudMas.Designer.cs">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master Module\frmSubMas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmSubMas.Designer.cs">
+      <DependentUpon>frmSubMas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility Module\Global.cs" />
+    <EmbeddedResource Include="AboutUs.resx">
+      <DependentUpon>AboutUs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmStudMas.resx">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </EmbeddedResource>

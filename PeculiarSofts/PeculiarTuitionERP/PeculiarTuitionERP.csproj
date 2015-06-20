@@ -57,6 +57,18 @@
     <Compile Include="AboutUs.Designer.cs">
       <DependentUpon>AboutUs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exam Module\frmExamTiming.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exam Module\frmExamTiming.Designer.cs">
+      <DependentUpon>frmExamTiming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exam Module\frmStudResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exam Module\frmStudResult.Designer.cs">
+      <DependentUpon>frmStudResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master Module\frmStudMas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +83,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction Module\frmPaymentSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaction Module\frmPaymentSetting.Designer.cs">
+      <DependentUpon>frmPaymentSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility Module\Global.cs" />
     <EmbeddedResource Include="AboutUs.resx">
       <DependentUpon>AboutUs.cs</DependentUpon>
@@ -100,10 +118,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exam Module\" />
-    <Folder Include="Transaction Module\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

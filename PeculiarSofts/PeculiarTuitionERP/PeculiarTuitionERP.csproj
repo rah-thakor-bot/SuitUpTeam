@@ -96,6 +96,9 @@
     <EmbeddedResource Include="Master Module\frmStudMas.resx">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmSubMas.resx">
+      <DependentUpon>frmSubMas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -11,6 +11,7 @@ namespace PeculiarTuitionERP
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// Rahul commit
         [STAThread]
         public static void Main()
         {

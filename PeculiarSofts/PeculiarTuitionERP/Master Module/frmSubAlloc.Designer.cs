@@ -1,6 +1,6 @@
-﻿namespace PeculiarTuitionERP.Exam_Module
+﻿namespace PeculiarTuitionERP.Master_Module
 {
-    partial class frmExamMas
+    partial class frmSubAlloc
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // frmExamMas
+            // frmSubAlloc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 300);
-            this.Name = "frmExamMas";
-            this.Text = "Exam Master";
+            this.ClientSize = new System.Drawing.Size(998, 716);
+            this.Name = "frmSubAlloc";
+            this.Text = "Subject Allocation";
             this.ResumeLayout(false);
 
         }

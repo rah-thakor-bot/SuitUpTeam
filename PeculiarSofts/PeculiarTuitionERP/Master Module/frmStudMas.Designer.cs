@@ -42,7 +42,7 @@
             this.grpDetail.Controls.Add(this.dataGridView1);
             this.grpDetail.Location = new System.Drawing.Point(3, 67);
             this.grpDetail.Name = "grpDetail";
-            this.grpDetail.Size = new System.Drawing.Size(684, 462);
+            this.grpDetail.Size = new System.Drawing.Size(974, 481);
             this.grpDetail.TabIndex = 0;
             this.grpDetail.TabStop = false;
             this.grpDetail.Text = "Student Data";
@@ -53,7 +53,7 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 16);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(678, 443);
+            this.dataGridView1.Size = new System.Drawing.Size(968, 462);
             this.dataGridView1.TabIndex = 0;
             // 
             // buttonPanelControl1
@@ -81,7 +81,7 @@
             this.buttonPanelControl1.ButtonSearchImage = null;
             this.buttonPanelControl1.ButtonSearchText = "Search";
             this.buttonPanelControl1.ButtonSearchVisible = true;
-            this.buttonPanelControl1.Location = new System.Drawing.Point(12, 599);
+            this.buttonPanelControl1.Location = new System.Drawing.Point(203, 602);
             this.buttonPanelControl1.MessageText = "";
             this.buttonPanelControl1.Name = "buttonPanelControl1";
             this.buttonPanelControl1.SetColor = System.Drawing.Color.Empty;

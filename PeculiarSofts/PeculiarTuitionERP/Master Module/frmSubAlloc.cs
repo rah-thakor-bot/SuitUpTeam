@@ -2,12 +2,11 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
 
-
-namespace PeculiarTuitionERP.Exam_Module
+namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmResultMas : MaterialForm
+    public partial class frmSubAlloc : MaterialForm
     {
-        public frmResultMas()
+        public frmSubAlloc()
         {
             InitializeComponent();
         }

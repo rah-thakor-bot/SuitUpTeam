@@ -31,20 +31,20 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hirenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialSkinTestingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hiren1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hiren2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teacherMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectDetailsChapterWiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subjectAllocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.examMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.examMasterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.resultMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactoinSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.subjectAllocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hiren1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hiren2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,25 +87,6 @@
             this.materialSkinTestingToolStripMenuItem.Text = "Student Master";
             this.materialSkinTestingToolStripMenuItem.Click += new System.EventHandler(this.materialSkinTestingToolStripMenuItem_Click);
             // 
-            // hiren1ToolStripMenuItem
-            // 
-            this.hiren1ToolStripMenuItem.Name = "hiren1ToolStripMenuItem";
-            this.hiren1ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.hiren1ToolStripMenuItem.Text = "Transaction";
-            // 
-            // hiren2ToolStripMenuItem
-            // 
-            this.hiren2ToolStripMenuItem.Name = "hiren2ToolStripMenuItem";
-            this.hiren2ToolStripMenuItem.Size = new System.Drawing.Size(65, 22);
-            this.hiren2ToolStripMenuItem.Text = "Report";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
             // teacherMasterToolStripMenuItem
             // 
             this.teacherMasterToolStripMenuItem.Name = "teacherMasterToolStripMenuItem";
@@ -131,6 +112,7 @@
             this.subjectMasterToolStripMenuItem1.Padding = new System.Windows.Forms.Padding(2);
             this.subjectMasterToolStripMenuItem1.Size = new System.Drawing.Size(272, 24);
             this.subjectMasterToolStripMenuItem1.Text = "Subject Master";
+            this.subjectMasterToolStripMenuItem1.Click += new System.EventHandler(this.subjectMasterToolStripMenuItem1_Click);
             // 
             // subjectDetailsChapterWiseToolStripMenuItem
             // 
@@ -138,6 +120,15 @@
             this.subjectDetailsChapterWiseToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
             this.subjectDetailsChapterWiseToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
             this.subjectDetailsChapterWiseToolStripMenuItem.Text = "Subject Details Chapter Wise";
+            this.subjectDetailsChapterWiseToolStripMenuItem.Click += new System.EventHandler(this.subjectDetailsChapterWiseToolStripMenuItem_Click);
+            // 
+            // subjectAllocationToolStripMenuItem
+            // 
+            this.subjectAllocationToolStripMenuItem.Name = "subjectAllocationToolStripMenuItem";
+            this.subjectAllocationToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
+            this.subjectAllocationToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
+            this.subjectAllocationToolStripMenuItem.Text = "Subject Allocation";
+            this.subjectAllocationToolStripMenuItem.Click += new System.EventHandler(this.subjectAllocationToolStripMenuItem_Click);
             // 
             // examMasterToolStripMenuItem
             // 
@@ -155,6 +146,7 @@
             this.examMasterToolStripMenuItem1.Padding = new System.Windows.Forms.Padding(2);
             this.examMasterToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
             this.examMasterToolStripMenuItem1.Text = "Exam Master";
+            this.examMasterToolStripMenuItem1.Click += new System.EventHandler(this.examMasterToolStripMenuItem1_Click);
             // 
             // resultMasterToolStripMenuItem
             // 
@@ -162,6 +154,7 @@
             this.resultMasterToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
             this.resultMasterToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
             this.resultMasterToolStripMenuItem.Text = "Result Master";
+            this.resultMasterToolStripMenuItem.Click += new System.EventHandler(this.resultMasterToolStripMenuItem_Click);
             // 
             // transactoinSettingToolStripMenuItem
             // 
@@ -170,12 +163,17 @@
             this.transactoinSettingToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
             this.transactoinSettingToolStripMenuItem.Text = "Transaction Setting";
             // 
-            // subjectAllocationToolStripMenuItem
+            // hiren1ToolStripMenuItem
             // 
-            this.subjectAllocationToolStripMenuItem.Name = "subjectAllocationToolStripMenuItem";
-            this.subjectAllocationToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
-            this.subjectAllocationToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
-            this.subjectAllocationToolStripMenuItem.Text = "Subject Allocation";
+            this.hiren1ToolStripMenuItem.Name = "hiren1ToolStripMenuItem";
+            this.hiren1ToolStripMenuItem.Size = new System.Drawing.Size(98, 32);
+            this.hiren1ToolStripMenuItem.Text = "Transaction";
+            // 
+            // hiren2ToolStripMenuItem
+            // 
+            this.hiren2ToolStripMenuItem.Name = "hiren2ToolStripMenuItem";
+            this.hiren2ToolStripMenuItem.Size = new System.Drawing.Size(65, 32);
+            this.hiren2ToolStripMenuItem.Text = "Report";
             // 
             // utilityToolStripMenuItem
             // 
@@ -188,9 +186,17 @@
             // changeThemeToolStripMenuItem
             // 
             this.changeThemeToolStripMenuItem.Name = "changeThemeToolStripMenuItem";
-            this.changeThemeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.changeThemeToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
+            this.changeThemeToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
             this.changeThemeToolStripMenuItem.Text = "Change Theme";
             this.changeThemeToolStripMenuItem.Click += new System.EventHandler(this.changeThemeToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(44, 32);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MainMDI
             // 

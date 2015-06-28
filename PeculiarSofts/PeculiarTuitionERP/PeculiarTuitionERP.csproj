@@ -93,6 +93,12 @@
     <Compile Include="Master Module\frmStudMas.Designer.cs">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master Module\frmSubAlloc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmSubAlloc.Designer.cs">
+      <DependentUpon>frmSubAlloc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master Module\frmSubjectMas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,11 +120,20 @@
       <DependentUpon>frmChangeTheme.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility Module\Global.cs" />
+    <EmbeddedResource Include="Exam Module\frmExamMas.resx">
+      <DependentUpon>frmExamMas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exam Module\frmResultMas.resx">
+      <DependentUpon>frmResultMas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMDI.resx">
       <DependentUpon>MainMDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmStudMas.resx">
       <DependentUpon>frmStudMas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmSubAlloc.resx">
+      <DependentUpon>frmSubAlloc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmSubjectMas.resx">
       <DependentUpon>frmSubjectMas.cs</DependentUpon>

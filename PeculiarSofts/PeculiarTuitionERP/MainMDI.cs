@@ -54,5 +54,40 @@ namespace PeculiarTuitionERP
             _child.MdiParent = this;
             _child.Show();
         }
+
+        private void subjectMasterToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Master_Module.frmSubjectMas _child = new Master_Module.frmSubjectMas("SUBJECT");
+            _child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void subjectDetailsChapterWiseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Master_Module.frmSubjectMas _child = new Master_Module.frmSubjectMas("CHAPTER");
+            _child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void subjectAllocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Master_Module.frmSubAlloc _child = new Master_Module.frmSubAlloc();
+            _child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void examMasterToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Exam_Module.frmExamMas _child = new Exam_Module.frmExamMas();
+            _child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void resultMasterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exam_Module.frmResultMas _child = new Exam_Module.frmResultMas();
+            _child.MdiParent = this;
+            _child.Show();
+        }
     }
 }

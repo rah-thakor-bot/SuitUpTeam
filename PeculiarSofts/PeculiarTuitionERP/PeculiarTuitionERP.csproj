@@ -11,6 +11,21 @@
     <AssemblyName>PeculiarTuitionERP</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialSkin">
+      <HintPath>..\..\..\..\Github Projects\MaterialSkin\MaterialSkin\bin\Debug\MaterialSkin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Private.MyUserControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,23 +69,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutUs.cs">
+    <Compile Include="Exam Module\frmExamMas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutUs.Designer.cs">
-      <DependentUpon>AboutUs.cs</DependentUpon>
+    <Compile Include="Exam Module\frmExamMas.Designer.cs">
+      <DependentUpon>frmExamMas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Exam Module\frmExamTiming.cs">
+    <Compile Include="Exam Module\frmResultMas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Exam Module\frmExamTiming.Designer.cs">
-      <DependentUpon>frmExamTiming.cs</DependentUpon>
+    <Compile Include="Exam Module\frmResultMas.Designer.cs">
+      <DependentUpon>frmResultMas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Exam Module\frmStudResult.cs">
+    <Compile Include="MainMDI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Exam Module\frmStudResult.Designer.cs">
-      <DependentUpon>frmStudResult.cs</DependentUpon>
+    <Compile Include="MainMDI.Designer.cs">
+      <DependentUpon>MainMDI.cs</DependentUpon>
     </Compile>
     <Compile Include="Master Module\frmStudMas.cs">
       <SubType>Form</SubType>
@@ -75,29 +93,38 @@
     <Compile Include="Master Module\frmStudMas.Designer.cs">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Master Module\frmSubMas.cs">
+    <Compile Include="Master Module\frmSubjectMas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Master Module\frmSubMas.Designer.cs">
-      <DependentUpon>frmSubMas.cs</DependentUpon>
+    <Compile Include="Master Module\frmSubjectMas.Designer.cs">
+      <DependentUpon>frmSubjectMas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialSkinTesting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterialSkinTesting.Designer.cs">
+      <DependentUpon>MaterialSkinTesting.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transaction Module\frmPaymentSetting.cs">
+    <Compile Include="Utility Module\frmChangeTheme.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transaction Module\frmPaymentSetting.Designer.cs">
-      <DependentUpon>frmPaymentSetting.cs</DependentUpon>
+    <Compile Include="Utility Module\frmChangeTheme.Designer.cs">
+      <DependentUpon>frmChangeTheme.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility Module\Global.cs" />
-    <EmbeddedResource Include="AboutUs.resx">
-      <DependentUpon>AboutUs.cs</DependentUpon>
+    <EmbeddedResource Include="MainMDI.resx">
+      <DependentUpon>MainMDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmStudMas.resx">
       <DependentUpon>frmStudMas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Master Module\frmSubMas.resx">
-      <DependentUpon>frmSubMas.cs</DependentUpon>
+    <EmbeddedResource Include="Master Module\frmSubjectMas.resx">
+      <DependentUpon>frmSubjectMas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterialSkinTesting.resx">
+      <DependentUpon>MaterialSkinTesting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -108,6 +135,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Utility Module\frmChangeTheme.resx">
+      <DependentUpon>frmChangeTheme.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,7 +151,27 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Reports\" />
+    <Folder Include="Transaction Module\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

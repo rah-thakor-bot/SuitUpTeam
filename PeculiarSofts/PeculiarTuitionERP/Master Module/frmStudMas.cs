@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System.Data;
 using System.Collections;
-
 
 namespace PeculiarTuitionERP
 {
@@ -20,13 +19,16 @@ namespace PeculiarTuitionERP
      */
     #endregion
 
-    public partial class frmStudMas : Form
+    public partial class frmStudMas : MaterialForm
     {
         #region Global Objects and Variable Declaration for Form
 
+        private readonly MaterialSkinManager materialSkinManager;
+        
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string[] _strReadonly, _strHideCol, _strRequiredCol;
+        
         DataTable _dtMas;
         bool _canInsert, _canDelete, _canSelect, _isSuperUser;
         #endregion
@@ -39,12 +41,37 @@ namespace PeculiarTuitionERP
 
             InitializeComponent();
 
+            // Initialize MaterialSkinManager
+            materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+
             #endregion
         }
 
         public frmStudMas(string _p_form_type)
         {
+            InitializeComponent();
+
             _strFormType = _p_form_type;
+            
+            // Initialize MaterialSkinManager
+            materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+
+            if (_strFormType == "STUDENT")
+            {
+                this.Text = "Student Master";
+                grpDetail.Text = "Student Master";
+            }
+            else // For Teachaer mas
+            {
+                this.Text = "Teacher Master";
+                grpDetail.Text = "Teacher Master";
+            }
         }
 
         #endregion
@@ -188,4 +215,5 @@ namespace PeculiarTuitionERP
 
         #endregion
     }
+
 }

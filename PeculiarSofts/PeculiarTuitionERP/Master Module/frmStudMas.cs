@@ -8,7 +8,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Data;
 using System.Collections;
-
+using PeculiarTuitionBase;
 namespace PeculiarTuitionERP
 {
     #region Form Behaviour and Description
@@ -31,6 +31,8 @@ namespace PeculiarTuitionERP
         
         DataTable _dtMas;
         bool _canInsert, _canDelete, _canSelect, _isSuperUser;
+
+        TuitionBase _objData;
         #endregion
 
         #region Constructors
@@ -88,6 +90,11 @@ namespace PeculiarTuitionERP
             if (buttonPanelControl1.ButtonAddText == "&Add")
             {
                 _strBtnActionType = "ADD";
+
+                _objData = new TuitionBase();
+                string _ans = _objData.connect_Database();
+                MessageBox.Show(_ans.ToString());
+
             }
             else
             {

@@ -12,7 +12,7 @@ using MaterialSkin.Controls;
 
 namespace PeculiarTuitionERP
 {
-    public partial class MainMDI : MaterialForm
+    public partial class MainMDI : Form
     {
         private readonly MaterialSkinManager materialSkinManager;
         private int colorSchemeIndex;
@@ -22,10 +22,10 @@ namespace PeculiarTuitionERP
             InitializeComponent();
 
             // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            //materialSkinManager = MaterialSkinManager.Instance;
+            //materialSkinManager.AddFormToManage(this);
+            //materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            //materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 
         }
 

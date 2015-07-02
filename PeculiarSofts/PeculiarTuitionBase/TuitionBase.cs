@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data.OracleClient;
 
-
-
 namespace PeculiarTuitionBase
 {
     public class TuitionBase

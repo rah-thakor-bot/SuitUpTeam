@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Data;
 using System.Collections;
 using PeculiarTuitionBase;
+
 namespace PeculiarTuitionERP
 {
     #region Form Behaviour and Description
@@ -90,11 +86,6 @@ namespace PeculiarTuitionERP
             if (buttonPanelControl1.ButtonAddText == "&Add")
             {
                 _strBtnActionType = "ADD";
-
-                _objData = new TuitionBase();
-                string _ans = _objData.connect_Database();
-                MessageBox.Show(_ans.ToString());
-
             }
             else
             {

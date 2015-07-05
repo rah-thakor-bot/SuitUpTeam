@@ -28,59 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnPanelCtrl1 = new Private.MyUserControls.ButtonPanelControl();
+            this.btnPnl1 = new Private.MyUserControls.ButtonPanelControl();
             this.grpEntityTypeMas = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grdMas = new System.Windows.Forms.DataGridView();
             this.grpEntityTypeMas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdMas)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnPanelCtrl1
+            // btnPnl1
             // 
-            this.btnPanelCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnPnl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPanelCtrl1.ButtonAddEnable = true;
-            this.btnPanelCtrl1.ButtonAddImage = null;
-            this.btnPanelCtrl1.ButtonAddText = "Add";
-            this.btnPanelCtrl1.ButtonAddVisible = true;
-            this.btnPanelCtrl1.ButtonCloseEnable = true;
-            this.btnPanelCtrl1.ButtonCloseImage = null;
-            this.btnPanelCtrl1.ButtonCloseVisible = true;
-            this.btnPanelCtrl1.ButtonDeleteEnable = true;
-            this.btnPanelCtrl1.ButtonDeleteImage = null;
-            this.btnPanelCtrl1.ButtonDeleteVisible = true;
-            this.btnPanelCtrl1.ButtonEditEnable = true;
-            this.btnPanelCtrl1.ButtonEditImage = null;
-            this.btnPanelCtrl1.ButtonEditText = "Edit";
-            this.btnPanelCtrl1.ButtonEditVisible = true;
-            this.btnPanelCtrl1.ButtonRefreshEnable = true;
-            this.btnPanelCtrl1.ButtonRefreshImage = null;
-            this.btnPanelCtrl1.ButtonRefreshVisible = true;
-            this.btnPanelCtrl1.ButtonSearchEnable = true;
-            this.btnPanelCtrl1.ButtonSearchImage = null;
-            this.btnPanelCtrl1.ButtonSearchText = "Search";
-            this.btnPanelCtrl1.ButtonSearchVisible = true;
-            this.btnPanelCtrl1.Location = new System.Drawing.Point(296, 606);
-            this.btnPanelCtrl1.MessageText = "";
-            this.btnPanelCtrl1.Name = "btnPanelCtrl1";
-            this.btnPanelCtrl1.SetColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.SetDuration = 0;
-            this.btnPanelCtrl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.Size = new System.Drawing.Size(498, 62);
-            this.btnPanelCtrl1.StartTime = new System.DateTime(((long)(0)));
-            this.btnPanelCtrl1.TabIndex = 3;
-            this.btnPanelCtrl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
-            this.btnPanelCtrl1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnEditClick);
-            this.btnPanelCtrl1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnDeleteClick);
-            this.btnPanelCtrl1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnSearchClick);
-            this.btnPanelCtrl1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnRefreshClick);
-            this.btnPanelCtrl1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnCloseClick);
+            this.btnPnl1.ButtonAddEnable = true;
+            this.btnPnl1.ButtonAddImage = null;
+            this.btnPnl1.ButtonAddText = "&Add";
+            this.btnPnl1.ButtonAddVisible = true;
+            this.btnPnl1.ButtonCloseEnable = true;
+            this.btnPnl1.ButtonCloseImage = null;
+            this.btnPnl1.ButtonCloseVisible = true;
+            this.btnPnl1.ButtonDeleteEnable = true;
+            this.btnPnl1.ButtonDeleteImage = null;
+            this.btnPnl1.ButtonDeleteVisible = true;
+            this.btnPnl1.ButtonEditEnable = true;
+            this.btnPnl1.ButtonEditImage = null;
+            this.btnPnl1.ButtonEditText = "&Edit";
+            this.btnPnl1.ButtonEditVisible = true;
+            this.btnPnl1.ButtonRefreshEnable = true;
+            this.btnPnl1.ButtonRefreshImage = null;
+            this.btnPnl1.ButtonRefreshVisible = true;
+            this.btnPnl1.ButtonSearchEnable = true;
+            this.btnPnl1.ButtonSearchImage = null;
+            this.btnPnl1.ButtonSearchText = "Sea&rch";
+            this.btnPnl1.ButtonSearchVisible = true;
+            this.btnPnl1.Location = new System.Drawing.Point(9, 606);
+            this.btnPnl1.MessageText = "";
+            this.btnPnl1.Name = "btnPnl1";
+            this.btnPnl1.SetColor = System.Drawing.Color.Empty;
+            this.btnPnl1.SetDuration = 0;
+            this.btnPnl1.SetLightColor = System.Drawing.Color.Empty;
+            this.btnPnl1.Size = new System.Drawing.Size(498, 62);
+            this.btnPnl1.StartTime = new System.DateTime(((long)(0)));
+            this.btnPnl1.TabIndex = 3;
+            this.btnPnl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
+            this.btnPnl1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnEditClick);
+            this.btnPnl1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnDeleteClick);
+            this.btnPnl1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnSearchClick);
+            this.btnPnl1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnRefreshClick);
+            this.btnPnl1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnCloseClick);
             // 
             // grpEntityTypeMas
             // 
             this.grpEntityTypeMas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpEntityTypeMas.Controls.Add(this.dataGridView1);
+            this.grpEntityTypeMas.Controls.Add(this.grdMas);
             this.grpEntityTypeMas.Location = new System.Drawing.Point(7, 71);
             this.grpEntityTypeMas.Name = "grpEntityTypeMas";
             this.grpEntityTypeMas.Size = new System.Drawing.Size(974, 481);
@@ -88,34 +88,37 @@
             this.grpEntityTypeMas.TabStop = false;
             this.grpEntityTypeMas.Text = "Entity Type Master";
             // 
-            // dataGridView1
+            // grdMas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(968, 462);
-            this.dataGridView1.TabIndex = 0;
+            this.grdMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdMas.Location = new System.Drawing.Point(3, 16);
+            this.grdMas.Name = "grdMas";
+            this.grdMas.Size = new System.Drawing.Size(968, 462);
+            this.grdMas.TabIndex = 0;
             // 
             // frmEntityTypeMas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1167, 739);
-            this.Controls.Add(this.btnPanelCtrl1);
+            this.Controls.Add(this.btnPnl1);
             this.Controls.Add(this.grpEntityTypeMas);
             this.Name = "frmEntityTypeMas";
-            this.Text = "Entity Master";
+            this.Tag = "EntityTypeMas";
+            this.Text = "Entity Type Master";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmEntityTypeMas_Load);
             this.grpEntityTypeMas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdMas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Private.MyUserControls.ButtonPanelControl btnPanelCtrl1;
+        private Private.MyUserControls.ButtonPanelControl btnPnl1;
         private System.Windows.Forms.GroupBox grpEntityTypeMas;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grdMas;
     }
 }

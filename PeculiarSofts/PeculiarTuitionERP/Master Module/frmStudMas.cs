@@ -1,6 +1,7 @@
 ﻿using System;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System.Windows.Forms;
 using System.Data;
 using System.Collections;
 using PeculiarTuitionBase;
@@ -126,6 +127,11 @@ namespace PeculiarTuitionERP
             {
                 _strBtnActionType = string.Empty;
             }
+        }
+
+        private void frmStudMas_Resize(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonPanelControl1_btnSearchClick(object sender, EventArgs e)

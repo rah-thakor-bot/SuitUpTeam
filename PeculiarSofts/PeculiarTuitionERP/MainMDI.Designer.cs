@@ -39,6 +39,7 @@
             this.examMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.examMasterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.resultMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entityTypeMas = new System.Windows.Forms.ToolStripMenuItem();
             this.transactoinSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hiren1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hiren2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,6 +73,7 @@
             this.teacherMasterToolStripMenuItem,
             this.subjectMasterToolStripMenuItem,
             this.examMasterToolStripMenuItem,
+            this.entityTypeMas,
             this.transactoinSettingToolStripMenuItem});
             this.hirenToolStripMenuItem.Margin = new System.Windows.Forms.Padding(2);
             this.hirenToolStripMenuItem.Name = "hirenToolStripMenuItem";
@@ -156,6 +158,14 @@
             this.resultMasterToolStripMenuItem.Text = "Result Master";
             this.resultMasterToolStripMenuItem.Click += new System.EventHandler(this.resultMasterToolStripMenuItem_Click);
             // 
+            // entityTypeMas
+            // 
+            this.entityTypeMas.Name = "entityTypeMas";
+            this.entityTypeMas.Padding = new System.Windows.Forms.Padding(3);
+            this.entityTypeMas.Size = new System.Drawing.Size(209, 26);
+            this.entityTypeMas.Text = "Entity Type Master";
+            this.entityTypeMas.Click += new System.EventHandler(this.entityTypeMas_Click);
+            // 
             // transactoinSettingToolStripMenuItem
             // 
             this.transactoinSettingToolStripMenuItem.Name = "transactoinSettingToolStripMenuItem";
@@ -237,6 +247,6 @@
         private System.Windows.Forms.ToolStripMenuItem transactoinSettingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem utilityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeThemeToolStripMenuItem;
-
+        private System.Windows.Forms.ToolStripMenuItem entityTypeMas;
     }
 }

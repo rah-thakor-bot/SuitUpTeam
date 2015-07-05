@@ -1,9 +1,12 @@
 ﻿using System;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using System.Data;
 using System.Collections;
+using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using PeculiarTuitionBase;
+using PeculiarTuitionBase.MasterBase;
+using PeculiarTuitionERP.Utility_Module;
 
 
 namespace PeculiarTuitionERP.Master_Module
@@ -13,41 +16,65 @@ namespace PeculiarTuitionERP.Master_Module
         #region Global Objects and Variable Declaration for Form
 
         private readonly MaterialSkinManager materialSkinManager;
+        private EntityTypeMas _libEntityTypeMas;
+        private Utility _clsUtility;
 
         string _strFormType = string.Empty;
-        string _strBtnActionType = string.Empty;
+        string ErrorMsg;
+        string _strCurrentActionType = string.Empty;
         string[] _strReadonly, _strHideCol, _strRequiredCol;
 
         DataTable _dtMas;
+        DataTable _dtGridFields;
         bool _canInsert, _canDelete, _canSelect, _isSuperUser;
 
-        TuitionBase _objData;
         #endregion
 
         #region Constructors
         public frmEntityTypeMas()
         {
             InitializeComponent();
+            _clsUtility = new Utility();
+            _dtGridFields = new DataTable();
         }
         #endregion
 
         #region Form Events
 
-        private void frmStudMas_Load(object sender, EventArgs e)
+        private void frmEntityTypeMas_Load(object sender, EventArgs e)
         {
-
+            FillGridView();
         }
 
         private void buttonPanelControl1_btnAddClick(object sender, EventArgs e)
         {
-            if (btnPanelCtrl1.ButtonAddText == "&Add")
+            if (btnPnl1.ButtonAddText == "&Add")
             {
-                _strBtnActionType = "ADD";
+                _strCurrentActionType = "ADD";
+                _clsUtility.SetPanelStatus(btnPnl1, _strCurrentActionType);
+                btnPnl1.ButtonAddText = "&Save";
+                btnPnl1.ButtonEditText = "&Cancel";
             }
             else
             {
-                _strBtnActionType = "SAVE";
+                _strCurrentActionType = "SAVE";
             }
+        }
+
+        private void buttonPanelControl1_btnEditClick(object sender, EventArgs e)
+        {
+            if (btnPnl1.ButtonEditText == "&Edit")
+            {
+                _strCurrentActionType = "EDIT";
+                _clsUtility.SetPanelStatus(btnPnl1, _strCurrentActionType);
+                btnPnl1.ButtonAddText = "&Save";
+                btnPnl1.ButtonEditText = "&Cancel";
+            }
+            else
+            {
+                _strCurrentActionType = "SAVE";
+            }
+
         }
 
         private void buttonPanelControl1_btnCloseClick(object sender, EventArgs e)
@@ -60,42 +87,35 @@ namespace PeculiarTuitionERP.Master_Module
 
         }
 
-        private void buttonPanelControl1_btnEditClick(object sender, EventArgs e)
-        {
-            if (btnPanelCtrl1.ButtonAddText == "&Edit")
-            {
-                _strBtnActionType = "EDIT";
-            }
-            else
-            {
-                _strBtnActionType = "SAVE";
-            }
-
-        }
-
         private void buttonPanelControl1_btnRefreshClick(object sender, EventArgs e)
         {
-            if (btnPanelCtrl1.ButtonAddText == "Re&fresh")
-            {
-                _strBtnActionType = "REFRESH";
-            }
-            else
-            {
-                _strBtnActionType = string.Empty;
-            }
+            _strCurrentActionType = "REFRESH";
         }
 
         private void buttonPanelControl1_btnSearchClick(object sender, EventArgs e)
         {
-            if (btnPanelCtrl1.ButtonAddText == "Sea&rch")
-            {
-                _strBtnActionType = "SEARCH";
-            }
+            _strCurrentActionType = "SEARCH";
         }
         #endregion
 
-        #region Private Events
+        #region Private Methods
 
+        private void FillGridView()
+        {
+            if (_libEntityTypeMas != null)
+                _libEntityTypeMas = new EntityTypeMas();
+            
+            _dtGridFields = _libEntityTypeMas.FetchGridFields(this.Tag.ToString(),"grdMas", out ErrorMsg);
+            if (!string.IsNullOrEmpty(ErrorMsg))
+                MessageBox.Show(ErrorMsg);
+
+            _dtMas = _libEntityTypeMas.FetchData(out ErrorMsg);
+            if (!string.IsNullOrEmpty(ErrorMsg))
+                MessageBox.Show(ErrorMsg);
+            grdMas.DataSource = _dtMas;
+
+
+        }
         private Hashtable SaveData()
         {
             Hashtable _htSave = null;
@@ -164,6 +184,7 @@ namespace PeculiarTuitionERP.Master_Module
                 //Dispose or Nullify Objects
             }
         }
+
 
         #endregion
 

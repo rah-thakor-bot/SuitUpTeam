@@ -132,6 +132,7 @@
       <DependentUpon>frmChangeTheme.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility Module\Global.cs" />
+    <Compile Include="Utility Module\Utility.cs" />
     <EmbeddedResource Include="Exam Module\frmExamMas.resx">
       <DependentUpon>frmExamMas.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using PeculiarTuitionERP.Utility_Module;
+using PeculiarTuitionERP.Exam_Module;
+using PeculiarTuitionERP.Master_Module;
 using MaterialSkin;
-using MaterialSkin.Controls;
+using System.Collections;
+
+
 
 namespace PeculiarTuitionERP
 {
@@ -16,11 +14,12 @@ namespace PeculiarTuitionERP
     {
         private readonly MaterialSkinManager materialSkinManager;
         private int colorSchemeIndex;
+        private Hashtable _ActiveFormList;
 
         public MainMDI()
         {
             InitializeComponent();
-
+            _ActiveFormList = new Hashtable();
             // Initialize MaterialSkinManager
             //materialSkinManager = MaterialSkinManager.Instance;
             //materialSkinManager.AddFormToManage(this);
@@ -50,42 +49,49 @@ namespace PeculiarTuitionERP
 
         private void changeThemeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utility_Module.frmChangeTheme _child = new Utility_Module.frmChangeTheme();
+            frmChangeTheme _child = new frmChangeTheme();
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void subjectMasterToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Master_Module.frmSubjectMas _child = new Master_Module.frmSubjectMas("SUBJECT");
+            frmSubjectMas _child = new frmSubjectMas("SUBJECT");
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void subjectDetailsChapterWiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Master_Module.frmSubjectMas _child = new Master_Module.frmSubjectMas("CHAPTER");
+            frmSubjectMas _child = new frmSubjectMas("CHAPTER");
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void subjectAllocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Master_Module.frmSubAlloc _child = new Master_Module.frmSubAlloc();
+            frmSubAlloc _child = new frmSubAlloc();
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void examMasterToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Exam_Module.frmExamMas _child = new Exam_Module.frmExamMas();
+            frmExamMas _child = new frmExamMas();
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void resultMasterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Exam_Module.frmResultMas _child = new Exam_Module.frmResultMas();
+            frmResultMas _child = new frmResultMas();
+            _child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void entityTypeMas_Click(object sender, EventArgs e)
+        {
+            frmEntityTypeMas _child = new frmEntityTypeMas();
             _child.MdiParent = this;
             _child.Show();
         }

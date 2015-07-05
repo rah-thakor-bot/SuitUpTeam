@@ -109,6 +109,7 @@
             this.Text = "Student Master";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmStudMas_Load);
+            this.Resize += new System.EventHandler(this.frmStudMas_Resize);
             this.grpDetail.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

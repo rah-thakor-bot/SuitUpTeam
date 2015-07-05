@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterBase\EntityTypeMas.cs" />
     <Compile Include="MasterBase\StudMas.cs" />
     <Compile Include="TuitionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

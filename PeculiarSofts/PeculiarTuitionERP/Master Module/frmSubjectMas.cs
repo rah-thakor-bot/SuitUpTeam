@@ -1,17 +1,14 @@
 ﻿using System;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using System.Data;
 using System.Collections;
+using System.Windows.Forms;
 using PeculiarTuitionBase;
 
 namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmSubjectMas : MaterialForm
+    public partial class frmSubjectMas : Form
     {
         #region Global Objects and Variable Declaration for Form
-
-        private readonly MaterialSkinManager materialSkinManager;
 
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
@@ -33,12 +30,6 @@ namespace PeculiarTuitionERP.Master_Module
             InitializeComponent();
 
             _strFormType = _p_form_type;
-
-            // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 
             if (_strFormType == "SUBJECT")
             {

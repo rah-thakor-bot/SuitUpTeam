@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Data;
 using System.Collections;
+using System.Windows.Forms;
 using PeculiarTuitionBase;
-using MaterialSkin;
-using MaterialSkin.Controls;
 
 
 namespace PeculiarTuitionERP.Transaction_Module
 {
-    public partial class frmPaymentMaster : MaterialForm
+    public partial class frmPaymentMaster : Form
     {
         #region Global Objects and Variable Declaration for Form
 
-        private readonly MaterialSkinManager materialSkinManager;
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string[] _strReadonly, _strHideCol, _strRequiredCol;

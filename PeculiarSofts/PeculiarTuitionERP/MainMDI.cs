@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using PeculiarTuitionERP.Utility_Module;
 using PeculiarTuitionERP.Exam_Module;
 using PeculiarTuitionERP.Master_Module;
-using MaterialSkin;
 using System.Collections;
 
 
@@ -12,8 +11,6 @@ namespace PeculiarTuitionERP
 {
     public partial class MainMDI : Form
     {
-        private readonly MaterialSkinManager materialSkinManager;
-        private int colorSchemeIndex;
         private Hashtable _ActiveFormList;
 
         public MainMDI()
@@ -49,9 +46,7 @@ namespace PeculiarTuitionERP
 
         private void changeThemeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmChangeTheme _child = new frmChangeTheme();
-            _child.MdiParent = this;
-            _child.Show();
+
         }
 
         private void subjectMasterToolStripMenuItem1_Click(object sender, EventArgs e)

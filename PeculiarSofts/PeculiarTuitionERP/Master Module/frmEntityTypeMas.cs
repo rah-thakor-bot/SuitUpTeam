@@ -2,8 +2,6 @@
 using System.Data;
 using System.Collections;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using PeculiarTuitionBase;
 using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
@@ -11,11 +9,10 @@ using PeculiarTuitionERP.Utility_Module;
 
 namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmEntityTypeMas : MaterialForm
+    public partial class frmEntityTypeMas : Form
     {
         #region Global Objects and Variable Declaration for Form
 
-        private readonly MaterialSkinManager materialSkinManager;
         private EntityTypeMas _libEntityTypeMas;
         private Utility _clsUtility;
 
@@ -102,7 +99,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void FillGridView()
         {
-            if (_libEntityTypeMas != null)
+            if (_libEntityTypeMas == null)
                 _libEntityTypeMas = new EntityTypeMas();
             
             _dtGridFields = _libEntityTypeMas.FetchGridFields(this.Tag.ToString(),"grdMas", out ErrorMsg);

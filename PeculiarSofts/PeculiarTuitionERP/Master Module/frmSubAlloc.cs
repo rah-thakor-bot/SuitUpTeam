@@ -1,17 +1,14 @@
 ﻿using System;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using System.Data;
 using System.Collections;
+using System.Windows.Forms;
 using PeculiarTuitionBase;
 
 namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmSubAlloc : MaterialForm
+    public partial class frmSubAlloc : Form
     {
         #region Global Objects and Variable Declaration for Form
-
-        private readonly MaterialSkinManager materialSkinManager;
 
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;

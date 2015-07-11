@@ -1,6 +1,4 @@
 ﻿using System;
-using MaterialSkin;
-using MaterialSkin.Controls;
 using System.Windows.Forms;
 using System.Data;
 using System.Collections;
@@ -16,11 +14,10 @@ namespace PeculiarTuitionERP
      */
     #endregion
 
-    public partial class frmStudMas : MaterialForm
+    public partial class frmStudMas : Form
     {
         #region Global Objects and Variable Declaration for Form
 
-        private readonly MaterialSkinManager materialSkinManager;
         
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
@@ -37,15 +34,7 @@ namespace PeculiarTuitionERP
         public frmStudMas()
         {
             #region Check User Rights for the Forms
-
             InitializeComponent();
-
-            // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-
             #endregion
         }
 
@@ -55,12 +44,6 @@ namespace PeculiarTuitionERP
 
             _strFormType = _p_form_type;
             
-            // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-
             if (_strFormType == "STUDENT")
             {
                 this.Text = "Student Master";

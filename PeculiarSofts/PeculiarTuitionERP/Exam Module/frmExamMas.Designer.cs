@@ -1,6 +1,10 @@
-﻿namespace PeculiarTuitionERP.Exam_Module
+﻿using System;
+using System.Data;
+using System.Windows.Forms;
+
+namespace PeculiarTuitionERP.Exam_Module
 {
-    partial class frmExamMas
+    partial class frmExamMas : Form
     {
         /// <summary>
         /// Required designer variable.

@@ -60,13 +60,13 @@
             this.btnPnl1.ButtonSearchImage = null;
             this.btnPnl1.ButtonSearchText = "Sea&rch";
             this.btnPnl1.ButtonSearchVisible = true;
-            this.btnPnl1.Location = new System.Drawing.Point(9, 606);
+            this.btnPnl1.Location = new System.Drawing.Point(9, 442);
             this.btnPnl1.MessageText = "";
             this.btnPnl1.Name = "btnPnl1";
             this.btnPnl1.SetColor = System.Drawing.Color.Empty;
             this.btnPnl1.SetDuration = 0;
             this.btnPnl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPnl1.Size = new System.Drawing.Size(498, 62);
+            this.btnPnl1.Size = new System.Drawing.Size(0, 62);
             this.btnPnl1.StartTime = new System.DateTime(((long)(0)));
             this.btnPnl1.TabIndex = 3;
             this.btnPnl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
@@ -78,12 +78,12 @@
             // 
             // grpEntityTypeMas
             // 
-            this.grpEntityTypeMas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpEntityTypeMas.Controls.Add(this.grdMas);
-            this.grpEntityTypeMas.Location = new System.Drawing.Point(7, 71);
+            this.grpEntityTypeMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEntityTypeMas.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpEntityTypeMas.Location = new System.Drawing.Point(0, 0);
             this.grpEntityTypeMas.Name = "grpEntityTypeMas";
-            this.grpEntityTypeMas.Size = new System.Drawing.Size(974, 481);
+            this.grpEntityTypeMas.Size = new System.Drawing.Size(628, 575);
             this.grpEntityTypeMas.TabIndex = 2;
             this.grpEntityTypeMas.TabStop = false;
             this.grpEntityTypeMas.Text = "Entity Type Master";
@@ -92,16 +92,16 @@
             // 
             this.grdMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdMas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdMas.Location = new System.Drawing.Point(3, 16);
+            this.grdMas.Location = new System.Drawing.Point(3, 19);
             this.grdMas.Name = "grdMas";
-            this.grdMas.Size = new System.Drawing.Size(968, 462);
+            this.grdMas.Size = new System.Drawing.Size(622, 553);
             this.grdMas.TabIndex = 0;
             // 
             // frmEntityTypeMas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 739);
+            this.ClientSize = new System.Drawing.Size(628, 575);
             this.Controls.Add(this.btnPnl1);
             this.Controls.Add(this.grpEntityTypeMas);
             this.Name = "frmEntityTypeMas";

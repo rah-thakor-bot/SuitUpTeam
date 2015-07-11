@@ -9,7 +9,7 @@ using PeculiarTuitionERP.Utility_Module;
 
 namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmEntityTypeMas : Form
+    public partial class frmEntityTypeMas : frmBaseChild
     {
         #region Global Objects and Variable Declaration for Form
 
@@ -99,17 +99,17 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void FillGridView()
         {
-            if (_libEntityTypeMas == null)
-                _libEntityTypeMas = new EntityTypeMas();
+            //if (_libEntityTypeMas == null)
+            //    _libEntityTypeMas = new EntityTypeMas();
             
-            _dtGridFields = _libEntityTypeMas.FetchGridFields(this.Tag.ToString(),"grdMas", out ErrorMsg);
-            if (!string.IsNullOrEmpty(ErrorMsg))
-                MessageBox.Show(ErrorMsg);
+            //_dtGridFields = _libEntityTypeMas.FetchGridFields(this.Tag.ToString(),"grdMas", out ErrorMsg);
+            //if (!string.IsNullOrEmpty(ErrorMsg))
+            //    MessageBox.Show(ErrorMsg);
 
-            _dtMas = _libEntityTypeMas.FetchData(out ErrorMsg);
-            if (!string.IsNullOrEmpty(ErrorMsg))
-                MessageBox.Show(ErrorMsg);
-            grdMas.DataSource = _dtMas;
+            //_dtMas = _libEntityTypeMas.FetchData(out ErrorMsg);
+            //if (!string.IsNullOrEmpty(ErrorMsg))
+            //    MessageBox.Show(ErrorMsg);
+            //grdMas.DataSource = _dtMas;
 
 
         }

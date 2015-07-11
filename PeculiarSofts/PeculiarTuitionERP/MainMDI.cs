@@ -90,5 +90,12 @@ namespace PeculiarTuitionERP
             _child.MdiParent = this;
             _child.Show();
         }
+
+        private void MainMDI_Load(object sender, EventArgs e)
+        {
+            frmDashboard _child = new frmDashboard();
+            _child.MdiParent = this;
+            _child.Show();
+        }
     }
 }

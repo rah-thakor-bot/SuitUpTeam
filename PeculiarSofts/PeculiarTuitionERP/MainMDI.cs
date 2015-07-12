@@ -32,14 +32,14 @@ namespace PeculiarTuitionERP
 
         private void materialSkinTestingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmStudMas _child = new frmStudMas("STUDENT");
+            frmStudMas _child = new frmStudMas("STUDENT") { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void teacherMasterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmStudMas _child = new frmStudMas("TEACHER");
+            frmStudMas _child = new frmStudMas("TEACHER") { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
@@ -51,50 +51,57 @@ namespace PeculiarTuitionERP
 
         private void subjectMasterToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmSubjectMas _child = new frmSubjectMas("SUBJECT");
+            frmSubjectMas _child = new frmSubjectMas("SUBJECT") { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void subjectDetailsChapterWiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSubjectMas _child = new frmSubjectMas("CHAPTER");
+            frmSubjectMas _child = new frmSubjectMas("CHAPTER"){ MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void subjectAllocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSubAlloc _child = new frmSubAlloc();
+            frmSubAlloc _child = new frmSubAlloc { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void examMasterToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmExamMas _child = new frmExamMas();
+            frmExamMas _child = new frmExamMas { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void resultMasterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmResultMas _child = new frmResultMas();
+            frmResultMas _child = new frmResultMas { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void entityTypeMas_Click(object sender, EventArgs e)
         {
-            frmEntityTypeMas _child = new frmEntityTypeMas();
+            frmEntityTypeMas _child = new frmEntityTypeMas { MdiParent = this, Dock = DockStyle.Fill };
             _child.MdiParent = this;
             _child.Show();
         }
 
         private void MainMDI_Load(object sender, EventArgs e)
         {
-            frmDashboard _child = new frmDashboard();
-            _child.MdiParent = this;
+            frmDashboard _child = new frmDashboard{ MdiParent = this, Dock = DockStyle.Fill };
+            //_child.MdiParent = this;
+            _child.Show();
+        }
+
+        private void mnuEmpMas_Click(object sender, EventArgs e)
+        {
+            frmEmpMas _child = new frmEmpMas { MdiParent = this, Dock = DockStyle.Fill };
+            //_child.MdiParent = this;
             _child.Show();
         }
     }

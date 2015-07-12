@@ -6,7 +6,7 @@ using PeculiarTuitionBase;
 
 namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmSubjectMas : Form
+    public partial class frmSubjectMas : frmBaseChild
     {
         #region Global Objects and Variable Declaration for Form
 

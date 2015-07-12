@@ -14,7 +14,7 @@ namespace PeculiarTuitionERP
      */
     #endregion
 
-    public partial class frmStudMas : Form
+    public partial class frmStudMas : frmBaseChild
     {
         #region Global Objects and Variable Declaration for Form
 

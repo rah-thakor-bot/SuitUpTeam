@@ -40,9 +40,11 @@
             this.grpDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDetail.Controls.Add(this.grdDet);
-            this.grpDetail.Location = new System.Drawing.Point(12, 74);
+            this.grpDetail.Location = new System.Drawing.Point(12, 13);
+            this.grpDetail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpDetail.Name = "grpDetail";
-            this.grpDetail.Size = new System.Drawing.Size(1155, 504);
+            this.grpDetail.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpDetail.Size = new System.Drawing.Size(1347, 659);
             this.grpDetail.TabIndex = 1;
             this.grpDetail.TabStop = false;
             this.grpDetail.Text = "Subject Master";
@@ -51,9 +53,10 @@
             // 
             this.grdDet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdDet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDet.Location = new System.Drawing.Point(3, 16);
+            this.grdDet.Location = new System.Drawing.Point(3, 22);
+            this.grdDet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grdDet.Name = "grdDet";
-            this.grdDet.Size = new System.Drawing.Size(1149, 485);
+            this.grdDet.Size = new System.Drawing.Size(1341, 633);
             this.grdDet.TabIndex = 0;
             // 
             // btnPanelCtrl1
@@ -81,13 +84,14 @@
             this.btnPanelCtrl1.ButtonSearchImage = null;
             this.btnPanelCtrl1.ButtonSearchText = "Search";
             this.btnPanelCtrl1.ButtonSearchVisible = true;
-            this.btnPanelCtrl1.Location = new System.Drawing.Point(333, 610);
+            this.btnPanelCtrl1.Location = new System.Drawing.Point(226, 695);
+            this.btnPanelCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPanelCtrl1.MessageText = "";
             this.btnPanelCtrl1.Name = "btnPanelCtrl1";
             this.btnPanelCtrl1.SetColor = System.Drawing.Color.Empty;
             this.btnPanelCtrl1.SetDuration = 0;
             this.btnPanelCtrl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.Size = new System.Drawing.Size(498, 62);
+            this.btnPanelCtrl1.Size = new System.Drawing.Size(581, 81);
             this.btnPanelCtrl1.StartTime = new System.DateTime(((long)(0)));
             this.btnPanelCtrl1.TabIndex = 2;
             this.btnPanelCtrl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
@@ -99,11 +103,13 @@
             // 
             // frmSubjectMas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1179, 706);
+            this.ClientSize = new System.Drawing.Size(1375, 923);
             this.Controls.Add(this.btnPanelCtrl1);
             this.Controls.Add(this.grpDetail);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmSubjectMas";
             this.Text = "Subject Master";
             this.grpDetail.ResumeLayout(false);

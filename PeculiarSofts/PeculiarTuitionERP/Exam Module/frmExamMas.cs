@@ -2,7 +2,7 @@
 
 namespace PeculiarTuitionERP.Exam_Module
 {
-    public partial class frmExamMas : Form
+    public partial class frmExamMas : frmBaseChild
     {
         public frmExamMas()
         {

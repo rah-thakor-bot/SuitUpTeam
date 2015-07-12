@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace PeculiarTuitionERP.Exam_Module
 {
-    partial class frmExamMas : Form
+    partial class frmExamMas : frmBaseChild
     {
         /// <summary>
         /// Required designer variable.

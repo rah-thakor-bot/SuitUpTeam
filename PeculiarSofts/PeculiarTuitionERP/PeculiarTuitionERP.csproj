@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ColorScheme.cs" />
+    <Compile Include="Controls\IMaterialControl.cs" />
+    <Compile Include="Controls\MaterialSkinManager.cs" />
     <Compile Include="Exam Module\frmExamMas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +103,12 @@
     </Compile>
     <Compile Include="MainMDI.Designer.cs">
       <DependentUpon>MainMDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master Module\frmEmpMas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmEmpMas.Designer.cs">
+      <DependentUpon>frmEmpMas.cs</DependentUpon>
     </Compile>
     <Compile Include="Master Module\frmEntityTypeMas.cs">
       <SubType>Form</SubType>
@@ -150,6 +159,9 @@
     <EmbeddedResource Include="MainMDI.resx">
       <DependentUpon>MainMDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmEmpMas.resx">
+      <DependentUpon>frmEmpMas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmEntityTypeMas.resx">
       <DependentUpon>frmEntityTypeMas.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +196,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Roboto-Medium.ttf" />
+    <None Include="Resources\Roboto-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

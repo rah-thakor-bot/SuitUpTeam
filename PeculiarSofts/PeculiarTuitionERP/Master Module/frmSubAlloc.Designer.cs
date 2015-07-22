@@ -37,8 +37,6 @@
             // 
             // btnPanelCtrl1
             // 
-            this.btnPanelCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPanelCtrl1.ButtonAddEnable = true;
             this.btnPanelCtrl1.ButtonAddImage = null;
             this.btnPanelCtrl1.ButtonAddText = "Add";
@@ -60,13 +58,15 @@
             this.btnPanelCtrl1.ButtonSearchImage = null;
             this.btnPanelCtrl1.ButtonSearchText = "Search";
             this.btnPanelCtrl1.ButtonSearchVisible = true;
-            this.btnPanelCtrl1.Location = new System.Drawing.Point(212, 604);
+            this.btnPanelCtrl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnPanelCtrl1.Location = new System.Drawing.Point(0, 735);
+            this.btnPanelCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPanelCtrl1.MessageText = "";
             this.btnPanelCtrl1.Name = "btnPanelCtrl1";
             this.btnPanelCtrl1.SetColor = System.Drawing.Color.Empty;
             this.btnPanelCtrl1.SetDuration = 0;
             this.btnPanelCtrl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.Size = new System.Drawing.Size(498, 62);
+            this.btnPanelCtrl1.Size = new System.Drawing.Size(1297, 81);
             this.btnPanelCtrl1.StartTime = new System.DateTime(((long)(0)));
             this.btnPanelCtrl1.TabIndex = 3;
             this.btnPanelCtrl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
@@ -78,12 +78,13 @@
             // 
             // grpDet
             // 
-            this.grpDet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDet.Controls.Add(this.dataGridView1);
-            this.grpDet.Location = new System.Drawing.Point(12, 69);
+            this.grpDet.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpDet.Location = new System.Drawing.Point(0, 0);
+            this.grpDet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpDet.Name = "grpDet";
-            this.grpDet.Size = new System.Drawing.Size(974, 481);
+            this.grpDet.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpDet.Size = new System.Drawing.Size(1297, 629);
             this.grpDet.TabIndex = 2;
             this.grpDet.TabStop = false;
             this.grpDet.Text = "Subject  Allocation";
@@ -92,18 +93,21 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 22);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(968, 462);
+            this.dataGridView1.Size = new System.Drawing.Size(1291, 603);
             this.dataGridView1.TabIndex = 0;
             // 
             // frmSubAlloc
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 716);
+            this.ClientSize = new System.Drawing.Size(1297, 816);
             this.Controls.Add(this.btnPanelCtrl1);
             this.Controls.Add(this.grpDet);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmSubAlloc";
             this.Text = "Subject Allocation";
             this.grpDet.ResumeLayout(false);

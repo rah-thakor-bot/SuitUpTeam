@@ -21,6 +21,13 @@ namespace PeculiarTuitionERP.Master_Module
         private EmpMas libEmpMas;
         private string errMsg = string.Empty;
         string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id;
+
+        private void txtbxFname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
+
         DateTime dob, doj;
         CultureInfo DatetimeCulture;
         Hashtable GetNullParamters;

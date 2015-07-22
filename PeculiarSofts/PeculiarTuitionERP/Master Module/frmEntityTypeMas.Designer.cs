@@ -37,8 +37,6 @@
             // 
             // btnPnl1
             // 
-            this.btnPnl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPnl1.ButtonAddEnable = true;
             this.btnPnl1.ButtonAddImage = null;
             this.btnPnl1.ButtonAddText = "&Add";
@@ -60,13 +58,15 @@
             this.btnPnl1.ButtonSearchImage = null;
             this.btnPnl1.ButtonSearchText = "Sea&rch";
             this.btnPnl1.ButtonSearchVisible = true;
-            this.btnPnl1.Location = new System.Drawing.Point(9, 442);
+            this.btnPnl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnPnl1.Location = new System.Drawing.Point(0, 722);
+            this.btnPnl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPnl1.MessageText = "";
             this.btnPnl1.Name = "btnPnl1";
             this.btnPnl1.SetColor = System.Drawing.Color.Empty;
             this.btnPnl1.SetDuration = 0;
             this.btnPnl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPnl1.Size = new System.Drawing.Size(0, 62);
+            this.btnPnl1.Size = new System.Drawing.Size(1301, 81);
             this.btnPnl1.StartTime = new System.DateTime(((long)(0)));
             this.btnPnl1.TabIndex = 3;
             this.btnPnl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
@@ -79,11 +79,13 @@
             // grpEntityTypeMas
             // 
             this.grpEntityTypeMas.Controls.Add(this.grdMas);
-            this.grpEntityTypeMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpEntityTypeMas.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpEntityTypeMas.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpEntityTypeMas.Location = new System.Drawing.Point(0, 0);
+            this.grpEntityTypeMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpEntityTypeMas.Name = "grpEntityTypeMas";
-            this.grpEntityTypeMas.Size = new System.Drawing.Size(628, 575);
+            this.grpEntityTypeMas.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpEntityTypeMas.Size = new System.Drawing.Size(1301, 752);
             this.grpEntityTypeMas.TabIndex = 2;
             this.grpEntityTypeMas.TabStop = false;
             this.grpEntityTypeMas.Text = "Entity Type Master";
@@ -92,22 +94,24 @@
             // 
             this.grdMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdMas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdMas.Location = new System.Drawing.Point(3, 19);
+            this.grdMas.Location = new System.Drawing.Point(3, 20);
+            this.grdMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grdMas.Name = "grdMas";
-            this.grdMas.Size = new System.Drawing.Size(622, 553);
+            this.grdMas.Size = new System.Drawing.Size(1295, 728);
             this.grdMas.TabIndex = 0;
             // 
             // frmEntityTypeMas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 575);
+            this.ClientSize = new System.Drawing.Size(1301, 803);
             this.Controls.Add(this.btnPnl1);
             this.Controls.Add(this.grpEntityTypeMas);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmEntityTypeMas";
             this.Tag = "EntityTypeMas";
             this.Text = "Entity Type Master";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmEntityTypeMas_Load);
             this.grpEntityTypeMas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdMas)).EndInit();

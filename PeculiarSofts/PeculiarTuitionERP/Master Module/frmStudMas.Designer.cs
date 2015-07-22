@@ -37,12 +37,13 @@
             // 
             // grpDetail
             // 
-            this.grpDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDetail.Controls.Add(this.dataGridView1);
-            this.grpDetail.Location = new System.Drawing.Point(3, 67);
+            this.grpDetail.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpDetail.Location = new System.Drawing.Point(0, 0);
+            this.grpDetail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpDetail.Name = "grpDetail";
-            this.grpDetail.Size = new System.Drawing.Size(974, 481);
+            this.grpDetail.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpDetail.Size = new System.Drawing.Size(1294, 629);
             this.grpDetail.TabIndex = 0;
             this.grpDetail.TabStop = false;
             this.grpDetail.Text = "Student Data";
@@ -51,15 +52,14 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 22);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(968, 462);
+            this.dataGridView1.Size = new System.Drawing.Size(1288, 603);
             this.dataGridView1.TabIndex = 0;
             // 
             // buttonPanelControl1
             // 
-            this.buttonPanelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPanelControl1.ButtonAddEnable = true;
             this.buttonPanelControl1.ButtonAddImage = null;
             this.buttonPanelControl1.ButtonAddText = "Add";
@@ -81,13 +81,15 @@
             this.buttonPanelControl1.ButtonSearchImage = null;
             this.buttonPanelControl1.ButtonSearchText = "Search";
             this.buttonPanelControl1.ButtonSearchVisible = true;
-            this.buttonPanelControl1.Location = new System.Drawing.Point(203, 602);
+            this.buttonPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonPanelControl1.Location = new System.Drawing.Point(0, 629);
+            this.buttonPanelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonPanelControl1.MessageText = "";
             this.buttonPanelControl1.Name = "buttonPanelControl1";
             this.buttonPanelControl1.SetColor = System.Drawing.Color.Empty;
             this.buttonPanelControl1.SetDuration = 0;
             this.buttonPanelControl1.SetLightColor = System.Drawing.Color.Empty;
-            this.buttonPanelControl1.Size = new System.Drawing.Size(498, 62);
+            this.buttonPanelControl1.Size = new System.Drawing.Size(1294, 81);
             this.buttonPanelControl1.StartTime = new System.DateTime(((long)(0)));
             this.buttonPanelControl1.TabIndex = 1;
             this.buttonPanelControl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
@@ -99,15 +101,16 @@
             // 
             // frmStudMas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 686);
+            this.ClientSize = new System.Drawing.Size(1294, 713);
             this.Controls.Add(this.buttonPanelControl1);
             this.Controls.Add(this.grpDetail);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmStudMas";
             this.Tag = "Student Master";
             this.Text = "Student Master";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmStudMas_Load);
             this.Resize += new System.EventHandler(this.frmStudMas_Resize);
             this.grpDetail.ResumeLayout(false);

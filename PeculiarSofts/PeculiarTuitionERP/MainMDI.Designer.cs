@@ -32,8 +32,6 @@
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.hirenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEmpMas = new System.Windows.Forms.ToolStripMenuItem();
-            this.materialSkinTestingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.teacherMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectDetailsChapterWiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +46,7 @@
             this.utilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStudyLevelMas = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,8 +72,7 @@
             // 
             this.hirenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuEmpMas,
-            this.materialSkinTestingToolStripMenuItem,
-            this.teacherMasterToolStripMenuItem,
+            this.mnuStudyLevelMas,
             this.subjectMasterToolStripMenuItem,
             this.examMasterToolStripMenuItem,
             this.entityTypeMas,
@@ -92,24 +90,6 @@
             this.mnuEmpMas.Size = new System.Drawing.Size(205, 24);
             this.mnuEmpMas.Text = "Emp Master";
             this.mnuEmpMas.Click += new System.EventHandler(this.mnuEmpMas_Click);
-            // 
-            // materialSkinTestingToolStripMenuItem
-            // 
-            this.materialSkinTestingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.materialSkinTestingToolStripMenuItem.Name = "materialSkinTestingToolStripMenuItem";
-            this.materialSkinTestingToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
-            this.materialSkinTestingToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
-            this.materialSkinTestingToolStripMenuItem.Text = "Student Master";
-            this.materialSkinTestingToolStripMenuItem.Click += new System.EventHandler(this.materialSkinTestingToolStripMenuItem_Click);
-            // 
-            // teacherMasterToolStripMenuItem
-            // 
-            this.teacherMasterToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.teacherMasterToolStripMenuItem.Name = "teacherMasterToolStripMenuItem";
-            this.teacherMasterToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2);
-            this.teacherMasterToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
-            this.teacherMasterToolStripMenuItem.Text = "Teacher Master";
-            this.teacherMasterToolStripMenuItem.Click += new System.EventHandler(this.teacherMasterToolStripMenuItem_Click);
             // 
             // subjectMasterToolStripMenuItem
             // 
@@ -230,6 +210,13 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // mnuStudyLevelMas
+            // 
+            this.mnuStudyLevelMas.Name = "mnuStudyLevelMas";
+            this.mnuStudyLevelMas.Size = new System.Drawing.Size(205, 24);
+            this.mnuStudyLevelMas.Text = "Study Level Master";
+            this.mnuStudyLevelMas.Click += new System.EventHandler(this.mnuStudyLevelMas_Click);
+            // 
             // MainMDI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -263,8 +250,6 @@
         private System.Windows.Forms.ToolStripMenuItem hiren1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hiren2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem materialSkinTestingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem teacherMasterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subjectMasterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subjectMasterToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem subjectDetailsChapterWiseToolStripMenuItem;
@@ -277,5 +262,6 @@
         private System.Windows.Forms.ToolStripMenuItem changeThemeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem entityTypeMas;
         private System.Windows.Forms.ToolStripMenuItem mnuEmpMas;
+        private System.Windows.Forms.ToolStripMenuItem mnuStudyLevelMas;
     }
 }

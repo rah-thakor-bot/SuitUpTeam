@@ -62,14 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterBase\ChapterMas.cs" />
     <Compile Include="MasterBase\EmpMas.cs" />
     <Compile Include="MasterBase\EntityTypeMas.cs" />
+    <Compile Include="ExamBase\ExamMaster.cs" />
+    <Compile Include="ExamBase\ResultMaster.cs" />
     <Compile Include="MasterBase\StudMas.cs" />
+    <Compile Include="MasterBase\StudyLevelMas.cs" />
+    <Compile Include="MasterBase\SubjectMas.cs" />
     <Compile Include="TuitionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ExamBase\" />
     <Folder Include="PaymentBase\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

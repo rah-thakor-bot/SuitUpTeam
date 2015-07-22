@@ -7,7 +7,7 @@ using PeculiarTuitionBase;
 
 namespace PeculiarTuitionERP.Transaction_Module
 {
-    public partial class frmPaymentMaster : Form
+    public partial class frmPaymentMaster : frmBaseChild
     {
         #region Global Objects and Variable Declaration for Form
 
@@ -39,7 +39,7 @@ namespace PeculiarTuitionERP.Transaction_Module
 
         private void buttonPanelControl1_btnAddClick(object sender, EventArgs e)
         {
-            if (buttonPanelControl1.ButtonAddText == "&Add")
+            if (btnMainPanel1.ButtonAddText == "&Add")
             {
                 _strBtnActionType = "ADD";
             }
@@ -61,7 +61,7 @@ namespace PeculiarTuitionERP.Transaction_Module
 
         private void buttonPanelControl1_btnEditClick(object sender, EventArgs e)
         {
-            if (buttonPanelControl1.ButtonAddText == "&Edit")
+            if (btnMainPanel1.ButtonAddText == "&Edit")
             {
                 _strBtnActionType = "EDIT";
             }
@@ -74,7 +74,7 @@ namespace PeculiarTuitionERP.Transaction_Module
 
         private void buttonPanelControl1_btnRefreshClick(object sender, EventArgs e)
         {
-            if (buttonPanelControl1.ButtonAddText == "Re&fresh")
+            if (btnMainPanel1.ButtonAddText == "Re&fresh")
             {
                 _strBtnActionType = "REFRESH";
             }
@@ -86,7 +86,7 @@ namespace PeculiarTuitionERP.Transaction_Module
 
         private void buttonPanelControl1_btnSearchClick(object sender, EventArgs e)
         {
-            if (buttonPanelControl1.ButtonAddText == "Sea&rch")
+            if (btnMainPanel1.ButtonAddText == "Sea&rch")
             {
                 _strBtnActionType = "SEARCH";
             }

@@ -28,88 +28,94 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonPanelControl1 = new Private.MyUserControls.ButtonPanelControl();
-            this.grpDetail = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.grpDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnMainPanel1 = new Private.MyUserControls.ButtonPanelControl();
+            this.grpPaymentMas = new System.Windows.Forms.GroupBox();
+            this.grdPaymentMas = new System.Windows.Forms.DataGridView();
+            this.grpPaymentMas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentMas)).BeginInit();
             this.SuspendLayout();
             // 
-            // buttonPanelControl1
+            // btnMainPanel1
             // 
-            this.buttonPanelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPanelControl1.ButtonAddEnable = true;
-            this.buttonPanelControl1.ButtonAddImage = null;
-            this.buttonPanelControl1.ButtonAddText = "Add";
-            this.buttonPanelControl1.ButtonAddVisible = true;
-            this.buttonPanelControl1.ButtonCloseEnable = true;
-            this.buttonPanelControl1.ButtonCloseImage = null;
-            this.buttonPanelControl1.ButtonCloseVisible = true;
-            this.buttonPanelControl1.ButtonDeleteEnable = true;
-            this.buttonPanelControl1.ButtonDeleteImage = null;
-            this.buttonPanelControl1.ButtonDeleteVisible = true;
-            this.buttonPanelControl1.ButtonEditEnable = true;
-            this.buttonPanelControl1.ButtonEditImage = null;
-            this.buttonPanelControl1.ButtonEditText = "Edit";
-            this.buttonPanelControl1.ButtonEditVisible = true;
-            this.buttonPanelControl1.ButtonRefreshEnable = true;
-            this.buttonPanelControl1.ButtonRefreshImage = null;
-            this.buttonPanelControl1.ButtonRefreshVisible = true;
-            this.buttonPanelControl1.ButtonSearchEnable = true;
-            this.buttonPanelControl1.ButtonSearchImage = null;
-            this.buttonPanelControl1.ButtonSearchText = "Search";
-            this.buttonPanelControl1.ButtonSearchVisible = true;
-            this.buttonPanelControl1.Location = new System.Drawing.Point(210, 605);
-            this.buttonPanelControl1.MessageText = "";
-            this.buttonPanelControl1.Name = "buttonPanelControl1";
-            this.buttonPanelControl1.SetColor = System.Drawing.Color.Empty;
-            this.buttonPanelControl1.SetDuration = 0;
-            this.buttonPanelControl1.SetLightColor = System.Drawing.Color.Empty;
-            this.buttonPanelControl1.Size = new System.Drawing.Size(498, 62);
-            this.buttonPanelControl1.StartTime = new System.DateTime(((long)(0)));
-            this.buttonPanelControl1.TabIndex = 3;
+            this.btnMainPanel1.ButtonAddEnable = true;
+            this.btnMainPanel1.ButtonAddImage = null;
+            this.btnMainPanel1.ButtonAddText = "Add";
+            this.btnMainPanel1.ButtonAddVisible = true;
+            this.btnMainPanel1.ButtonCloseEnable = true;
+            this.btnMainPanel1.ButtonCloseImage = null;
+            this.btnMainPanel1.ButtonCloseVisible = true;
+            this.btnMainPanel1.ButtonDeleteEnable = true;
+            this.btnMainPanel1.ButtonDeleteImage = null;
+            this.btnMainPanel1.ButtonDeleteVisible = true;
+            this.btnMainPanel1.ButtonEditEnable = true;
+            this.btnMainPanel1.ButtonEditImage = null;
+            this.btnMainPanel1.ButtonEditText = "Edit";
+            this.btnMainPanel1.ButtonEditVisible = true;
+            this.btnMainPanel1.ButtonRefreshEnable = true;
+            this.btnMainPanel1.ButtonRefreshImage = null;
+            this.btnMainPanel1.ButtonRefreshVisible = true;
+            this.btnMainPanel1.ButtonSearchEnable = true;
+            this.btnMainPanel1.ButtonSearchImage = null;
+            this.btnMainPanel1.ButtonSearchText = "Search";
+            this.btnMainPanel1.ButtonSearchVisible = true;
+            this.btnMainPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnMainPanel1.Location = new System.Drawing.Point(0, 690);
+            this.btnMainPanel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnMainPanel1.MessageText = "";
+            this.btnMainPanel1.Name = "btnMainPanel1";
+            this.btnMainPanel1.SetColor = System.Drawing.Color.Empty;
+            this.btnMainPanel1.SetDuration = 0;
+            this.btnMainPanel1.SetLightColor = System.Drawing.Color.Empty;
+            this.btnMainPanel1.Size = new System.Drawing.Size(1295, 106);
+            this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
+            this.btnMainPanel1.TabIndex = 7;
             // 
-            // grpDetail
+            // grpPaymentMas
             // 
-            this.grpDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpDetail.Controls.Add(this.dataGridView1);
-            this.grpDetail.Location = new System.Drawing.Point(10, 70);
-            this.grpDetail.Name = "grpDetail";
-            this.grpDetail.Size = new System.Drawing.Size(974, 481);
-            this.grpDetail.TabIndex = 2;
-            this.grpDetail.TabStop = false;
-            this.grpDetail.Text = "Student Data";
+            this.grpPaymentMas.Controls.Add(this.grdPaymentMas);
+            this.grpPaymentMas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpPaymentMas.Location = new System.Drawing.Point(0, 0);
+            this.grpPaymentMas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.grpPaymentMas.Name = "grpPaymentMas";
+            this.grpPaymentMas.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.grpPaymentMas.Size = new System.Drawing.Size(1295, 823);
+            this.grpPaymentMas.TabIndex = 6;
+            this.grpPaymentMas.TabStop = false;
+            this.grpPaymentMas.Tag = "PaymentMaster";
+            this.grpPaymentMas.Text = "Payment Master";
             // 
-            // dataGridView1
+            // grdPaymentMas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(968, 462);
-            this.dataGridView1.TabIndex = 0;
+            this.grdPaymentMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdPaymentMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPaymentMas.Location = new System.Drawing.Point(3, 23);
+            this.grdPaymentMas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.grdPaymentMas.Name = "grdPaymentMas";
+            this.grdPaymentMas.Size = new System.Drawing.Size(1289, 795);
+            this.grdPaymentMas.TabIndex = 0;
             // 
             // frmPaymentMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 719);
-            this.Controls.Add(this.buttonPanelControl1);
-            this.Controls.Add(this.grpDetail);
+            this.ClientSize = new System.Drawing.Size(1295, 796);
+            this.Controls.Add(this.btnMainPanel1);
+            this.Controls.Add(this.grpPaymentMas);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmPaymentMaster";
+            this.Tag = "PaymentMas";
             this.Text = "Payment Detail";
-            this.grpDetail.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.grpPaymentMas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentMas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Private.MyUserControls.ButtonPanelControl buttonPanelControl1;
-        private System.Windows.Forms.GroupBox grpDetail;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private Private.MyUserControls.ButtonPanelControl btnMainPanel1;
+        private System.Windows.Forms.GroupBox grpPaymentMas;
+        private System.Windows.Forms.DataGridView grdPaymentMas;
     }
 }

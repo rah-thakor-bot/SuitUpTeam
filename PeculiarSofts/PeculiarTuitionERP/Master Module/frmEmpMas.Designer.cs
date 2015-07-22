@@ -60,6 +60,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.mtxtbxDOB = new System.Windows.Forms.MaskedTextBox();
+            this.cmbSex = new System.Windows.Forms.ComboBox();
             this.grdAdditionalDet = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -74,7 +75,6 @@
             this.rdbtnTeacher = new System.Windows.Forms.RadioButton();
             this.rdbtnStd = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbSex = new System.Windows.Forms.ComboBox();
             this.grpEmpMas.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.tlpEmpDetails.SuspendLayout();
@@ -113,7 +113,7 @@
             this.tlpEmpDetails.ColumnCount = 3;
             this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.94494F));
             this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.05506F));
-            this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 143F));
             this.tlpEmpDetails.Controls.Add(this.txtbxPhotoPath, 1, 14);
             this.tlpEmpDetails.Controls.Add(this.label15, 0, 14);
             this.tlpEmpDetails.Controls.Add(this.txtbxEmail, 1, 13);
@@ -173,9 +173,9 @@
             this.txtbxPhotoPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxPhotoPath.Location = new System.Drawing.Point(172, 470);
+            this.txtbxPhotoPath.Location = new System.Drawing.Point(170, 470);
             this.txtbxPhotoPath.Name = "txtbxPhotoPath";
-            this.txtbxPhotoPath.Size = new System.Drawing.Size(273, 25);
+            this.txtbxPhotoPath.Size = new System.Drawing.Size(272, 25);
             this.txtbxPhotoPath.TabIndex = 29;
             // 
             // label15
@@ -184,7 +184,7 @@
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Location = new System.Drawing.Point(8, 467);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(158, 38);
+            this.label15.Size = new System.Drawing.Size(156, 38);
             this.label15.TabIndex = 28;
             this.label15.Text = "Photo";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -194,10 +194,11 @@
             this.txtbxEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxEmail.Location = new System.Drawing.Point(172, 437);
+            this.txtbxEmail.Location = new System.Drawing.Point(170, 437);
             this.txtbxEmail.Name = "txtbxEmail";
-            this.txtbxEmail.Size = new System.Drawing.Size(273, 25);
+            this.txtbxEmail.Size = new System.Drawing.Size(272, 25);
             this.txtbxEmail.TabIndex = 27;
+            this.txtbxEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label14
             // 
@@ -205,7 +206,7 @@
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Location = new System.Drawing.Point(8, 434);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(158, 33);
+            this.label14.Size = new System.Drawing.Size(156, 33);
             this.label14.TabIndex = 26;
             this.label14.Text = "Email ID";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -215,10 +216,11 @@
             this.txtbxPincode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxPincode.Location = new System.Drawing.Point(172, 404);
+            this.txtbxPincode.Location = new System.Drawing.Point(170, 404);
             this.txtbxPincode.Name = "txtbxPincode";
-            this.txtbxPincode.Size = new System.Drawing.Size(273, 25);
+            this.txtbxPincode.Size = new System.Drawing.Size(272, 25);
             this.txtbxPincode.TabIndex = 25;
+            this.txtbxPincode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label13
             // 
@@ -226,7 +228,7 @@
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Location = new System.Drawing.Point(8, 401);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(158, 33);
+            this.label13.Size = new System.Drawing.Size(156, 33);
             this.label13.TabIndex = 24;
             this.label13.Text = "Pincode";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -236,10 +238,11 @@
             this.txtbxState.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxState.Location = new System.Drawing.Point(172, 371);
+            this.txtbxState.Location = new System.Drawing.Point(170, 371);
             this.txtbxState.Name = "txtbxState";
-            this.txtbxState.Size = new System.Drawing.Size(273, 25);
+            this.txtbxState.Size = new System.Drawing.Size(272, 25);
             this.txtbxState.TabIndex = 23;
+            this.txtbxState.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label12
             // 
@@ -247,7 +250,7 @@
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Location = new System.Drawing.Point(8, 368);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(158, 33);
+            this.label12.Size = new System.Drawing.Size(156, 33);
             this.label12.TabIndex = 22;
             this.label12.Text = "State";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -257,10 +260,11 @@
             this.txtbxCity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxCity.Location = new System.Drawing.Point(172, 338);
+            this.txtbxCity.Location = new System.Drawing.Point(170, 338);
             this.txtbxCity.Name = "txtbxCity";
-            this.txtbxCity.Size = new System.Drawing.Size(273, 25);
+            this.txtbxCity.Size = new System.Drawing.Size(272, 25);
             this.txtbxCity.TabIndex = 21;
+            this.txtbxCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label11
             // 
@@ -268,7 +272,7 @@
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Location = new System.Drawing.Point(8, 335);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(158, 33);
+            this.label11.Size = new System.Drawing.Size(156, 33);
             this.label11.TabIndex = 20;
             this.label11.Text = "City";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -278,30 +282,33 @@
             this.txtbxAdr2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxAdr2.Location = new System.Drawing.Point(172, 305);
+            this.txtbxAdr2.Location = new System.Drawing.Point(170, 305);
             this.txtbxAdr2.Name = "txtbxAdr2";
-            this.txtbxAdr2.Size = new System.Drawing.Size(273, 25);
+            this.txtbxAdr2.Size = new System.Drawing.Size(272, 25);
             this.txtbxAdr2.TabIndex = 19;
+            this.txtbxAdr2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // txtbxAdr1
             // 
             this.txtbxAdr1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxAdr1.Location = new System.Drawing.Point(172, 272);
+            this.txtbxAdr1.Location = new System.Drawing.Point(170, 272);
             this.txtbxAdr1.Name = "txtbxAdr1";
-            this.txtbxAdr1.Size = new System.Drawing.Size(273, 25);
+            this.txtbxAdr1.Size = new System.Drawing.Size(272, 25);
             this.txtbxAdr1.TabIndex = 18;
+            this.txtbxAdr1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // txtbxPh2
             // 
             this.txtbxPh2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxPh2.Location = new System.Drawing.Point(172, 239);
+            this.txtbxPh2.Location = new System.Drawing.Point(170, 239);
             this.txtbxPh2.Name = "txtbxPh2";
-            this.txtbxPh2.Size = new System.Drawing.Size(273, 25);
+            this.txtbxPh2.Size = new System.Drawing.Size(272, 25);
             this.txtbxPh2.TabIndex = 15;
+            this.txtbxPh2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label8
             // 
@@ -309,7 +316,7 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Location = new System.Drawing.Point(8, 236);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(158, 33);
+            this.label8.Size = new System.Drawing.Size(156, 33);
             this.label8.TabIndex = 14;
             this.label8.Text = "Secondary Phno";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -319,10 +326,11 @@
             this.txtbxPh1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxPh1.Location = new System.Drawing.Point(172, 206);
+            this.txtbxPh1.Location = new System.Drawing.Point(170, 206);
             this.txtbxPh1.Name = "txtbxPh1";
-            this.txtbxPh1.Size = new System.Drawing.Size(273, 25);
+            this.txtbxPh1.Size = new System.Drawing.Size(272, 25);
             this.txtbxPh1.TabIndex = 13;
+            this.txtbxPh1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label7
             // 
@@ -330,7 +338,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(8, 203);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(158, 33);
+            this.label7.Size = new System.Drawing.Size(156, 33);
             this.label7.TabIndex = 12;
             this.label7.Text = "Primary Phno";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -341,7 +349,7 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Location = new System.Drawing.Point(8, 170);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(158, 33);
+            this.label6.Size = new System.Drawing.Size(156, 33);
             this.label6.TabIndex = 11;
             this.label6.Text = "Blood Group";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -352,7 +360,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(8, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 33);
+            this.label1.Size = new System.Drawing.Size(156, 33);
             this.label1.TabIndex = 0;
             this.label1.Text = "First Name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -363,7 +371,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(8, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 33);
+            this.label2.Size = new System.Drawing.Size(156, 33);
             this.label2.TabIndex = 1;
             this.label2.Text = "Middle Name";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -374,7 +382,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(8, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(158, 33);
+            this.label3.Size = new System.Drawing.Size(156, 33);
             this.label3.TabIndex = 2;
             this.label3.Text = "Last Name";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -385,7 +393,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(8, 104);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(158, 33);
+            this.label4.Size = new System.Drawing.Size(156, 33);
             this.label4.TabIndex = 3;
             this.label4.Text = "Date of Birth";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -396,7 +404,7 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Location = new System.Drawing.Point(8, 137);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(158, 33);
+            this.label5.Size = new System.Drawing.Size(156, 33);
             this.label5.TabIndex = 4;
             this.label5.Text = "Gender";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -407,10 +415,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxMname.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtbxMname.Location = new System.Drawing.Point(172, 41);
+            this.txtbxMname.Location = new System.Drawing.Point(170, 41);
             this.txtbxMname.Name = "txtbxMname";
-            this.txtbxMname.Size = new System.Drawing.Size(273, 25);
+            this.txtbxMname.Size = new System.Drawing.Size(272, 25);
             this.txtbxMname.TabIndex = 6;
+            this.txtbxMname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // txtbxLname
             // 
@@ -418,20 +427,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxLname.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtbxLname.Location = new System.Drawing.Point(172, 74);
+            this.txtbxLname.Location = new System.Drawing.Point(170, 74);
             this.txtbxLname.Name = "txtbxLname";
-            this.txtbxLname.Size = new System.Drawing.Size(273, 25);
+            this.txtbxLname.Size = new System.Drawing.Size(272, 25);
             this.txtbxLname.TabIndex = 7;
+            this.txtbxLname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // txtbxBldGrp
             // 
             this.txtbxBldGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxBldGrp.Location = new System.Drawing.Point(172, 173);
+            this.txtbxBldGrp.Location = new System.Drawing.Point(170, 173);
             this.txtbxBldGrp.Name = "txtbxBldGrp";
-            this.txtbxBldGrp.Size = new System.Drawing.Size(273, 25);
+            this.txtbxBldGrp.Size = new System.Drawing.Size(272, 25);
             this.txtbxBldGrp.TabIndex = 10;
+            this.txtbxBldGrp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // txtbxFname
             // 
@@ -439,10 +450,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxFname.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtbxFname.Location = new System.Drawing.Point(172, 8);
+            this.txtbxFname.Location = new System.Drawing.Point(170, 8);
             this.txtbxFname.Name = "txtbxFname";
-            this.txtbxFname.Size = new System.Drawing.Size(273, 25);
+            this.txtbxFname.Size = new System.Drawing.Size(272, 25);
             this.txtbxFname.TabIndex = 5;
+            this.txtbxFname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // label9
             // 
@@ -450,7 +462,7 @@
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Location = new System.Drawing.Point(8, 269);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(158, 33);
+            this.label9.Size = new System.Drawing.Size(156, 33);
             this.label9.TabIndex = 16;
             this.label9.Text = "Address 1";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -461,7 +473,7 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Location = new System.Drawing.Point(8, 302);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(158, 33);
+            this.label10.Size = new System.Drawing.Size(156, 33);
             this.label10.TabIndex = 17;
             this.label10.Text = "Address 2";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -469,12 +481,27 @@
             // mtxtbxDOB
             // 
             this.mtxtbxDOB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mtxtbxDOB.Location = new System.Drawing.Point(172, 107);
+            this.mtxtbxDOB.Location = new System.Drawing.Point(170, 107);
             this.mtxtbxDOB.Mask = "00/00/0000";
             this.mtxtbxDOB.Name = "mtxtbxDOB";
-            this.mtxtbxDOB.Size = new System.Drawing.Size(273, 25);
+            this.mtxtbxDOB.Size = new System.Drawing.Size(272, 25);
             this.mtxtbxDOB.TabIndex = 30;
             this.mtxtbxDOB.ValidatingType = typeof(System.DateTime);
+            this.mtxtbxDOB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
+            // 
+            // cmbSex
+            // 
+            this.cmbSex.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbSex.FormattingEnabled = true;
+            this.cmbSex.Items.AddRange(new object[] {
+            "",
+            "Male",
+            "Female"});
+            this.cmbSex.Location = new System.Drawing.Point(170, 140);
+            this.cmbSex.Name = "cmbSex";
+            this.cmbSex.Size = new System.Drawing.Size(272, 25);
+            this.cmbSex.TabIndex = 31;
+            this.cmbSex.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
             // grdAdditionalDet
             // 
@@ -630,19 +657,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1215, 795);
             this.panel1.TabIndex = 1;
-            // 
-            // cmbSex
-            // 
-            this.cmbSex.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbSex.FormattingEnabled = true;
-            this.cmbSex.Items.AddRange(new object[] {
-            "",
-            "Male",
-            "Female"});
-            this.cmbSex.Location = new System.Drawing.Point(172, 140);
-            this.cmbSex.Name = "cmbSex";
-            this.cmbSex.Size = new System.Drawing.Size(273, 25);
-            this.cmbSex.TabIndex = 31;
             // 
             // frmEmpMas
             // 

@@ -17,7 +17,7 @@ namespace PeculiarTuitionERP.Master_Module
         private Utility _clsUtility;
 
         string _strFormType = string.Empty;
-        string ErrorMsg;
+        string ErrorMsg= string.Empty;
         string _strCurrentActionType = string.Empty;
         string[] _strReadonly, _strHideCol, _strRequiredCol;
 
@@ -40,7 +40,15 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void frmEntityTypeMas_Load(object sender, EventArgs e)
         {
-            FillGridView();
+            try
+            {
+                LoadGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void buttonPanelControl1_btnAddClick(object sender, EventArgs e)
@@ -97,7 +105,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         #region Private Methods
 
-        private void FillGridView()
+        private void LoadGrid()
         {
             //if (_libEntityTypeMas == null)
             //    _libEntityTypeMas = new EntityTypeMas();

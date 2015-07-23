@@ -104,6 +104,12 @@
     <Compile Include="MainMDI.Designer.cs">
       <DependentUpon>MainMDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master Module\frmBatchMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmBatchMaster.Designer.cs">
+      <DependentUpon>frmBatchMaster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master Module\frmEmpMas.cs">
       <SubType>Form</SubType>
     </Compile>

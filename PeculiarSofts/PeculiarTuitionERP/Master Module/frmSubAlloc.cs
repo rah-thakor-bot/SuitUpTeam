@@ -14,8 +14,7 @@ namespace PeculiarTuitionERP.Master_Module
         string _strBtnActionType = string.Empty;
         string[] _strReadonly, _strHideCol, _strRequiredCol;
 
-        DataTable _dtMas;
-        bool _canInsert, _canDelete, _canSelect, _isSuperUser;
+        DataTable _dtSubjectAllocation;
 
         TuitionBase _objData;
         #endregion

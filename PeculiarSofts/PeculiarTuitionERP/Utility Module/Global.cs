@@ -106,6 +106,7 @@ namespace PeculiarTuitionERP.Utility_Module
                             p_comboBox[element].ReadOnly = false;
                             p_comboBox[element].DropDownWidth = 60;
                             p_comboBox[element].DefaultCellStyle.BackColor = Color.White;
+                            p_comboBox[element].DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
                             if (_strReadonlyCol != null)
                             {
                                 if (FindElement(p_columnIndex.ToString(), _strReadonlyCol) != -1)
@@ -183,6 +184,7 @@ namespace PeculiarTuitionERP.Utility_Module
                         //bool flag4 = false;
                         //bool flag5 = false;
                         //bool flag6 = false;
+                        
                         if (dataColumn.DataType.ToString() == "System.DateTime")
                         {
                             #region Commented by Rahul Thakor
@@ -268,7 +270,6 @@ namespace PeculiarTuitionERP.Utility_Module
                             //continue;
                             #endregion
                         }
-
                         viewTextBoxColumn.Name = p_dataSource.Columns[p_columnIndex].ColumnName;
                         p_dgv.Columns.Add((DataGridViewColumn)viewTextBoxColumn);
                     }
@@ -346,8 +347,8 @@ namespace PeculiarTuitionERP.Utility_Module
 
                 p_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 p_dgv.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
-                p_dgv.BackgroundColor = Color.White;
-                p_dgv.RowTemplate.Height = 19;
+                p_dgv.BackgroundColor = Color.CornflowerBlue;
+                p_dgv.RowTemplate.Height = 25;
 
                 #endregion
             }

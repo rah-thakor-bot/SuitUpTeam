@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterBase\BatchMaster.cs" />
     <Compile Include="MasterBase\ChapterMas.cs" />
     <Compile Include="MasterBase\EmpMas.cs" />
     <Compile Include="MasterBase\EntityTypeMas.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="ExamBase\ResultMaster.cs" />
     <Compile Include="MasterBase\StudMas.cs" />
     <Compile Include="MasterBase\StudyLevelMas.cs" />
+    <Compile Include="MasterBase\SubjectAllocation.cs" />
     <Compile Include="MasterBase\SubjectMas.cs" />
     <Compile Include="TuitionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

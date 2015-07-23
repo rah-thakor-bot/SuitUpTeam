@@ -21,7 +21,7 @@ namespace PeculiarTuitionERP.Master_Module
         string ErrorMsg = string.Empty;
 
         DataTable _dtGridFields;
-        DataTable _dtSubjectLevelMas;
+        DataTable _dtStudyLevelMas;
         string[] strStudyLevelChkBxColName;
         string[] strStudyLevelCmbColName;
         DataGridViewComboBoxColumn[] dgvcm_StudyLevel;
@@ -214,13 +214,15 @@ namespace PeculiarTuitionERP.Master_Module
                 if (!string.IsNullOrEmpty(ErrorMsg))
                     MessageBox.Show(ErrorMsg);
 
-                _dtSubjectLevelMas = _libStudyLevelMas.FetchData("1=2", out ErrorMsg);
+                _dtStudyLevelMas = _libStudyLevelMas.FetchData("1=2", out ErrorMsg);
                 if (!string.IsNullOrEmpty(ErrorMsg))
                     throw new Exception(ErrorMsg.ToString());
-
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
                 Global.AcquireGridCheckBoxColumn(_dtGridFields, out strStudyLevelChkBxColName);
                 Global.AcquireComboListWithSource(_dtGridFields, out strStudyLevelCmbColName, out dgvcm_StudyLevel);
-                Global.GridBindingSource(ref grdStudyLevelMas, _dtGridFields, strStudyLevelCmbColName, dgvcm_StudyLevel, strStudyLevelCmbColName, _dtSubjectLevelMas);
+                Global.GridBindingSource(ref grdStudyLevelMas, _dtGridFields, strStudyLevelCmbColName, dgvcm_StudyLevel, strStudyLevelChkBxColName, _dtStudyLevelMas);
               }
             catch (Exception ex)
             {
@@ -312,7 +314,8 @@ namespace PeculiarTuitionERP.Master_Module
                 MessageBox.Show(ex.ToString());
             }
         }
-        #endregion 
+        #endregion
+        
     }
 
 

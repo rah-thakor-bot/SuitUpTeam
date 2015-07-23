@@ -32,6 +32,7 @@
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.hirenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEmpMas = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStudyLevelMas = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectMasterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectDetailsChapterWiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +47,7 @@
             this.utilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuStudyLevelMas = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBatchMaster = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +76,7 @@
             this.mnuStudyLevelMas,
             this.subjectMasterToolStripMenuItem,
             this.examMasterToolStripMenuItem,
+            this.mnuBatchMaster,
             this.entityTypeMas,
             this.transactoinSettingToolStripMenuItem});
             this.hirenToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -90,6 +92,13 @@
             this.mnuEmpMas.Size = new System.Drawing.Size(205, 24);
             this.mnuEmpMas.Text = "Emp Master";
             this.mnuEmpMas.Click += new System.EventHandler(this.mnuEmpMas_Click);
+            // 
+            // mnuStudyLevelMas
+            // 
+            this.mnuStudyLevelMas.Name = "mnuStudyLevelMas";
+            this.mnuStudyLevelMas.Size = new System.Drawing.Size(205, 24);
+            this.mnuStudyLevelMas.Text = "Study Level Master";
+            this.mnuStudyLevelMas.Click += new System.EventHandler(this.mnuStudyLevelMas_Click);
             // 
             // subjectMasterToolStripMenuItem
             // 
@@ -210,12 +219,13 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // mnuStudyLevelMas
+            // mnuBatchMaster
             // 
-            this.mnuStudyLevelMas.Name = "mnuStudyLevelMas";
-            this.mnuStudyLevelMas.Size = new System.Drawing.Size(205, 24);
-            this.mnuStudyLevelMas.Text = "Study Level Master";
-            this.mnuStudyLevelMas.Click += new System.EventHandler(this.mnuStudyLevelMas_Click);
+            this.mnuBatchMaster.Name = "mnuBatchMaster";
+            this.mnuBatchMaster.Size = new System.Drawing.Size(205, 24);
+            this.mnuBatchMaster.Tag = "BatchMaster";
+            this.mnuBatchMaster.Text = "Batch Master";
+            this.mnuBatchMaster.Click += new System.EventHandler(this.mnuBatchMaster_Click);
             // 
             // MainMDI
             // 
@@ -263,5 +273,6 @@
         private System.Windows.Forms.ToolStripMenuItem entityTypeMas;
         private System.Windows.Forms.ToolStripMenuItem mnuEmpMas;
         private System.Windows.Forms.ToolStripMenuItem mnuStudyLevelMas;
+        private System.Windows.Forms.ToolStripMenuItem mnuBatchMaster;
     }
 }

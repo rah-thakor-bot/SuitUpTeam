@@ -110,5 +110,11 @@ namespace PeculiarTuitionERP
             frmStudyLevelMas _child = new frmStudyLevelMas { MdiParent = this, Dock = DockStyle.Fill };
             _child.Show();
         }
+
+        private void mnuBatchMaster_Click(object sender, EventArgs e)
+        {
+            frmBatchMaster _child = new frmBatchMaster { MdiParent = this, Dock = DockStyle.Fill };
+            _child.Show();
+        }
     }
 }

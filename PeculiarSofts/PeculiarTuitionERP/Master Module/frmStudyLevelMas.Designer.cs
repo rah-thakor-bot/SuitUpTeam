@@ -42,6 +42,7 @@
             this.grdStudyLevelMas.Location = new System.Drawing.Point(3, 22);
             this.grdStudyLevelMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grdStudyLevelMas.Name = "grdStudyLevelMas";
+            this.grdStudyLevelMas.RowHeadersVisible = false;
             this.grdStudyLevelMas.Size = new System.Drawing.Size(1270, 603);
             this.grdStudyLevelMas.TabIndex = 0;
             // 

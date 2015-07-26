@@ -13,7 +13,7 @@ namespace PeculiarTuitionBase.MasterBase
                 Error = string.Empty;
                 _base.Connect();
                 DataSet _ds = new DataSet();
-                _base.PopulateDataWithCmd("PKG_SUB_MAS.prc_mas_get_data", _ds, new string[] { "SubMas", "ChpDet" }, new string[] { p_criteria, null, null });
+                _base.PopulateDataWithCmd("pkg_sub_mas.prc_mas_get_data", _ds, new string[] { "SubMas", "ChpMas" }, new string[] { p_criteria, null, null });
                 return _ds;
             }
             catch (Exception ex)
@@ -209,7 +209,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("P_RPT_ID", DbType.Int64, 6);
 
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_INS");
+                _base.ExecSPWithTransaction("pkg_op_rpt_mas.prc_mas_ins");
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));

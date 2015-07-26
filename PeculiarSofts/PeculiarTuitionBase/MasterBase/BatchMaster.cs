@@ -36,13 +36,13 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strInsertErrMsg += "Allocation Id " + _drRow["allocation_id"].ToString() + "";
+                                _strInsertErrMsg += "Batch Id " + _drRow["batch_id"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                seqno = int.Parse(_htSave["allocation_id"].ToString());
+                                seqno = int.Parse(_htSave["batch_id"].ToString());
                             }
                             break;
                         case DataRowState.Modified:
@@ -51,19 +51,19 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Allocation Id. = " + _drRow["allocation_id"].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strUpdateErrMsg += "Allocation Id. = " + _drRow["allocation_id"].ToString() + "";
+                                _strUpdateErrMsg += "Batch Id. = " + _drRow["batch_id"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                seqno = int.Parse(_drRow["allocation_id"].ToString());
+                                seqno = int.Parse(_drRow["batch_id"].ToString());
                             }
                             break;
                         case DataRowState.Deleted:
@@ -71,13 +71,13 @@ namespace PeculiarTuitionBase.MasterBase
                             _htSave = Delete(p_brid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Allocation Id. = " + _drRow["allocation_id", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strTimeStampErrMsg += "Allocation Id. = " + _drRow["allocation_id", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -87,16 +87,16 @@ namespace PeculiarTuitionBase.MasterBase
                     DataRow[] _drRows = null;
                     if (_drRow.RowState != DataRowState.Deleted)
                     {
-                        _drRows = p_dt.Select("allocation_id = " + _drRow["allocation_id"]);
+                        _drRows = p_dt.Select("batch_id = " + _drRow["batch_id"]);
                         if (_drRow.RowState == DataRowState.Added)
                         {
-                            p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["allocation_id"] = seqno;
+                            p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["batch_id"] = seqno;
                         }
                         p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
-                        _drRows = p_dt.Select("allocation_id =" + _drRow["allocation_id", DataRowVersion.Original], "", DataViewRowState.Deleted);
+                        _drRows = p_dt.Select("batch_id =" + _drRow["batch_id", DataRowVersion.Original], "", DataViewRowState.Deleted);
                     }
                     p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])].AcceptChanges();
                     _intNumRecords += 1;
@@ -151,12 +151,12 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
-                _base.AddOutParam("p_allocation_id", DbType.Int32, 5);
-                _base.ExecSPWithTransaction("PKG_SUB_ALLOCATION.prc_mas_ins");
+                _base.AddOutParam("p_batch_id", DbType.Int32, 5);
+                _base.ExecSPWithTransaction("pkg_batch_mas.prc_mas_ins");
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htAdd.Add("allocation_id", _base.GetParameterValue("p_allocation_id"));
+                _htAdd.Add("p_batch_id", _base.GetParameterValue("p_batch_id"));
                 _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
@@ -182,10 +182,10 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                _base.AddParameter("P_TIME_STAMP", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
-                _base.ExecSPWithTransaction("pkg_sub_allocation.prc_mas_upd");
+                _base.ExecSPWithTransaction("pkg_batch_mas.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
@@ -212,7 +212,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
 
-                _base.ExecSPWithTransaction("pkg_sub_allocation.prc_mas_del");
+                _base.ExecSPWithTransaction("pkg_batch_mas.prc_mas_del");
 
                 _htDel.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htDel.Add("p_msg", _base.GetParameterValue("p_msg"));

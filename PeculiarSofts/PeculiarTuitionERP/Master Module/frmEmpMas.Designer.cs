@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.grpEmpMas = new System.Windows.Forms.GroupBox();
+            this.btnMainPanel = new Private.MyUserControls.ButtonPanelControl();
+            this.grpSearchBox = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpEmpDetails = new System.Windows.Forms.TableLayoutPanel();
             this.txtbxPhotoPath = new System.Windows.Forms.TextBox();
@@ -63,32 +67,26 @@
             this.cmbSex = new System.Windows.Forms.ComboBox();
             this.grdAdditionalDet = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.grpEmpType = new System.Windows.Forms.GroupBox();
             this.rdbtnOther = new System.Windows.Forms.RadioButton();
             this.rdbtnTeacher = new System.Windows.Forms.RadioButton();
             this.rdbtnStd = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grpEmpMas.SuspendLayout();
+            this.grpSearchBox.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.tlpEmpDetails.SuspendLayout();
             this.grdAdditionalDet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.grpEmpType.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpEmpMas
             // 
+            this.grpEmpMas.Controls.Add(this.btnMainPanel);
+            this.grpEmpMas.Controls.Add(this.grpSearchBox);
             this.grpEmpMas.Controls.Add(this.flowLayoutPanel2);
-            this.grpEmpMas.Controls.Add(this.flowLayoutPanel1);
             this.grpEmpMas.Controls.Add(this.grpEmpType);
             this.grpEmpMas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpEmpMas.Location = new System.Drawing.Point(0, 0);
@@ -98,6 +96,74 @@
             this.grpEmpMas.TabIndex = 0;
             this.grpEmpMas.TabStop = false;
             this.grpEmpMas.Text = "Employee Master";
+            // 
+            // btnMainPanel
+            // 
+            this.btnMainPanel.ButtonAddEnable = true;
+            this.btnMainPanel.ButtonAddImage = null;
+            this.btnMainPanel.ButtonAddText = "Add";
+            this.btnMainPanel.ButtonAddVisible = true;
+            this.btnMainPanel.ButtonCloseEnable = true;
+            this.btnMainPanel.ButtonCloseImage = null;
+            this.btnMainPanel.ButtonCloseVisible = true;
+            this.btnMainPanel.ButtonDeleteEnable = true;
+            this.btnMainPanel.ButtonDeleteImage = null;
+            this.btnMainPanel.ButtonDeleteVisible = true;
+            this.btnMainPanel.ButtonEditEnable = true;
+            this.btnMainPanel.ButtonEditImage = null;
+            this.btnMainPanel.ButtonEditText = "Edit";
+            this.btnMainPanel.ButtonEditVisible = true;
+            this.btnMainPanel.ButtonRefreshEnable = true;
+            this.btnMainPanel.ButtonRefreshImage = null;
+            this.btnMainPanel.ButtonRefreshVisible = true;
+            this.btnMainPanel.ButtonSearchEnable = true;
+            this.btnMainPanel.ButtonSearchImage = null;
+            this.btnMainPanel.ButtonSearchText = "Search";
+            this.btnMainPanel.ButtonSearchVisible = true;
+            this.btnMainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnMainPanel.Location = new System.Drawing.Point(15, 713);
+            this.btnMainPanel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnMainPanel.MessageText = "";
+            this.btnMainPanel.Name = "btnMainPanel";
+            this.btnMainPanel.SetColor = System.Drawing.Color.Empty;
+            this.btnMainPanel.SetDuration = 0;
+            this.btnMainPanel.SetLightColor = System.Drawing.Color.Empty;
+            this.btnMainPanel.Size = new System.Drawing.Size(1200, 82);
+            this.btnMainPanel.StartTime = new System.DateTime(((long)(0)));
+            this.btnMainPanel.TabIndex = 6;
+            this.btnMainPanel.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnAdd_Click);
+            this.btnMainPanel.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel_btnEditClick);
+            this.btnMainPanel.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel_btnDeleteClick);
+            this.btnMainPanel.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnSearch_Click);
+            this.btnMainPanel.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel_btnRefreshClick);
+            this.btnMainPanel.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel_btnCloseClick);
+            // 
+            // grpSearchBox
+            // 
+            this.grpSearchBox.Controls.Add(this.textBox1);
+            this.grpSearchBox.Controls.Add(this.label16);
+            this.grpSearchBox.Location = new System.Drawing.Point(618, 21);
+            this.grpSearchBox.Name = "grpSearchBox";
+            this.grpSearchBox.Size = new System.Drawing.Size(291, 54);
+            this.grpSearchBox.TabIndex = 5;
+            this.grpSearchBox.TabStop = false;
+            this.grpSearchBox.Text = "Search";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(115, 23);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(170, 25);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 28);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(87, 17);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Person Name";
             // 
             // flowLayoutPanel2
             // 
@@ -113,7 +179,7 @@
             this.tlpEmpDetails.ColumnCount = 3;
             this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.94494F));
             this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.05506F));
-            this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 143F));
+            this.tlpEmpDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
             this.tlpEmpDetails.Controls.Add(this.txtbxPhotoPath, 1, 14);
             this.tlpEmpDetails.Controls.Add(this.label15, 0, 14);
             this.tlpEmpDetails.Controls.Add(this.txtbxEmail, 1, 13);
@@ -175,7 +241,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxPhotoPath.Location = new System.Drawing.Point(170, 470);
             this.txtbxPhotoPath.Name = "txtbxPhotoPath";
-            this.txtbxPhotoPath.Size = new System.Drawing.Size(272, 25);
+            this.txtbxPhotoPath.Size = new System.Drawing.Size(270, 25);
             this.txtbxPhotoPath.TabIndex = 29;
             // 
             // label15
@@ -196,7 +262,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxEmail.Location = new System.Drawing.Point(170, 437);
             this.txtbxEmail.Name = "txtbxEmail";
-            this.txtbxEmail.Size = new System.Drawing.Size(272, 25);
+            this.txtbxEmail.Size = new System.Drawing.Size(270, 25);
             this.txtbxEmail.TabIndex = 27;
             this.txtbxEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -218,7 +284,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxPincode.Location = new System.Drawing.Point(170, 404);
             this.txtbxPincode.Name = "txtbxPincode";
-            this.txtbxPincode.Size = new System.Drawing.Size(272, 25);
+            this.txtbxPincode.Size = new System.Drawing.Size(270, 25);
             this.txtbxPincode.TabIndex = 25;
             this.txtbxPincode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -240,7 +306,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxState.Location = new System.Drawing.Point(170, 371);
             this.txtbxState.Name = "txtbxState";
-            this.txtbxState.Size = new System.Drawing.Size(272, 25);
+            this.txtbxState.Size = new System.Drawing.Size(270, 25);
             this.txtbxState.TabIndex = 23;
             this.txtbxState.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -262,7 +328,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxCity.Location = new System.Drawing.Point(170, 338);
             this.txtbxCity.Name = "txtbxCity";
-            this.txtbxCity.Size = new System.Drawing.Size(272, 25);
+            this.txtbxCity.Size = new System.Drawing.Size(270, 25);
             this.txtbxCity.TabIndex = 21;
             this.txtbxCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -284,7 +350,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxAdr2.Location = new System.Drawing.Point(170, 305);
             this.txtbxAdr2.Name = "txtbxAdr2";
-            this.txtbxAdr2.Size = new System.Drawing.Size(272, 25);
+            this.txtbxAdr2.Size = new System.Drawing.Size(270, 25);
             this.txtbxAdr2.TabIndex = 19;
             this.txtbxAdr2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -295,7 +361,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxAdr1.Location = new System.Drawing.Point(170, 272);
             this.txtbxAdr1.Name = "txtbxAdr1";
-            this.txtbxAdr1.Size = new System.Drawing.Size(272, 25);
+            this.txtbxAdr1.Size = new System.Drawing.Size(270, 25);
             this.txtbxAdr1.TabIndex = 18;
             this.txtbxAdr1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -306,7 +372,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxPh2.Location = new System.Drawing.Point(170, 239);
             this.txtbxPh2.Name = "txtbxPh2";
-            this.txtbxPh2.Size = new System.Drawing.Size(272, 25);
+            this.txtbxPh2.Size = new System.Drawing.Size(270, 25);
             this.txtbxPh2.TabIndex = 15;
             this.txtbxPh2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -318,7 +384,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(156, 33);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Secondary Phno";
+            this.label8.Text = "Secondary Phone";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtbxPh1
@@ -328,7 +394,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxPh1.Location = new System.Drawing.Point(170, 206);
             this.txtbxPh1.Name = "txtbxPh1";
-            this.txtbxPh1.Size = new System.Drawing.Size(272, 25);
+            this.txtbxPh1.Size = new System.Drawing.Size(270, 25);
             this.txtbxPh1.TabIndex = 13;
             this.txtbxPh1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -340,7 +406,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(156, 33);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Primary Phno";
+            this.label7.Text = "Primary Phone";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
@@ -417,7 +483,7 @@
             this.txtbxMname.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtbxMname.Location = new System.Drawing.Point(170, 41);
             this.txtbxMname.Name = "txtbxMname";
-            this.txtbxMname.Size = new System.Drawing.Size(272, 25);
+            this.txtbxMname.Size = new System.Drawing.Size(270, 25);
             this.txtbxMname.TabIndex = 6;
             this.txtbxMname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -429,7 +495,7 @@
             this.txtbxLname.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtbxLname.Location = new System.Drawing.Point(170, 74);
             this.txtbxLname.Name = "txtbxLname";
-            this.txtbxLname.Size = new System.Drawing.Size(272, 25);
+            this.txtbxLname.Size = new System.Drawing.Size(270, 25);
             this.txtbxLname.TabIndex = 7;
             this.txtbxLname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -440,7 +506,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtbxBldGrp.Location = new System.Drawing.Point(170, 173);
             this.txtbxBldGrp.Name = "txtbxBldGrp";
-            this.txtbxBldGrp.Size = new System.Drawing.Size(272, 25);
+            this.txtbxBldGrp.Size = new System.Drawing.Size(270, 25);
             this.txtbxBldGrp.TabIndex = 10;
             this.txtbxBldGrp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -452,7 +518,7 @@
             this.txtbxFname.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtbxFname.Location = new System.Drawing.Point(170, 8);
             this.txtbxFname.Name = "txtbxFname";
-            this.txtbxFname.Size = new System.Drawing.Size(272, 25);
+            this.txtbxFname.Size = new System.Drawing.Size(270, 25);
             this.txtbxFname.TabIndex = 5;
             this.txtbxFname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -484,7 +550,7 @@
             this.mtxtbxDOB.Location = new System.Drawing.Point(170, 107);
             this.mtxtbxDOB.Mask = "00/00/0000";
             this.mtxtbxDOB.Name = "mtxtbxDOB";
-            this.mtxtbxDOB.Size = new System.Drawing.Size(272, 25);
+            this.mtxtbxDOB.Size = new System.Drawing.Size(270, 25);
             this.mtxtbxDOB.TabIndex = 30;
             this.mtxtbxDOB.ValidatingType = typeof(System.DateTime);
             this.mtxtbxDOB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
@@ -499,7 +565,7 @@
             "Female"});
             this.cmbSex.Location = new System.Drawing.Point(170, 140);
             this.cmbSex.Name = "cmbSex";
-            this.cmbSex.Size = new System.Drawing.Size(272, 25);
+            this.cmbSex.Size = new System.Drawing.Size(270, 25);
             this.cmbSex.TabIndex = 31;
             this.cmbSex.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbxFname_KeyDown);
             // 
@@ -522,93 +588,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(467, 508);
             this.dataGridView1.TabIndex = 0;
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.btnAdd);
-            this.flowLayoutPanel1.Controls.Add(this.btnEdit);
-            this.flowLayoutPanel1.Controls.Add(this.btnDelete);
-            this.flowLayoutPanel1.Controls.Add(this.btnSearch);
-            this.flowLayoutPanel1.Controls.Add(this.btnRefresh);
-            this.flowLayoutPanel1.Controls.Add(this.btnClose);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(16, 718);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(20, 20, 20, 100);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 67);
-            this.flowLayoutPanel1.TabIndex = 3;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(26, 23);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 23);
-            this.btnAdd.TabIndex = 30;
-            this.btnAdd.Text = "&Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.Location = new System.Drawing.Point(118, 23);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(80, 23);
-            this.btnEdit.TabIndex = 31;
-            this.btnEdit.Text = "&Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(210, 23);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 23);
-            this.btnDelete.TabIndex = 32;
-            this.btnDelete.Text = "&Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(302, 23);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(80, 23);
-            this.btnSearch.TabIndex = 33;
-            this.btnSearch.Text = "&Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(394, 23);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(80, 23);
-            this.btnRefresh.TabIndex = 34;
-            this.btnRefresh.Text = "Re&fresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(486, 23);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(80, 23);
-            this.btnClose.TabIndex = 35;
-            this.btnClose.Text = "Cl&ose";
-            this.btnClose.UseVisualStyleBackColor = true;
-            // 
             // grpEmpType
             // 
             this.grpEmpType.Controls.Add(this.rdbtnOther);
             this.grpEmpType.Controls.Add(this.rdbtnTeacher);
             this.grpEmpType.Controls.Add(this.rdbtnStd);
-            this.grpEmpType.Location = new System.Drawing.Point(16, 32);
+            this.grpEmpType.Location = new System.Drawing.Point(18, 21);
             this.grpEmpType.Name = "grpEmpType";
             this.grpEmpType.Size = new System.Drawing.Size(594, 54);
             this.grpEmpType.TabIndex = 2;
@@ -669,12 +654,13 @@
             this.Text = "frmEmpMas";
             this.Load += new System.EventHandler(this.frmEmpMas_Load);
             this.grpEmpMas.ResumeLayout(false);
+            this.grpSearchBox.ResumeLayout(false);
+            this.grpSearchBox.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.tlpEmpDetails.ResumeLayout(false);
             this.tlpEmpDetails.PerformLayout();
             this.grdAdditionalDet.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.grpEmpType.ResumeLayout(false);
             this.grpEmpType.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -718,18 +704,15 @@
         private System.Windows.Forms.TextBox txtbxEmail;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtbxPhotoPath;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MaskedTextBox mtxtbxDOB;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.GroupBox grdAdditionalDet;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox cmbSex;
+        private System.Windows.Forms.GroupBox grpSearchBox;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label16;
+        private Private.MyUserControls.ButtonPanelControl btnMainPanel;
     }
 }

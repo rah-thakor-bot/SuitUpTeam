@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using PeculiarTuitionBase.MasterBase;
 using System.Globalization;
+using PeculiarTuitionERP.Utility_Module;
 
 
 
@@ -16,22 +11,17 @@ namespace PeculiarTuitionERP.Master_Module
 {
     public partial class frmEmpMas : frmBaseChild
     {
-        private string CurrentAction = string.Empty;
-        private char action_flg = 'I';
-        private EmpMas libEmpMas;
-        private string errMsg = string.Empty;
-        string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id;
-
-        private void txtbxFname_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                SendKeys.Send("{TAB}");
-        }
-
         DateTime dob, doj;
         CultureInfo DatetimeCulture;
         Hashtable GetNullParamters;
+        private string CurrentAction = string.Empty;
+        private char action_flg = 'I';
+        private EmpMas libEmpMas;
+        private Utility uti;
+        private string errMsg = string.Empty;
+        string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id;
 
+        
 
         public frmEmpMas()
         {
@@ -41,13 +31,14 @@ namespace PeculiarTuitionERP.Master_Module
         private void frmEmpMas_Load(object sender, EventArgs e)
         {
             libEmpMas = new EmpMas();
+            uti = new Utility();
             SetDefaultState();
         }
 
 
         public void SetDefaultState()
         {
-            btnEdit.Enabled = btnDelete.Enabled = btnRefresh.Enabled = false;
+            uti.SetPanelStatus(btnMainPanel, "LOAD");
             branch = emp_type = fname = mname = lname = sex = bldGrp = ph1 = ph2 = adr1 = adr2 = city = state = pincode = email_id = string.Empty;
             dob = doj = DateTime.Now;
             DatetimeCulture = new CultureInfo("en-US", false);
@@ -56,23 +47,64 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (btnAdd.Text == "&Add")
+            if (btnMainPanel.ButtonAddText == "&Add")
             {
+                action_flg = 'I';
                 CurrentAction = "ADD";
-                btnAdd.Text = "&Save";
-                btnEdit.Text = "&Cancel";
-                btnDelete.Enabled = true;
-                btnSearch.Enabled = btnRefresh.Enabled = false;
+                btnMainPanel.ButtonAddText = "&Save";
+                btnMainPanel.ButtonEditText = "&Cancel";
+                btnMainPanel.ButtonDeleteEnable = true;
+                btnMainPanel.ButtonSearchEnable = btnMainPanel.ButtonRefreshEnable = false;
             }
             else//btnAdd Text = Save
             {
-                Hashtable saveSummary = Savedata();    
+                Hashtable saveSummary = Savedata();
             }
+        }
+        private void btnMainPanel_btnRefreshClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMainPanel_btnEditClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMainPanel_btnDeleteClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMainPanel_btnCloseClick(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                CurrentAction= "SEARCH";
+                btnMainPanel.ButtonEditText = "&Cancel";
+                uti.SetPanelStatus(btnMainPanel, false, true, false, true, false, true);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void txtbxFname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
         }
 
         private Hashtable Savedata()
         {
-            Hashtable SaveResponse = new Hashtable();
+            Hashtable Response = new Hashtable();
             try
             {
                 GetCurrentValues();
@@ -80,18 +112,25 @@ namespace PeculiarTuitionERP.Master_Module
                 {
                     if (libEmpMas == null)
                         libEmpMas = new EmpMas();
-                    SaveResponse = libEmpMas.Savedata(branch, action_flg, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, null, Environment.MachineName.ToString(), out errMsg);
-                    if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
-                    if (SaveResponse.Contains("p_flg"))
+                    if (action_flg == 'I')//Action flag for insert
                     {
-                        if (SaveResponse["p_flg"].ToString() == "Y")
+                        Response = libEmpMas.insertData(branch, action_flg, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, null, Environment.MachineName.ToString(), out errMsg);
+                        if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
+                        if (Response.Contains("p_flg"))
                         {
+                            if (Response["p_flg"].ToString() == "Y")
+                            {
+
+                            }
+                            else //Problem handle with error msg from back end
+                            {
+
+                            }
 
                         }
-                        else //Problem handle with error msg from back end
-                        {
-
-                        }
+                    }
+                    else//Action flag for update
+                    {
 
                     }
                 }
@@ -104,7 +143,7 @@ namespace PeculiarTuitionERP.Master_Module
                 MessageBox.Show(ex.ToString());
             } 
            
-            return SaveResponse;
+            return Response;
         }
 
         private void GetCurrentValues()

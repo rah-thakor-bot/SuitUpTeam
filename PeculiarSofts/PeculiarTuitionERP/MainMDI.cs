@@ -22,7 +22,7 @@ namespace PeculiarTuitionERP
             //materialSkinManager.AddFormToManage(this);
             //materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             //materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-
+            Global.LoginBranch = "TestBranch";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

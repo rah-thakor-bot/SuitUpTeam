@@ -152,7 +152,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_allocation_id", DbType.Int32, 5);
-                _base.ExecSPWithTransaction("PKG_SUB_ALLOCATION.prc_mas_ins");
+                _base.ExecSPWithTransaction("pkg_sub_allocation.prc_mas_ins");
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));

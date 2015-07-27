@@ -171,6 +171,9 @@
     <EmbeddedResource Include="MainMDI.resx">
       <DependentUpon>MainMDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmBatchMaster.resx">
+      <DependentUpon>frmBatchMaster.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmEmpMas.resx">
       <DependentUpon>frmEmpMas.cs</DependentUpon>
     </EmbeddedResource>

@@ -18,15 +18,9 @@ namespace PeculiarTuitionERP
     {
         #region Global Objects and Variable Declaration for Form
 
-        
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
-        string[] _strReadonly, _strHideCol, _strRequiredCol;
         
-        DataTable _dtMas;
-        bool _canInsert, _canDelete, _canSelect, _isSuperUser;
-
-        TuitionBase _objData;
         #endregion
 
         #region Constructors
@@ -136,14 +130,15 @@ namespace PeculiarTuitionERP
                 //Save Data method call to middle Layer
                 return _htSave;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {
                 //Nullify Object
             }
+            return null;
         }
 
         private void SearchData()
@@ -152,10 +147,9 @@ namespace PeculiarTuitionERP
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {
@@ -169,12 +163,12 @@ namespace PeculiarTuitionERP
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
-            finally { 
+            finally
+            {
                 //Dispose or Nullify Objects
             }
         }
@@ -185,10 +179,9 @@ namespace PeculiarTuitionERP
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {

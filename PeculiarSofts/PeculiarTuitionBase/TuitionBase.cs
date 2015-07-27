@@ -163,5 +163,26 @@ namespace PeculiarTuitionBase
             }
             return null;
         }
+
+        public DataTable GetTeacherList(char flg,out string Error)
+        {
+            try
+            {
+                Error = null;
+                _base.Connect();
+                DataSet _ds = new DataSet();
+                _base.PopulateDataWithCmd("pkg_tuition_base.prc_get_teacher_list", _ds, "Teacher", new string[] { flg.ToString(), null });
+                return _ds.Tables["Teacher"];
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message.ToString();
+            }
+            finally
+            {
+                _base.Disconnect();
+            }
+            return null;
+        }
     }
 }

@@ -6,10 +6,31 @@ namespace PeculiarTuitionBase.MasterBase
 {
     public class BatchMaster : TuitionBase
     {
+        public DataTable FetchData(string p_criteria, out string Error)
+        {
+            try
+            {
+                Error = string.Empty;
+                _base.Connect();
+                DataSet _ds = new DataSet();
+                _base.PopulateDataWithCmd("pkg_batch_mas.prc_mas_get_data", _ds, "BatchMas", new string[] { p_criteria, null });
+                return _ds.Tables["BatchMas"];
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message.ToString();
+            }
+            finally
+            {
+                _base.Disconnect();
+            }
+            return null;
+        }
+
         public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
-            int _intNumRecords = 0, seqno = 0;
+            int _intNumRecords = 0, tempBatchID = 0;
             string _strErrMsg = "";
             string _strTimeStampErrMsg = "Timestamp  Error : \n";
             string _strInsertErrMsg = "Problem in inserting record : \n";
@@ -36,13 +57,13 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strInsertErrMsg += "Batch Id " + _drRow["batch_id"].ToString() + "";
+                                _strInsertErrMsg += "Batch Id " + _drRow["BATCH_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                seqno = int.Parse(_htSave["batch_id"].ToString());
+                                tempBatchID = int.Parse(_htSave["BATCH_ID"].ToString());
                             }
                             break;
                         case DataRowState.Modified:
@@ -51,19 +72,19 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id"].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["BATCH_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strUpdateErrMsg += "Batch Id. = " + _drRow["batch_id"].ToString() + "";
+                                _strUpdateErrMsg += "Batch Id. = " + _drRow["BATCH_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                seqno = int.Parse(_drRow["batch_id"].ToString());
+                                tempBatchID = int.Parse(_drRow["BATCH_ID"].ToString());
                             }
                             break;
                         case DataRowState.Deleted:
@@ -71,13 +92,13 @@ namespace PeculiarTuitionBase.MasterBase
                             _htSave = Delete(p_brid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["BATCH_ID", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["batch_id", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Batch Id. = " + _drRow["BATCH_ID", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -87,16 +108,16 @@ namespace PeculiarTuitionBase.MasterBase
                     DataRow[] _drRows = null;
                     if (_drRow.RowState != DataRowState.Deleted)
                     {
-                        _drRows = p_dt.Select("batch_id = " + _drRow["batch_id"]);
+                        _drRows = p_dt.Select("BATCH_ID = " + _drRow["BATCH_ID"]);
                         if (_drRow.RowState == DataRowState.Added)
                         {
-                            p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["batch_id"] = seqno;
+                            p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["BATCH_ID"] = tempBatchID;
                         }
-                        p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
-                        _drRows = p_dt.Select("batch_id =" + _drRow["batch_id", DataRowVersion.Original], "", DataViewRowState.Deleted);
+                        _drRows = p_dt.Select("BATCH_ID =" + _drRow["BATCH_ID", DataRowVersion.Original], "", DataViewRowState.Deleted);
                     }
                     p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])].AcceptChanges();
                     _intNumRecords += 1;
@@ -124,7 +145,7 @@ namespace PeculiarTuitionBase.MasterBase
             catch (Exception ex)
             {
                 _base.Rollback();
-                //Throws(ex, out p_err);
+                p_err = ex.Message.ToString();
             }
             finally
             {
@@ -144,11 +165,11 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_ref_t_entity_id", DbType.Int32, p_dr["REF_T_ENTITY_ID"]);
                 _base.AddInParam("p_fr_time", DbType.Int32, p_dr["FR_TIME"]);
                 _base.AddInParam("p_to_time", DbType.Int32, p_dr["TO_TIME"]);
-                _base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
+                //_base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
+                //_base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                _base.AddOutParam("p_time_stamp", DbType.String, 50);
+                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_batch_id", DbType.Int32, 5);
@@ -156,8 +177,8 @@ namespace PeculiarTuitionBase.MasterBase
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htAdd.Add("p_batch_id", _base.GetParameterValue("p_batch_id"));
-                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("BATCH_ID", _base.GetParameterValue("p_batch_id"));
+                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -178,18 +199,18 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_ref_t_entity_id", DbType.Int32, p_dr["REF_T_ENTITY_ID"]);
                 _base.AddInParam("p_fr_time", DbType.Int32, p_dr["FR_TIME"]);
                 _base.AddInParam("p_to_time", DbType.Int32, p_dr["TO_TIME"]);
-                _base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
-                _base.AddInParam("p_ent_user", DbType.String, p_user);
-                _base.AddInParam("p_ent_term", DbType.String, p_term);
-                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                //_base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
+                //_base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
+                _base.AddInParam("p_upd_user", DbType.String, p_user);
+                _base.AddInParam("p_upd_term", DbType.String, p_term);
+                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.ExecSPWithTransaction("pkg_batch_mas.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }
@@ -208,7 +229,7 @@ namespace PeculiarTuitionBase.MasterBase
             {
                 _base.Connect();
 
-                _base.AddInParam("p_batch_id", DbType.String, p_dr["BATCH_ID", DataRowVersion.Original]);
+                _base.AddInParam("p_BATCH_ID", DbType.String, p_dr["BATCH_ID", DataRowVersion.Original]);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
 

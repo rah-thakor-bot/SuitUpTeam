@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Collections;
+using System.Windows.Forms;
 using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
-using System.Windows.Forms;
+
 
 namespace PeculiarTuitionERP.Master_Module
 {
@@ -36,13 +33,46 @@ namespace PeculiarTuitionERP.Master_Module
         }
         #endregion
 
+        #region Form private Events
+        private void frmStudyLevelMas_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void grdStudyLevelMas_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+        private void grdStudyLevelMas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
+
+        private void grdStudyLevelMas_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_strBtnActionType != "SEARCH")
+            {
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
+            }
+        }
+        #endregion
+
         #region Button Panel Events
         private void btnMainPanel1_btnAddClick(object sender, EventArgs e)
         {
             try
             {
-
-
                 if (btnMainPanel1.ButtonAddText == "&Add")
                 {
                     _strBtnActionType = "ADD";
@@ -136,7 +166,7 @@ namespace PeculiarTuitionERP.Master_Module
 
             catch (Exception ex)
             {
-                //Global.Error(ex, Resources.DialogText);
+                MessageBox.Show(ex.Message.ToString());
             }
 
         }
@@ -148,7 +178,30 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void btnMainPanel1_btnDeleteClick(object sender, EventArgs e)
         {
-
+            try
+            {
+                grdStudyLevelMas.Select();
+                grdStudyLevelMas.Focus();
+                if (grdStudyLevelMas.Focused && grdStudyLevelMas.SelectedRows.Count > 0)
+                {
+                    _strBtnActionType = "DELETE";
+                    if (MessageBox.Show("Do you want to delete Record(s)?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        grdStudyLevelMas.AllowUserToDeleteRows = true;
+                        foreach (DataGridViewRow _drMasRow in grdStudyLevelMas.SelectedRows)
+                        {
+                            if (_drMasRow.IsNewRow == false)
+                                grdStudyLevelMas.Rows.Remove(_drMasRow);
+                            else
+                                _drMasRow.Selected = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void btnMainPanel1_btnEditClick(object sender, EventArgs e)
@@ -158,9 +211,7 @@ namespace PeculiarTuitionERP.Master_Module
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
                     grdStudyLevelMas.AllowUserToAddRows = true;
-
                     grdStudyLevelMas.ReadOnly = false;
-
                     _strBtnActionType = "EDIT";
                     getLibraryInstance("UTILITY");
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
@@ -226,6 +277,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
 
         }
+
         private void getLibraryInstance(string libName)
         {
             if (libName.ToUpper() == "STUDY_LEVEL")
@@ -289,10 +341,8 @@ namespace PeculiarTuitionERP.Master_Module
                     _dtStudyLevelMas.Rows.Clear();
                     _dtStudyLevelMas.AcceptChanges();
                 }
-
                 getLibraryInstance("UTILITY");
                 uti.SetPanelStatus(btnMainPanel1, "SEARCH");
-                
                 grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[0].Cells["STD_ID"];
                 grdStudyLevelMas.Rows[0].Cells["STD_ID"].Value = DBNull.Value;
                 grdStudyLevelMas.Focus();
@@ -371,42 +421,5 @@ namespace PeculiarTuitionERP.Master_Module
 
 
         #endregion
-
-        #region Form private Events
-        private void frmStudyLevelMas_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                LoadGrid();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        #endregion
-
-        private void grdStudyLevelMas_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-        private void grdStudyLevelMas_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-                SendKeys.Send("{TAB}");
-        }
-
-        private void grdStudyLevelMas_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (_strBtnActionType != "SEARCH")
-            {
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
-            }
-        }
     }
-
-
 }

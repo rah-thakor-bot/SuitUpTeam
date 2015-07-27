@@ -40,8 +40,8 @@ namespace PeculiarTuitionBase.MasterBase
         public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataSet p_ds, out string p_err)
         {
             #region variable Declaration
-            int _intNumRecords = 0, _intRptId = 0;
-            string _strCriteria = "", _strItem = "";
+            int _intNumRecords = 0, _intSubID = 0;
+            string _strCriteria = string.Empty;
             string _strErrMsg = "";
             string _strTimeStampErrMsg = "Timestamp  Error : \n";
             string _strInsertErrMsg = "Problem In Inserting Record : \n";
@@ -49,17 +49,14 @@ namespace PeculiarTuitionBase.MasterBase
             string _strDeleteErrMsg = "Record can't deleted due to child record exist : \n";
 
             p_err = null;
-            string p_flg = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
-            DataRow[] _drArr = null;
             #endregion
             try
             {
                 _base.Connect();
-                DataTable _dtMas = p_ds.Tables["OP_RPT_MAS"].GetChanges();
-                DataTable _dtDet = p_ds.Tables["OP_RPT_DET"].GetChanges();
-                DataTable _dtParaDet = p_ds.Tables["OP_RPT_PARA_DET"].GetChanges();
+                DataTable _dtMas = p_ds.Tables["SubMas"].GetChanges();
+                DataTable _dtDet = p_ds.Tables["ChpMas"].GetChanges();
 
                 foreach (DataRow _drRow in _dtMas.Rows)
                 {
@@ -71,13 +68,13 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strInsertErrMsg += "Report Id " + _drRow["RPT_ID"].ToString() + "";
+                                _strInsertErrMsg += "Subject Id " + _drRow["SUB_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                _intRptId = int.Parse(_htSave["p_rpt_id"].ToString());
+                                _intSubID = int.Parse(_htSave["p_SUB_ID"].ToString());
                             }
                             break;
                         case DataRowState.Modified:
@@ -86,19 +83,19 @@ namespace PeculiarTuitionBase.MasterBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID"].ToString() + "";
+                                _strTimeStampErrMsg += "Subject Id. = " + _drRow["SUB_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strUpdateErrMsg += "Report Id. = " + _drRow["RPT_ID"].ToString() + "";
+                                _strUpdateErrMsg += "Subject Id. = " + _drRow["SUB_ID"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                _intRptId = int.Parse(_drRow["RPT_ID"].ToString());
+                                _intSubID = int.Parse(_drRow["SUB_ID"].ToString());
                             }
                             break;
                         case DataRowState.Deleted:
@@ -107,13 +104,13 @@ namespace PeculiarTuitionBase.MasterBase
                             _htSave = Delete(p_brid, p_coid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Subject Id. = " + _drRow["SUB_ID", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Subject Id. = " + _drRow["SUB_ID", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -123,18 +120,18 @@ namespace PeculiarTuitionBase.MasterBase
                     DataRow[] _drRows = null;
                     if (_drRow.RowState != DataRowState.Deleted)
                     {
-                        _drRows = p_ds.Tables["OP_RPT_MAS"].Select("RPT_ID = " + _drRow["RPT_ID"]);
+                        _drRows = p_ds.Tables["SubMas"].Select("SUB_ID = " + _drRow["SUB_ID"]);
                         if (_drRow.RowState == DataRowState.Added)
                         {
-                            p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])]["RPT_ID"] = _intRptId;
+                            p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])]["SUB_ID"] = _intSubID;
                         }
-                        p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
-                        _drRows = p_ds.Tables["OP_RPT_MAS"].Select("RPT_ID =" + _drRow["RPT_ID", DataRowVersion.Original], "", DataViewRowState.Deleted);
+                        _drRows = p_ds.Tables["SubMas"].Select("SUB_ID =" + _drRow["SUB_ID", DataRowVersion.Original], "", DataViewRowState.Deleted);
                     }
-                    p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])].AcceptChanges();
+                    p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])].AcceptChanges();
                     _intNumRecords += 1;
                     _base.Commit();
                 }
@@ -160,7 +157,7 @@ namespace PeculiarTuitionBase.MasterBase
             catch (Exception ex)
             {
                 _base.Rollback();
-                //Throws(ex, out p_err);
+                p_err = ex.Message.ToString();
             }
             finally
             {
@@ -206,14 +203,14 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("P_TIME_STAMP", DbType.String, 50);
                 _base.AddOutParam("P_MSG", DbType.String, 50);
                 _base.AddOutParam("P_FLG", DbType.String, 1);
-                _base.AddOutParam("P_RPT_ID", DbType.Int64, 6);
+                _base.AddOutParam("P_SUB_ID", DbType.Int64, 6);
 
 
-                _base.ExecSPWithTransaction("pkg_op_rpt_mas.prc_mas_ins");
+                _base.ExecSPWithTransaction("pkg_SubMas.prc_mas_ins");
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htAdd.Add("p_rpt_id", _base.GetParameterValue("p_rpt_id"));
+                _htAdd.Add("p_SUB_ID", _base.GetParameterValue("p_SUB_ID"));
                 _htAdd.Add("P_TIME_STAMP", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
@@ -230,7 +227,7 @@ namespace PeculiarTuitionBase.MasterBase
             {
                 _base.AddInParam("P_BRID", DbType.String, p_brid);
                 _base.AddInParam("P_COID", DbType.String, p_coid);
-                _base.AddInParam("P_RPT_ID", DbType.Int32, p_dr["RPT_ID"]);
+                _base.AddInParam("P_SUB_ID", DbType.Int32, p_dr["SUB_ID"]);
                 _base.AddInParam("P_RPT_NAME", DbType.String, p_dr["RPT_NAME"]);
                 _base.AddInParam("P_RPT_SHORT_NAME", DbType.String, p_dr["RPT_SHORT_NAME"]);
                 _base.AddInParam("P_MFG_CODE", DbType.String, p_dr["MFG_CODE"]);
@@ -265,7 +262,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("P_FLG", DbType.String, 1);
 
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_UPD");
+                _base.ExecSPWithTransaction("PKG_SubMas.PRC_MAS_UPD");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
@@ -289,7 +286,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.Connect();
                 _base.AddInParam("p_brid", DbType.String, p_brid);
                 _base.AddInParam("p_coid", DbType.String, p_coid);
-                _base.AddInParam("p_rpt_id", DbType.Int32, p_dr["RPT_ID", DataRowVersion.Original]);
+                _base.AddInParam("p_SUB_ID", DbType.Int32, p_dr["SUB_ID", DataRowVersion.Original]);
                 _base.AddInParam("p_del_user", DbType.String, p_user);
                 _base.AddInParam("p_del_term", DbType.String, p_term);
                 _base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
@@ -297,7 +294,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_DEL");
+                _base.ExecSPWithTransaction("PKG_SubMas.PRC_MAS_DEL");
 
                 _htDel.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htDel.Add("p_msg", _base.GetParameterValue("p_msg"));

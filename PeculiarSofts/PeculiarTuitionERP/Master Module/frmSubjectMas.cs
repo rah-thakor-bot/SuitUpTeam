@@ -16,13 +16,12 @@ namespace PeculiarTuitionERP.Master_Module
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string ErrorMsg = string.Empty;
+        string[] strSubChkBxColName;
+        string[] strSubCmbColName, strChpCmbColName;
 
         DataSet dsMain;
         DataTable _dtGridSubject;
         DataTable _dtGridChapter;
-        string[] strSubChkBxColName;
-        string[] strSubCmbColName,strChpCmbColName;
-        DataGridViewCheckBoxColumn[] grdSubChkCol;
         DataGridViewComboBoxColumn[] grdSubCmbCol,grdChpCmbCol;
         #endregion
 
@@ -83,9 +82,9 @@ namespace PeculiarTuitionERP.Master_Module
                 }
                 else
                 {
-                    Hashtable _htmas = new Hashtable();//= _objUtil.CheckGridRequriedCol(grdRptMas, "OP_RPT_MAS");
-
-                    if (_htmas["RESULT"].ToString() == "true")
+                    Hashtable _htMas = new Hashtable();//= _objUtil.CheckGridRequriedCol(grdRptMas, "OP_RPT_MAS");
+                    _htMas.Add("RESULT", "true");
+                    if (_htMas["RESULT"].ToString() == "true")
                     {
                         Hashtable _htResult = new Hashtable();
                         _htResult = SaveData();
@@ -166,8 +165,6 @@ namespace PeculiarTuitionERP.Master_Module
                         btnMainPanel.ButtonSearchEnable = true;
                         btnMainPanel.ButtonDeleteEnable = false;
                         grdSubjectMaster.Enabled = true;
-
-
                         grdSubjectMaster.ReadOnly = true;
 
                     }
@@ -176,7 +173,7 @@ namespace PeculiarTuitionERP.Master_Module
 
             catch (Exception ex)
             {
-                //Global.Error(ex, Resources.DialogText);
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -329,7 +326,7 @@ namespace PeculiarTuitionERP.Master_Module
             Global.AcquireComboListWithSource(_dtGridSubject, out strSubCmbColName, out grdSubCmbCol);
             Global.GridBindingSource(ref grdSubjectMaster, _dtGridSubject, null, null, strSubChkBxColName, dsMain.Tables["SubMas"]);
 
-            //Global.AcquireGridCheckBoxColumn(_dtGridChapter, out strChpCmbColName);
+            //Global.AcquireGridCheckBoxColumn(_dtGridChapter, out strChpChkBxColName);
             Global.AcquireComboListWithSource(_dtGridChapter, out strChpCmbColName, out grdChpCmbCol);
             Global.GridBindingSource(ref grdChapterDetail, _dtGridChapter, strChpCmbColName, grdChpCmbCol, null, dsMain.Tables["ChpDet"]);
 

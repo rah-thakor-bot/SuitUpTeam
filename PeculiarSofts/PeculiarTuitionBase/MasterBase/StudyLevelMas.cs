@@ -20,7 +20,7 @@ namespace PeculiarTuitionBase.MasterBase
                 Error = string.Empty;
                 _base.Connect();
                 DataSet _ds = new DataSet();
-                _base.PopulateDataWithCmd("PKG_STUDY_LEVEL_MAS.prc_get_data", _ds, "StudyLevlMas", new string[] { p_criteria, null });
+                _base.PopulateDataWithCmd("pkg_study_level_mas.prc_get_data", _ds, "StudyLevlMas", new string[] { p_criteria, null });
                 return _ds.Tables["StudyLevlMas"];
             }
             catch (Exception ex)

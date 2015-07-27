@@ -126,8 +126,6 @@ namespace PeculiarTuitionERP.Utility_Module
             bool andFlag = false;
             if (Ctrl.GetType() == typeof(DataGridView))
             {
-                DataTable gridSource = new DataTable();
-                gridSource = (DataTable)((DataGridView)Ctrl).DataSource;
                 if (((DataGridView)Ctrl).Rows.Count > 1)
                 {
                     foreach (DataGridViewColumn dc in ((DataGridView)Ctrl).Columns)

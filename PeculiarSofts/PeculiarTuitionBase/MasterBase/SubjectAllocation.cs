@@ -7,6 +7,27 @@ namespace PeculiarTuitionBase.MasterBase
 {
     public class SubjectAllocation : TuitionBase
     {
+        public DataTable FetchData(string p_criteria, out string Error)
+        {
+            try
+            {
+                Error = string.Empty;
+                _base.Connect();
+                DataSet _ds = new DataSet();
+                _base.PopulateDataWithCmd("pkg_sub_allocation.prc_mas_get_data", _ds, "SubAlloc", new string[] { p_criteria, null });
+                return _ds.Tables["SubAlloc"];
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message.ToString();
+            }
+            finally
+            {
+                _base.Disconnect();
+            }
+            return null;
+        }
+
         public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
@@ -93,7 +114,7 @@ namespace PeculiarTuitionBase.MasterBase
                         {
                             p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["allocation_id"] = seqno;
                         }
-                        p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -125,7 +146,7 @@ namespace PeculiarTuitionBase.MasterBase
             catch (Exception ex)
             {
                 _base.Rollback();
-                //Throws(ex, out p_err);
+                p_err = ex.Message.ToString();
             }
             finally
             {
@@ -148,7 +169,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                _base.AddOutParam("p_time_stamp", DbType.String, 50);
+                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_allocation_id", DbType.Int32, 5);
@@ -157,7 +178,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("allocation_id", _base.GetParameterValue("p_allocation_id"));
-                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -181,20 +202,19 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_upd_term", DbType.String, p_user);
                 _base.AddInParam("p_upd_user", DbType.String, p_term);
-                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["TIME_STAMP"].ToString());
+                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["TIME_STAMP"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.ExecSPWithTransaction("pkg_sub_allocation.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 

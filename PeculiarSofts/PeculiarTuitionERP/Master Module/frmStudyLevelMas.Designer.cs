@@ -43,6 +43,8 @@
             this.grdStudyLevelMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grdStudyLevelMas.Name = "grdStudyLevelMas";
             this.grdStudyLevelMas.RowHeadersVisible = false;
+            this.grdStudyLevelMas.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdStudyLevelMas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdStudyLevelMas.Size = new System.Drawing.Size(1270, 603);
             this.grdStudyLevelMas.TabIndex = 0;
             this.grdStudyLevelMas.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdStudyLevelMas_DataError);

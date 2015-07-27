@@ -13,17 +13,14 @@ namespace PeculiarTuitionERP.Master_Module
     {
         #region Global Objects and Variable Declaration for Form
 
-        private EntityTypeMas _libEntityTypeMas;
         private Utility _clsUtility;
 
         string _strFormType = string.Empty;
         string ErrorMsg= string.Empty;
         string _strCurrentActionType = string.Empty;
-        string[] _strReadonly, _strHideCol, _strRequiredCol;
 
-        DataTable _dtMas;
         DataTable _dtGridFields;
-        bool _canInsert, _canDelete, _canSelect, _isSuperUser;
+        
 
         #endregion
 
@@ -46,7 +43,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message.ToString());
             }
             
         }
@@ -129,14 +126,15 @@ namespace PeculiarTuitionERP.Master_Module
                 //Save Data method call to middle Layer
                 return _htSave;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {
                 //Nullify Object
             }
+            return null;
         }
 
         private void SearchData()
@@ -145,10 +143,10 @@ namespace PeculiarTuitionERP.Master_Module
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {
@@ -162,10 +160,10 @@ namespace PeculiarTuitionERP.Master_Module
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {
@@ -179,10 +177,10 @@ namespace PeculiarTuitionERP.Master_Module
             {
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {

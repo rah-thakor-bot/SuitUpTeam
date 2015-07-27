@@ -92,7 +92,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
             catch (Exception ex)
             {
-                
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -140,7 +140,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message.ToString());
             } 
            
             return Response;

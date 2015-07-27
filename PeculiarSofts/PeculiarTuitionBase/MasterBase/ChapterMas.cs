@@ -33,7 +33,7 @@ namespace PeculiarTuitionBase.MasterBase
         {
             #region variable Declaration
             int _intNumRecords = 0, _intRptId = 0;
-            string _strCriteria = "", _strItem = "";
+            string _strCriteria = string.Empty;
             string _strErrMsg = "";
             string _strTimeStampErrMsg = "Timestamp  Error : \n";
             string _strInsertErrMsg = "Problem In Inserting Record : \n";
@@ -41,10 +41,8 @@ namespace PeculiarTuitionBase.MasterBase
             string _strDeleteErrMsg = "Record can't deleted due to child record exist : \n";
 
             p_err = null;
-            string p_flg = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
-            DataRow[] _drArr = null;
             #endregion
             try
             {
@@ -151,7 +149,7 @@ namespace PeculiarTuitionBase.MasterBase
             catch (Exception ex)
             {
                 _base.Rollback();
-                //Throws(ex, out p_err);
+                p_err = ex.Message.ToString();
             }
             finally
             {

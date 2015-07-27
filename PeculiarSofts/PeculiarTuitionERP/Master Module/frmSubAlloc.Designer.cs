@@ -28,98 +28,93 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnPanelCtrl1 = new Private.MyUserControls.ButtonPanelControl();
             this.grpDet = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grdSubAlloc = new System.Windows.Forms.DataGridView();
+            this.btnMainPanel1 = new Private.MyUserControls.ButtonPanelControl();
             this.grpDet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdSubAlloc)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnPanelCtrl1
-            // 
-            this.btnPanelCtrl1.ButtonAddEnable = true;
-            this.btnPanelCtrl1.ButtonAddImage = null;
-            this.btnPanelCtrl1.ButtonAddText = "Add";
-            this.btnPanelCtrl1.ButtonAddVisible = true;
-            this.btnPanelCtrl1.ButtonCloseEnable = true;
-            this.btnPanelCtrl1.ButtonCloseImage = null;
-            this.btnPanelCtrl1.ButtonCloseVisible = true;
-            this.btnPanelCtrl1.ButtonDeleteEnable = true;
-            this.btnPanelCtrl1.ButtonDeleteImage = null;
-            this.btnPanelCtrl1.ButtonDeleteVisible = true;
-            this.btnPanelCtrl1.ButtonEditEnable = true;
-            this.btnPanelCtrl1.ButtonEditImage = null;
-            this.btnPanelCtrl1.ButtonEditText = "Edit";
-            this.btnPanelCtrl1.ButtonEditVisible = true;
-            this.btnPanelCtrl1.ButtonRefreshEnable = true;
-            this.btnPanelCtrl1.ButtonRefreshImage = null;
-            this.btnPanelCtrl1.ButtonRefreshVisible = true;
-            this.btnPanelCtrl1.ButtonSearchEnable = true;
-            this.btnPanelCtrl1.ButtonSearchImage = null;
-            this.btnPanelCtrl1.ButtonSearchText = "Search";
-            this.btnPanelCtrl1.ButtonSearchVisible = true;
-            this.btnPanelCtrl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnPanelCtrl1.Location = new System.Drawing.Point(0, 735);
-            this.btnPanelCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnPanelCtrl1.MessageText = "";
-            this.btnPanelCtrl1.Name = "btnPanelCtrl1";
-            this.btnPanelCtrl1.SetColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.SetDuration = 0;
-            this.btnPanelCtrl1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnPanelCtrl1.Size = new System.Drawing.Size(1297, 81);
-            this.btnPanelCtrl1.StartTime = new System.DateTime(((long)(0)));
-            this.btnPanelCtrl1.TabIndex = 3;
-            this.btnPanelCtrl1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnAddClick);
-            this.btnPanelCtrl1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnEditClick);
-            this.btnPanelCtrl1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnDeleteClick);
-            this.btnPanelCtrl1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnSearchClick);
-            this.btnPanelCtrl1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnRefreshClick);
-            this.btnPanelCtrl1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.buttonPanelControl1_btnCloseClick);
             // 
             // grpDet
             // 
-            this.grpDet.Controls.Add(this.dataGridView1);
+            this.grpDet.Controls.Add(this.grdSubAlloc);
             this.grpDet.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpDet.Location = new System.Drawing.Point(0, 0);
             this.grpDet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpDet.Name = "grpDet";
             this.grpDet.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpDet.Size = new System.Drawing.Size(1297, 629);
+            this.grpDet.Size = new System.Drawing.Size(1248, 629);
             this.grpDet.TabIndex = 2;
             this.grpDet.TabStop = false;
             this.grpDet.Text = "Subject  Allocation";
             // 
-            // dataGridView1
+            // grdSubAlloc
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 22);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1291, 603);
-            this.dataGridView1.TabIndex = 0;
+            this.grdSubAlloc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdSubAlloc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdSubAlloc.Location = new System.Drawing.Point(3, 22);
+            this.grdSubAlloc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grdSubAlloc.Name = "grdSubAlloc";
+            this.grdSubAlloc.Size = new System.Drawing.Size(1242, 603);
+            this.grdSubAlloc.TabIndex = 0;
+            this.grdSubAlloc.Tag = "grdSubAlloc";
+            // 
+            // btnMainPanel1
+            // 
+            this.btnMainPanel1.ButtonAddEnable = true;
+            this.btnMainPanel1.ButtonAddImage = null;
+            this.btnMainPanel1.ButtonAddText = "Add";
+            this.btnMainPanel1.ButtonAddVisible = true;
+            this.btnMainPanel1.ButtonCloseEnable = true;
+            this.btnMainPanel1.ButtonCloseImage = null;
+            this.btnMainPanel1.ButtonCloseVisible = true;
+            this.btnMainPanel1.ButtonDeleteEnable = true;
+            this.btnMainPanel1.ButtonDeleteImage = null;
+            this.btnMainPanel1.ButtonDeleteVisible = true;
+            this.btnMainPanel1.ButtonEditEnable = true;
+            this.btnMainPanel1.ButtonEditImage = null;
+            this.btnMainPanel1.ButtonEditText = "Edit";
+            this.btnMainPanel1.ButtonEditVisible = true;
+            this.btnMainPanel1.ButtonRefreshEnable = true;
+            this.btnMainPanel1.ButtonRefreshImage = null;
+            this.btnMainPanel1.ButtonRefreshVisible = true;
+            this.btnMainPanel1.ButtonSearchEnable = true;
+            this.btnMainPanel1.ButtonSearchImage = null;
+            this.btnMainPanel1.ButtonSearchText = "Search";
+            this.btnMainPanel1.ButtonSearchVisible = true;
+            this.btnMainPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnMainPanel1.Location = new System.Drawing.Point(0, 641);
+            this.btnMainPanel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnMainPanel1.MessageText = "";
+            this.btnMainPanel1.Name = "btnMainPanel1";
+            this.btnMainPanel1.SetColor = System.Drawing.Color.Empty;
+            this.btnMainPanel1.SetDuration = 0;
+            this.btnMainPanel1.SetLightColor = System.Drawing.Color.Empty;
+            this.btnMainPanel1.Size = new System.Drawing.Size(1248, 106);
+            this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
+            this.btnMainPanel1.TabIndex = 8;
             // 
             // frmSubAlloc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1297, 816);
-            this.Controls.Add(this.btnPanelCtrl1);
+            this.ClientSize = new System.Drawing.Size(1248, 747);
+            this.Controls.Add(this.btnMainPanel1);
             this.Controls.Add(this.grpDet);
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmSubAlloc";
+            this.Tag = "SubjAlloc";
             this.Text = "Subject Allocation";
             this.grpDet.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdSubAlloc)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Private.MyUserControls.ButtonPanelControl btnPanelCtrl1;
         private System.Windows.Forms.GroupBox grpDet;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grdSubAlloc;
+        private Private.MyUserControls.ButtonPanelControl btnMainPanel1;
     }
 }

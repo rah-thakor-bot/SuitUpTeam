@@ -162,7 +162,7 @@ namespace PeculiarTuitionERP.Utility_Module
 
                     if (!flag2)
                     {
-                        bool flag3 = false;
+                        //bool flag3 = false;
                         viewTextBoxColumn.ReadOnly = false;
                         viewTextBoxColumn.DefaultCellStyle.BackColor = Color.White;
                         viewTextBoxColumn.DataPropertyName = dataColumn.ColumnName.ToString();
@@ -173,13 +173,13 @@ namespace PeculiarTuitionERP.Utility_Module
                             {
                                 //viewTextBoxColumn.DefaultCellStyle.BackColor = this.SetReadOnlyColBgColor;
                                 viewTextBoxColumn.ReadOnly = true;
-                                flag3 = true;
+                                //flag3 = true;
                             }
                             else if (FindElement(dataColumn.ColumnName.ToString(), _strReadonlyCol) != -1)
                             {
                                 //viewTextBoxColumn.DefaultCellStyle.BackColor = this.SetReadOnlyColBgColor;
                                 viewTextBoxColumn.ReadOnly = true;
-                                flag3 = true;
+                                //flag3 = true;
                             }
                         }
                         //bool flag4 = false;
@@ -461,7 +461,7 @@ namespace PeculiarTuitionERP.Utility_Module
                                 using (_dtBindingSource = new DataTable())
                                 {
                                     _dtBindingSource = _base.GetStdList(out ErrorMsg);//Called With Default Parameters
-                                    DataGridViewComboBoxColumn temp= new DataGridViewComboBoxColumn();
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "STD_NAME";
                                     temp.ValueMember = "STD_ID";
@@ -477,8 +477,8 @@ namespace PeculiarTuitionERP.Utility_Module
                                     _dtBindingSource = _base.GetSubjectList(null, out ErrorMsg, p_subject_status: "A");
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
-                                    temp.DisplayMember = "STD_NAME";
-                                    temp.ValueMember = "STD_ID";
+                                    temp.DisplayMember = "SUB_NAME";
+                                    temp.ValueMember = "SUB_ID";
                                     localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
                                     localCmbCol[index] = temp;
                                     ++index;
@@ -503,6 +503,20 @@ namespace PeculiarTuitionERP.Utility_Module
                                 using (_dtBindingSource = new DataTable())
                                 {
                                     _dtBindingSource = _base.GetStdMedium(out ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "DISP_OPTION";
+                                    temp.ValueMember = "VALUE_MEMBER";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "TEACHER":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.GetTeacherList('A', out ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "DISP_OPTION";

@@ -46,6 +46,7 @@
             this.grdStudyLevelMas.Size = new System.Drawing.Size(1270, 603);
             this.grdStudyLevelMas.TabIndex = 0;
             this.grdStudyLevelMas.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdStudyLevelMas_DataError);
+            this.grdStudyLevelMas.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdStudyLevelMas_RowEnter);
             this.grdStudyLevelMas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdStudyLevelMas_KeyDown);
             // 
             // btnMainPanel1

@@ -16,7 +16,8 @@ namespace PeculiarTuitionERP.Utility_Module
             _ctrl.ButtonRefreshEnable = _refresh;
             _ctrl.ButtonCloseEnable = _close;
         }
-
+        
+        /*This is will be called after button click event*/
         public void SetPanelStatus(ButtonPanelControl _ctrl, string _btnAction)
         {
             switch (_btnAction.ToUpper())
@@ -127,7 +128,7 @@ namespace PeculiarTuitionERP.Utility_Module
             {
                 DataTable gridSource = new DataTable();
                 gridSource = (DataTable)((DataGridView)Ctrl).DataSource;
-                if (gridSource.Rows.Count > 0)
+                if (((DataGridView)Ctrl).Rows.Count > 1)
                 {
                     foreach (DataGridViewColumn dc in ((DataGridView)Ctrl).Columns)
                     {

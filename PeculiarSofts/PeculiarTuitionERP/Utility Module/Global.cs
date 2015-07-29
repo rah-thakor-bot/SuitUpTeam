@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Drawing;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using PeculiarTuitionBase;
 
@@ -35,6 +36,43 @@ namespace PeculiarTuitionERP.Utility_Module
         }
         #endregion
 
+        #region GetAllControls of Form
+        public static List<Control> GetAllControls(IList ctrls)
+        {
+            List<Control> RetCtrls = new List<Control>();
+            foreach (Control ctl in ctrls)
+            {
+                RetCtrls.Add(ctl);
+                List<Control> SubCtrls = GetAllControls(ctl.Controls);
+                RetCtrls.AddRange(SubCtrls);
+            }
+            return RetCtrls;
+        }
+        #endregion
+
+        #region Disable all Controls
+        public static void DisableControls(Control ctrl)
+        {
+            try
+            {
+                //List<Control> lstControls = Global.GetAllControls(((Form)ctrl).Controls);
+                //Control lstButtonPanelControl = new Control();
+                //lstButtonPanelControl = lstControls.Find(x => x.Parent.Name.Contains());
+                //foreach (Control singleControl in lstButtonPanelControl.Controls)
+                //{
+                //    if ((singleControl.GetType() == typeof(Button)))
+                //    {
+                //        singleControl.Enabled = true;
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        #endregion
+
         #region Grid Binding 
         public static void GridBindingSource(ref DataGridView p_dgv,DataTable p_gridFields, string[] p_comboColName, DataGridViewComboBoxColumn[] p_comboBox, string[] p_checkBoxColName, DataTable p_dataSource)
         {
@@ -57,26 +95,37 @@ namespace PeculiarTuitionERP.Utility_Module
                 /*Get Column Behaviour------------>*/
                 List<Object> getDCType = (from row in p_gridFields.AsEnumerable()
                                        select row["COL_TYPE"]).Distinct().ToList();
-                foreach (object typ in getDCType)
+                Hashtable htPropertyMapping = new Hashtable();
+                foreach (object type in getDCType)
                 {
-                    if (typ.ToString().Contains("READONLY"))
+                    foreach (string typ in type.ToString().Split(','))
                     {
-                        _strReadonlyCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                    }
+                        if (!(string.IsNullOrEmpty(typ)))
+                        {
+                            if (typ.ToString().Contains("READONLY") && (!(htPropertyMapping.Contains("READONLY"))))
+                            {
+                                htPropertyMapping.Add("READONLY", true);
+                                _strReadonlyCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                            }
 
-                    if (typ.ToString().Contains("HIDECOL"))
-                    {
-                        _strHideCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                    }
+                            if (typ.ToString().Contains("HIDECOL") && (!(htPropertyMapping.Contains("HIDECOL"))))
+                            {
+                                htPropertyMapping.Add("HIDECOL", true);
+                                _strHideCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                            }
 
-                    if (typ.ToString().Contains("VISIBLECOL"))
-                    {
-                        _strVisibleCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                    }
+                            if (typ.ToString().Contains("VISIBLECOL") && (!(htPropertyMapping.Contains("VISIBLECOL"))))
+                            {
+                                htPropertyMapping.Add("VISIBLECOL", true);
+                                _strVisibleCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                            }
 
-                    if (typ.ToString().Contains("DECIMALCOL"))
-                    {
-                        _strDecimalCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                            if (typ.ToString().Contains("DECIMALCOL") && (!(htPropertyMapping.Contains("DECIMALCOL"))))
+                            {
+                                htPropertyMapping.Add("DECIMALCOL", true);
+                                _strDecimalCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                            }
+                        }
                     }
                 }
                 /*Get Column Behaviour<------------*/
@@ -282,53 +331,59 @@ namespace PeculiarTuitionERP.Utility_Module
                 /*Assign Column Behaviour------------>*/
                 List<Object> assignDCType = (from row in p_gridFields.AsEnumerable()
                               select row["COL_TYPE"]).Distinct().ToList();
-                foreach (object typ in assignDCType)
+                foreach (object type in assignDCType)
                 {
-                    if (typ.ToString().Contains("READONLY"))
+                    foreach (string typ in type.ToString().Split(','))
                     {
-                        //_strReadonlyCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                        //Set Readonly 
-                        if (_strReadonlyCol != null)
+                        if (!(string.IsNullOrEmpty(typ)))
                         {
-                            foreach (string ColName in _strReadonlyCol)
+                            if (typ.ToString().Contains("READONLY"))
                             {
-                                p_dgv.Columns[ColName].ReadOnly = true;
+                                //_strReadonlyCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                                //Set Readonly 
+                                if (_strReadonlyCol != null)
+                                {
+                                    foreach (string ColName in _strReadonlyCol)
+                                    {
+                                        p_dgv.Columns[ColName].ReadOnly = true;
+                                    }
+                                }
                             }
-                        }
-                    }
-                    if (typ.ToString().Contains("HIDECOL"))
-                    {
-                        //_strHideCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                        //Set Hide Columns
-                        if (_strHideCol != null)
-                        {
-                            foreach (string ColName in _strHideCol)
+                            if (typ.ToString().Contains("HIDECOL"))
                             {
-                                p_dgv.Columns[ColName].Visible = false;
+                                //_strHideCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                                //Set Hide Columns
+                                if (_strHideCol != null)
+                                {
+                                    foreach (string ColName in _strHideCol)
+                                    {
+                                        p_dgv.Columns[ColName].Visible = false;
+                                    }
+                                }
                             }
-                        }
-                    }
-                    if (typ.ToString().Contains("VISIBLECOL"))
-                    {
-                        //_strVisibleCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                        //Set Visible Columns
-                        if (_strVisibleCol != null)
-                        {
-                            foreach (string ColName in _strVisibleCol)
+                            if (typ.ToString().Contains("VISIBLECOL"))
                             {
-                                p_dgv.Columns[ColName].Visible = true;
+                                //_strVisibleCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                                //Set Visible Columns
+                                if (_strVisibleCol != null)
+                                {
+                                    foreach (string ColName in _strVisibleCol)
+                                    {
+                                        p_dgv.Columns[ColName].Visible = true;
+                                    }
+                                }
                             }
-                        }
-                    }
-                    if (typ.ToString().Contains("DECIMALCOL"))
-                    {
-                        //_strDecimalCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
-                        //Set Decimal Columns
-                        if (_strDecimalCol != null)
-                        {
-                            foreach (string ColName in _strDecimalCol)
+                            if (typ.ToString().Contains("DECIMALCOL"))
                             {
-                                p_dgv.Columns[ColName].ReadOnly = true;
+                                //_strDecimalCol = GetColumnBehaviour(p_gridFields, typ.ToString().ToUpper());
+                                //Set Decimal Columns
+                                if (_strDecimalCol != null)
+                                {
+                                    foreach (string ColName in _strDecimalCol)
+                                    {
+                                        p_dgv.Columns[ColName].ReadOnly = true;
+                                    }
+                                }
                             }
                         }
                     }
@@ -372,7 +427,7 @@ namespace PeculiarTuitionERP.Utility_Module
         /// <returns></returns>
         private static string[] GetColumnBehaviour(DataTable p_dt,string p_getBehaviourType)
         {
-            int index = p_dt.Select("COL_TYPE = '" + p_getBehaviourType + "'").Length;
+            int index = p_dt.Select("COL_TYPE LIKE '%" + p_getBehaviourType + "%'").Length;
             string[] strList = null;
             if (index > 0)
             {
@@ -380,9 +435,9 @@ namespace PeculiarTuitionERP.Utility_Module
                 try
                 {
                     int i = 0;
-                    foreach (DataRow dr in p_dt.Select("COL_TYPE = '" + p_getBehaviourType + "'"))
+                    foreach (DataRow dr in p_dt.Select("COL_TYPE LIKE '%" + p_getBehaviourType + "%'"))
                     {
-                        if (dr["COL_TYPE"].ToString() == p_getBehaviourType)
+                        if (dr["COL_TYPE"].ToString().Contains(p_getBehaviourType))
                         {
                             strList[i] = dr["DATA_FIELD_NAME"].ToString();
                             ++i;

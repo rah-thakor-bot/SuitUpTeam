@@ -328,7 +328,6 @@ namespace PeculiarTuitionERP.Master_Module
             return null;
         }
 
-
         private void SearchData()
         {
             try
@@ -351,7 +350,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(e.Message.ToString());
             }
             finally
             {

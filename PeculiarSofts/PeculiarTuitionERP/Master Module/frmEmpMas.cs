@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using System.Collections;
+using System.Collections.Generic;
 using PeculiarTuitionBase.MasterBase;
 using System.Globalization;
 using PeculiarTuitionERP.Utility_Module;
@@ -14,14 +16,16 @@ namespace PeculiarTuitionERP.Master_Module
         DateTime dob, doj;
         CultureInfo DatetimeCulture;
         Hashtable GetNullParamters;
-        private string CurrentAction = string.Empty;
+        private string _strBtnActionType = string.Empty;
+        private string REQUIRED = "REQUIRED";
         private char action_flg = 'I';
         private EmpMas libEmpMas;
         private Utility uti;
+        private DataSet dsEmpData;
         private string errMsg = string.Empty;
         string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id;
 
-        
+
 
         public frmEmpMas()
         {
@@ -30,44 +34,135 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void frmEmpMas_Load(object sender, EventArgs e)
         {
-            libEmpMas = new EmpMas();
-            uti = new Utility();
-            SetDefaultState();
+            try
+            {
+                SetDefaultState();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
         }
 
 
         public void SetDefaultState()
         {
-            uti.SetPanelStatus(btnMainPanel, "LOAD");
+            //Global.DisableControls(this);
+            grpEmpType.Enabled = flMainData.Enabled = grpSearchBox.Enabled = false;
+            getLibraryInstance("UTILITY");
+            uti.SetPanelStatus(this.btnMainPanel1, "LOAD");
             branch = emp_type = fname = mname = lname = sex = bldGrp = ph1 = ph2 = adr1 = adr2 = city = state = pincode = email_id = string.Empty;
             dob = doj = DateTime.Now;
             DatetimeCulture = new CultureInfo("en-US", false);
+            btnMainPanel1.SetFocus(Private.MyUserControls.ButtonPanelControl.Action.Add);
 
+        }
+
+        private void getLibraryInstance(string libName)
+        {
+            if (libName.ToUpper() == "EMP")
+            {
+                if (libEmpMas == null)
+                    libEmpMas = new EmpMas();
+            }
+            else if (libName.ToUpper() == "UTILITY")
+            {
+                if (uti == null)
+                    uti = new Utility();
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (btnMainPanel.ButtonAddText == "&Add")
+            try
             {
-                action_flg = 'I';
-                CurrentAction = "ADD";
-                btnMainPanel.ButtonAddText = "&Save";
-                btnMainPanel.ButtonEditText = "&Cancel";
-                btnMainPanel.ButtonDeleteEnable = true;
-                btnMainPanel.ButtonSearchEnable = btnMainPanel.ButtonRefreshEnable = false;
+                if (btnMainPanel1.ButtonAddText == "&Add")
+                {
+                    action_flg = 'I';
+                    grpEmpType.Enabled = true;
+                    flMainData.Enabled = true;
+                    grpSearchBox.Enabled = false;
+                    _strBtnActionType = "ADD";
+                    getLibraryInstance("UTILITY");
+                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                    grpEmpType.Select();
+                    grpEmpType.Focus();
+                }
+                else//btnAdd Text = Save
+                {
+                    Hashtable htValidate = ValidateValues();
+                    if ((bool)htValidate["RESULT"])
+                    {
+                        Hashtable saveSummary = Savedata();
+                        if (saveSummary.Contains("p_flg"))
+                        {
+                            if (saveSummary["p_flg"].ToString() == "Y")
+                            {
+                                MessageBox.Show("Saved Successfully");
+                                grpEmpType.Enabled = true;
+                                flMainData.Enabled = true;
+                                grpSearchBox.Enabled = false;
+                                getLibraryInstance("UTILITY");
+                                _strBtnActionType = "SAVE";
+                                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                                flMainData.Enabled = false;
+                                btnMainPanel1.Select();
+                                btnMainPanel1.Focus();
+                            }
+                            else //Problem handle with error msg from back end
+                            {
+                                MessageBox.Show(saveSummary["p_msg"].ToString());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please fill required fields");
+                    }
+                }
             }
-            else//btnAdd Text = Save
+            catch (Exception ex)
             {
-                Hashtable saveSummary = Savedata();
+                MessageBox.Show(ex.Message.ToString());
             }
         }
+
         private void btnMainPanel_btnRefreshClick(object sender, EventArgs e)
         {
-
+            try
+            {
+                RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
         }
 
         private void btnMainPanel_btnEditClick(object sender, EventArgs e)
         {
+            try
+            {
+                if (btnMainPanel1.ButtonEditText == "&Edit")
+                {
+                    _strBtnActionType = "EDIT";
+                    getLibraryInstance("UTILITY");
+                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                    grpEmpType.Enabled = true;
+                    flMainData.Enabled = true;
+                    grpSearchBox.Enabled = false;
+                }
+                else//Cancel 
+                {
+                    SetDefaultState();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
 
         }
 
@@ -85,10 +180,15 @@ namespace PeculiarTuitionERP.Master_Module
         {
             try
             {
+                _strBtnActionType = "SEARCH";
+                getLibraryInstance("UTILITY");
+                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                grpEmpType.Enabled = false;
+                flMainData.Enabled = false;
+                grpSearchBox.Enabled = true;
+                grpSearchBox.Select();
+                grpSearchBox.Focus();
 
-                CurrentAction= "SEARCH";
-                btnMainPanel.ButtonEditText = "&Cancel";
-                uti.SetPanelStatus(btnMainPanel, false, true, false, true, false, true);
             }
             catch (Exception ex)
             {
@@ -102,36 +202,154 @@ namespace PeculiarTuitionERP.Master_Module
                 SendKeys.Send("{TAB}");
         }
 
+        private Hashtable ValidateValues()
+        {
+            Hashtable htResult = new Hashtable();
+            htResult.Add("RESULT", false);
+            string notValidatedCtrlName = string.Empty;
+            List<Control> lstControls = Global.GetAllControls(this.Controls);
+            foreach (Control ctrl in lstControls)
+            {
+                if (ctrl.GetType() == typeof(TextBox))
+                {
+                    try
+                    {
+                        if (!(string.IsNullOrWhiteSpace(((TextBox)ctrl).Tag.ToString())))
+                        {
+                            if (((TextBox)ctrl).Tag.ToString().Contains(REQUIRED))
+                            {
+                                if ((string.IsNullOrEmpty(((TextBox)ctrl).Text.ToString())))
+                                {
+                                    notValidatedCtrlName += ctrl.Name.ToString() + ",";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!(ex.GetType() == typeof(NullReferenceException)))
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+                else if (ctrl.GetType() == typeof(MaskedTextBox))
+                {
+                    try
+                    {
+                        if (!(string.IsNullOrWhiteSpace(((MaskedTextBox)ctrl).Tag.ToString())))
+                        {
+                            if (((MaskedTextBox)ctrl).Tag.ToString().Contains(REQUIRED))
+                            {
+                                if (((MaskedTextBox)ctrl).MaskCompleted)
+                                {
+                                    notValidatedCtrlName += ctrl.Name.ToString() + ",";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!(ex.GetType() == typeof(NullReferenceException)))
+                        {
+                            throw ex;
+                        }
+                    }
+                    
+                }
+                else if (ctrl.GetType() == typeof(ComboBox))
+                {
+                    try
+                    {
+                        if (!(string.IsNullOrWhiteSpace(((ComboBox)ctrl).Tag.ToString())))
+                        {
+                            if (((ComboBox)ctrl).Tag.ToString().Contains(REQUIRED))
+                            {
+                                if ((string.IsNullOrEmpty(((ComboBox)ctrl).Text.ToString())))
+                                {
+                                    notValidatedCtrlName += ctrl.Name.ToString() + ",";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!(ex.GetType() == typeof(NullReferenceException)))
+                        {
+                            throw ex;
+                        }
+                    }
+                    
+                }
+                else if (ctrl.HasChildren)
+                {
+
+                }
+            }
+            if ((string.IsNullOrWhiteSpace(notValidatedCtrlName)))
+            {
+                htResult["RESULT"] = true;
+            }
+            else
+            {
+                htResult.Add("CTRL_LIST", notValidatedCtrlName);
+            }
+
+            return htResult;
+        }
+
         private Hashtable Savedata()
         {
             Hashtable Response = new Hashtable();
             try
             {
                 GetCurrentValues();
-                if (GetNullParamters.Keys.Count == 0)
+                if (true/*GetNullParamters.Keys.Count == 0*/)
                 {
-                    if (libEmpMas == null)
-                        libEmpMas = new EmpMas();
+                    getLibraryInstance("EMP");
                     if (action_flg == 'I')//Action flag for insert
                     {
-                        Response = libEmpMas.insertData(branch, action_flg, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, null, Environment.MachineName.ToString(), out errMsg);
+                        Response = libEmpMas.insertData(branch, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, "RLT", Environment.MachineName.ToString(), out errMsg);
                         if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
                         if (Response.Contains("p_flg"))
                         {
                             if (Response["p_flg"].ToString() == "Y")
                             {
-
+                                MessageBox.Show("Saved Successfully");
+                                getLibraryInstance("UTILITY");
+                                _strBtnActionType = "SAVE";
+                                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                                flMainData.Enabled = false;
+                                btnMainPanel1.Select();
                             }
                             else //Problem handle with error msg from back end
                             {
-
+                                MessageBox.Show(Response["p_msg"].ToString());
                             }
 
                         }
                     }
                     else//Action flag for update
                     {
+                        Response = libEmpMas.updateData(branch, emp_type, null, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, "RLT", Environment.MachineName.ToString(), null, out errMsg);
+                        if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
+                        if (Response.Contains("p_flg"))
+                        {
+                            if (Response["p_flg"].ToString() == "Y")
+                            {
+                                MessageBox.Show("Saved Successfully");
+                                getLibraryInstance("UTILITY");
+                                _strBtnActionType = "SAVE";
+                                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                                flMainData.Enabled = false;
+                                btnMainPanel1.Select();
+                            }
+                            else //Problem handle with error msg from back end
+                            {
+                                MessageBox.Show(Response["p_msg"].ToString());
+                            }
 
+                        }
                     }
                 }
                 else// Some Null Value are there
@@ -141,9 +359,33 @@ namespace PeculiarTuitionERP.Master_Module
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-            } 
-           
+            }
+
             return Response;
+        }
+
+
+        private void RefreshData()
+        {
+            getLibraryInstance("Emp");
+            dsEmpData = libEmpMas.FetchData("a.ENTITY_ID = 27", out errMsg);
+            if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
+            if (dsEmpData.Tables["EmpMas"].Rows.Count > 0)
+            {
+                _strBtnActionType = "REFRESH";
+                getLibraryInstance("UTILITY");
+                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                DisplayData();
+            }
+            else
+            {
+                MessageBox.Show("Record not found");
+            }
+           
+        }
+        private void DisplayData()
+        {
+            
         }
 
         private void GetCurrentValues()
@@ -184,7 +426,7 @@ namespace PeculiarTuitionERP.Master_Module
 
             {//Sex 
                 if (!string.IsNullOrEmpty(cmbSex.Text))
-                    sex = cmbSex.Text;
+                    sex = cmbSex.Text.ToString() == "Male" ? "M" : "F";
                 else
                     GetNullParamters.Add(cmbSex, String.Empty);
             }

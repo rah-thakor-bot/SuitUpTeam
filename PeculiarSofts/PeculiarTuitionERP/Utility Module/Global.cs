@@ -418,6 +418,48 @@ namespace PeculiarTuitionERP.Utility_Module
         }
         #endregion
 
+        #region Check for Required Col in Grid
+        public static Hashtable ValidateGrid(this DataGridView CtrlGrid,DataTable gridProperty)
+        {
+            try
+            {
+                Hashtable hashtable = new Hashtable();
+                if (CtrlGrid != null)
+                {
+                    DataTable changes = ((DataTable)CtrlGrid.DataSource).GetChanges();
+                    string[] requiredCol = GetColumnBehaviour(gridProperty, "REQUIRED");
+                    if (changes != null && requiredCol != null)
+                    {
+                        foreach (DataRow row in (InternalDataCollectionBase)changes.Rows)
+                        {
+                            if (row.RowState != DataRowState.Deleted)
+                            {
+                                for (int index = 0; index < requiredCol.Length; ++index)
+                                {
+                                    if (changes.Columns.Contains(requiredCol[index].ToString().Trim()) && string.IsNullOrEmpty(row[requiredCol[index].ToString().Trim()].ToString().Trim()))
+                                    {
+                                        hashtable.Add((object)"RESULT", (object)"false");
+                                        hashtable.Add((object)"COLUMN", (object)CtrlGrid.Columns[requiredCol[index].Trim()].Name);
+                                        int num = ((DataTable)CtrlGrid.DataSource).Rows.IndexOf(row);
+                                        hashtable.Add((object)"ROW", (object)num);
+                                        return hashtable;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (hashtable.Count == 0 || CtrlGrid == null)
+                    hashtable.Add((object)"RESULT", (object)"true");
+                return hashtable;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
         #region Get column behaviour method
         /// <summary>
         /// 

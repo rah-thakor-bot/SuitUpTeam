@@ -75,6 +75,7 @@ namespace PeculiarTuitionBase.MasterBase
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
                                 _intSubID = int.Parse(_htSave["p_SUB_ID"].ToString());
+                                //Inset Update Detele for Child Records
                             }
                             break;
                         case DataRowState.Modified:
@@ -96,6 +97,7 @@ namespace PeculiarTuitionBase.MasterBase
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
                                 _intSubID = int.Parse(_drRow["SUB_ID"].ToString());
+                                //Inset Update Detele for Child Records
                             }
                             break;
                         case DataRowState.Deleted:

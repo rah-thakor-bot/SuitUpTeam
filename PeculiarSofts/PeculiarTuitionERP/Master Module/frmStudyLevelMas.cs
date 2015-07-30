@@ -2,6 +2,7 @@
 using System.Data;
 using System.Collections;
 using System.Windows.Forms;
+using Private.MyUserControls;
 using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
 
@@ -86,57 +87,15 @@ namespace PeculiarTuitionERP.Master_Module
                 }
                 else
                 {
-                    Hashtable _htmas = new Hashtable();
-                    //_htmas= _objUtil.CheckGridRequriedCol(grdRptMas, "OP_RPT_MAS");
-                    _htmas.Add("RESULT", "true");
-                    if (_htmas["RESULT"].ToString() == "true")
+                    Hashtable ValGrid = new Hashtable();
+                    ValGrid = Global.ValidateGrid(grdStudyLevelMas,_dtGridFields);
+                    if (ValGrid["RESULT"].ToString() == "true")
                     {
                         Hashtable _htResult = new Hashtable();
                         _htResult = SaveData();
 
                         if (_htResult["RESULT"].ToString().Trim() == "true")
                         {
-                            //if (_htResult["TIMESTAMP"].ToString() != "")
-                            //{
-                            //    string _strMessage = _htResult["TIMESTAMP"].ToString();
-                            //    //_strMessage = _strMessage.Replace("Timestamp  Error : ", "Following " + Resources.TimeStampMessage);
-                            //    _strMessage += "Rest of Records ";
-
-                            //    //if (_strActionType == "Add")
-                            //    //    _strMessage += Resources.InsertMessage;
-                            //    //else
-                            //    //    _strMessage += Resources.UpdateMessage;
-
-                            //    //Global.Information(_strMessage, Resources.DialogText);
-                            //}
-                            //else
-                            //{
-                            //    //if (_strActionType == "Add")
-                            //    //    Global.Information(Resources.InsertMessage, Resources.DialogText);
-                            //    //else
-                            //    //    Global.Information(Resources.UpdateMessage, Resources.DialogText);
-
-                            //    //grdMas.RequiredCol = null;
-
-
-
-                            //    //_dtMas.AcceptChanges();
-                            //    //grdSubjectMaster.DataSource = _dtMas;
-
-
-                            //    //grdRptMas.RequiredCol = _strReqColMas;
-
-
-                            //}
-                            //if (_dtMas != null && _dtMas.Rows.Count > 0)
-                            //{
-                            //    btnMainPanel.ButtonEditEnable = true;
-                            //}
-                            //else
-                            //{
-                            //    btnMainPanel.ButtonEditEnable = false;
-                            //}
-
                             MessageBox.Show("Saved Succesfully.");
                             getLibraryInstance("UTILITY");
                             _strBtnActionType = "SAVE";
@@ -144,13 +103,6 @@ namespace PeculiarTuitionERP.Master_Module
                             grdStudyLevelMas.ReadOnly = true;
                             btnMainPanel1.Select();
                         }
-
-                        else if (_htResult.Contains("ROW"))
-                        {
-                            //
-                            //
-                        }
-
                         else
                         {
                             //Global.Information(string.Format(Resources.EmptyOrNullException, "RPT_ID"), Resources.DialogText);
@@ -159,16 +111,26 @@ namespace PeculiarTuitionERP.Master_Module
 
                     else
                     {
-                        uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                        MessageBox.Show("Some fields are required");
+                        if (grdStudyLevelMas != null && grdStudyLevelMas.CurrentCell != null && grdStudyLevelMas.CurrentCell.RowIndex != 0)
+                        {
+                            grdStudyLevelMas.Select();
+                            grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[grdStudyLevelMas.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
+                        }
+                        else
+                        {
+                            grdStudyLevelMas.Focus();
+                        }
+                        
+                        return;
+                        
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-
         }
 
         private void btnMainPanel1_btnCloseClick(object sender, EventArgs e)
@@ -200,7 +162,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -224,7 +186,7 @@ namespace PeculiarTuitionERP.Master_Module
                     getLibraryInstance("UTILITY");
                     uti.SetPanelStatus(btnMainPanel1, "LOAD");
                     btnMainPanel1.Focus();
-                    btnMainPanel1.SetFocus(Private.MyUserControls.ButtonPanelControl.Action.Add);
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                 }
             }
             catch (Exception ex)
@@ -294,7 +256,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         private Hashtable SaveData()
         {
-            Hashtable _htSave = null;
+            Hashtable _htSave = new Hashtable();
             try
             {
                 getLibraryInstance("STUDY_LEVEL");
@@ -332,7 +294,7 @@ namespace PeculiarTuitionERP.Master_Module
         {
             try
             {
-                grdStudyLevelMas.AllowUserToAddRows = true;
+                
 
                 _strBtnActionType= "SEARCH";
                 if (_dtStudyLevelMas != null)
@@ -341,7 +303,8 @@ namespace PeculiarTuitionERP.Master_Module
                     _dtStudyLevelMas.AcceptChanges();
                 }
                 getLibraryInstance("UTILITY");
-                uti.SetPanelStatus(btnMainPanel1, "SEARCH");
+                grdStudyLevelMas.AllowUserToAddRows = true;
+                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                 grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[0].Cells["STD_ID"];
                 grdStudyLevelMas.Rows[0].Cells["STD_ID"].Value = DBNull.Value;
                 grdStudyLevelMas.Focus();
@@ -417,8 +380,7 @@ namespace PeculiarTuitionERP.Master_Module
                 //Dispose or Nullify Objects
             }
         }
-
-
+        
         #endregion
     }
 }

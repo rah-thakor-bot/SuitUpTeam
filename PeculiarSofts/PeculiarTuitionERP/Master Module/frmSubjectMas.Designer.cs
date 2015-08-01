@@ -30,19 +30,19 @@
         {
             this.grpSubjectMaster = new System.Windows.Forms.GroupBox();
             this.grpChapterDetail = new System.Windows.Forms.GroupBox();
-            this.grdChapterDetail = new System.Windows.Forms.DataGridView();
-            this.grdSubjectMaster = new System.Windows.Forms.DataGridView();
+            this.grdChpDet = new System.Windows.Forms.DataGridView();
+            this.grdSubMas = new System.Windows.Forms.DataGridView();
             this.btnMainPanel1 = new Private.MyUserControls.ButtonPanelControl();
             this.grpSubjectMaster.SuspendLayout();
             this.grpChapterDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdChapterDetail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdSubjectMaster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdChpDet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdSubMas)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSubjectMaster
             // 
             this.grpSubjectMaster.Controls.Add(this.grpChapterDetail);
-            this.grpSubjectMaster.Controls.Add(this.grdSubjectMaster);
+            this.grpSubjectMaster.Controls.Add(this.grdSubMas);
             this.grpSubjectMaster.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpSubjectMaster.Location = new System.Drawing.Point(0, 0);
             this.grpSubjectMaster.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -55,7 +55,7 @@
             // 
             // grpChapterDetail
             // 
-            this.grpChapterDetail.Controls.Add(this.grdChapterDetail);
+            this.grpChapterDetail.Controls.Add(this.grdChpDet);
             this.grpChapterDetail.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpChapterDetail.Location = new System.Drawing.Point(3, 298);
             this.grpChapterDetail.Name = "grpChapterDetail";
@@ -64,25 +64,25 @@
             this.grpChapterDetail.TabStop = false;
             this.grpChapterDetail.Text = "Chapter Detail";
             // 
-            // grdChapterDetail
+            // grdChpDet
             // 
-            this.grdChapterDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdChapterDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdChapterDetail.Location = new System.Drawing.Point(3, 21);
-            this.grdChapterDetail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grdChapterDetail.Name = "grdChapterDetail";
-            this.grdChapterDetail.Size = new System.Drawing.Size(1282, 315);
-            this.grdChapterDetail.TabIndex = 1;
+            this.grdChpDet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdChpDet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdChpDet.Location = new System.Drawing.Point(3, 21);
+            this.grdChpDet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grdChpDet.Name = "grdChpDet";
+            this.grdChpDet.Size = new System.Drawing.Size(1282, 315);
+            this.grdChpDet.TabIndex = 1;
             // 
-            // grdSubjectMaster
+            // grdSubMas
             // 
-            this.grdSubjectMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdSubjectMaster.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grdSubjectMaster.Location = new System.Drawing.Point(3, 22);
-            this.grdSubjectMaster.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grdSubjectMaster.Name = "grdSubjectMaster";
-            this.grdSubjectMaster.Size = new System.Drawing.Size(1288, 276);
-            this.grdSubjectMaster.TabIndex = 0;
+            this.grdSubMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdSubMas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grdSubMas.Location = new System.Drawing.Point(3, 22);
+            this.grdSubMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grdSubMas.Name = "grdSubMas";
+            this.grdSubMas.Size = new System.Drawing.Size(1288, 276);
+            this.grdSubMas.TabIndex = 0;
             // 
             // btnMainPanel1
             // 
@@ -140,8 +140,8 @@
             this.Load += new System.EventHandler(this.frmSubjectMas_Load);
             this.grpSubjectMaster.ResumeLayout(false);
             this.grpChapterDetail.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdChapterDetail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdSubjectMaster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdChpDet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdSubMas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -151,7 +151,7 @@
         private System.Windows.Forms.GroupBox grpSubjectMaster;
         private Private.MyUserControls.ButtonPanelControl btnMainPanel1;
         private System.Windows.Forms.GroupBox grpChapterDetail;
-        private System.Windows.Forms.DataGridView grdChapterDetail;
-        public System.Windows.Forms.DataGridView grdSubjectMaster;
+        private System.Windows.Forms.DataGridView grdChpDet;
+        public System.Windows.Forms.DataGridView grdSubMas;
     }
 }

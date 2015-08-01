@@ -18,7 +18,7 @@ namespace PeculiarTuitionERP.Master_Module
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string ErrorMsg = string.Empty;
-        string[] strSubChkBxColName;
+        string[] strSubChkBxColName, strChpChkBxColName;
         string[] strSubCmbColName, strChpCmbColName;
 
         DataSet dsMain;
@@ -70,37 +70,37 @@ namespace PeculiarTuitionERP.Master_Module
                 {
                     Hashtable ValChpGrid = new Hashtable();
                     bool saveFlg = true;
-                    ValChpGrid = Global.ValidateGrid(this.grdChapterDetail, _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChapterDetail.Name + "'").CopyToDataTable());
+                    ValChpGrid = Global.ValidateGrid(this.grdChpDet, "ChpMas", _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable());
                     if (ValChpGrid["RESULT"].ToString() == "false")
                     {
                         saveFlg = false;
-                        MessageBox.Show(string.Format("Following fields are Required" + grdChapterDetail.Columns[ValChpGrid["COLUMN"].ToString()].HeaderText));
+                        MessageBox.Show(string.Format("Following fields are Required" + grdChpDet.Columns[ValChpGrid["COLUMN"].ToString()].HeaderText));
 
-                        if (grdChapterDetail != null && grdChapterDetail.CurrentCell != null && grdChapterDetail.CurrentCell.RowIndex != 0)
+                        if (grdChpDet != null && grdChpDet.CurrentCell != null && grdChpDet.CurrentCell.RowIndex != 0)
                         {
-                            grdChapterDetail.CurrentCell = grdChapterDetail.Rows[grdChapterDetail.CurrentCell.RowIndex].Cells[ValChpGrid["COLUMN"].ToString()];
+                            grdChpDet.CurrentCell = grdChpDet.Rows[grdChpDet.CurrentCell.RowIndex].Cells[ValChpGrid["COLUMN"].ToString()];
                         }
                         else
                         {
-                            grdChapterDetail.Focus();
+                            grdChpDet.Focus();
                             //grdChapterDetail.SetCurrentCell("PROC_ID", true);
                         }
                         return;
                     }
                     Hashtable ValSubGrid = new Hashtable();
-                    ValSubGrid = Global.ValidateGrid(this.grdSubjectMaster, _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdSubjectMaster.Name + "'").CopyToDataTable());
+                    ValSubGrid = Global.ValidateGrid(this.grdSubMas, "SubMas", _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdSubMas.Name + "'").CopyToDataTable());
                     if (ValSubGrid["RESULT"].ToString() == "false")
                     {
                         saveFlg = false;
-                        MessageBox.Show(string.Format("Following fields are Required" + grdSubjectMaster.Columns[ValSubGrid["COLUMN"].ToString()].HeaderText));
+                        MessageBox.Show(string.Format("Following fields are Required" + grdSubMas.Columns[ValSubGrid["COLUMN"].ToString()].HeaderText));
 
-                        if (grdSubjectMaster != null && grdSubjectMaster.CurrentCell != null && grdSubjectMaster.CurrentCell.RowIndex != 0)
+                        if (grdSubMas != null && grdSubMas.CurrentCell != null && grdSubMas.CurrentCell.RowIndex != 0)
                         {
-                            grdSubjectMaster.CurrentCell = grdSubjectMaster.Rows[grdSubjectMaster.CurrentCell.RowIndex].Cells[ValSubGrid["COLUMN"].ToString()];
+                            grdSubMas.CurrentCell = grdSubMas.Rows[grdSubMas.CurrentCell.RowIndex].Cells[ValSubGrid["COLUMN"].ToString()];
                         }
                         else
                         {
-                            grdSubjectMaster.Focus();
+                            grdSubMas.Focus();
                             //grdSubjectMaster.SetCurrentCell("PROC_ID", true);
                         }
                         return;
@@ -138,31 +138,31 @@ namespace PeculiarTuitionERP.Master_Module
             _strBtnActionType = "DELETE";
             try
             {
-                grdSubjectMaster.Select();
-                grdSubjectMaster.Focus();
-                if (grdSubjectMaster.Focused && grdSubjectMaster.SelectedRows.Count > 0)
+                grdSubMas.Select();
+                grdSubMas.Focus();
+                if (grdSubMas.Focused && grdSubMas.SelectedRows.Count > 0)
                 {
                     if (MessageBox.Show("Do you want to delete Record(s)?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        grdSubjectMaster.AllowUserToDeleteRows = true;
-                        foreach (DataGridViewRow _drMasRow in grdSubjectMaster.SelectedRows)
+                        grdSubMas.AllowUserToDeleteRows = true;
+                        foreach (DataGridViewRow _drMasRow in grdSubMas.SelectedRows)
                         {
                             if (_drMasRow.IsNewRow == false)
-                                grdSubjectMaster.Rows.Remove(_drMasRow);
+                                grdSubMas.Rows.Remove(_drMasRow);
                             else
                                 _drMasRow.Selected = false;
                         }
                     }
                 }
-                else if (grdChapterDetail.Focused && grdChapterDetail.SelectedRows.Count > 0)
+                else if (grdChpDet.Focused && grdChpDet.SelectedRows.Count > 0)
                 {
                     if (MessageBox.Show("Do you want to delete Record(s)?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        grdChapterDetail.AllowUserToDeleteRows = true;
-                        foreach (DataGridViewRow _drMasRow in grdChapterDetail.SelectedRows)
+                        grdChpDet.AllowUserToDeleteRows = true;
+                        foreach (DataGridViewRow _drMasRow in grdChpDet.SelectedRows)
                         {
                             if (_drMasRow.IsNewRow == false)
-                                grdChapterDetail.Rows.Remove(_drMasRow);
+                                grdChpDet.Rows.Remove(_drMasRow);
                             else
                                 _drMasRow.Selected = false;
                         }
@@ -230,36 +230,36 @@ namespace PeculiarTuitionERP.Master_Module
             switch (_strBtnActionType.ToUpper())
             {
                 case "LOAD":
-                    grdSubjectMaster.ReadOnly = true;
-                    grdChapterDetail.ReadOnly = false;
-                    grdSubjectMaster.AllowUserToAddRows = false;
-                    grdChapterDetail.AllowUserToAddRows = false;
+                    grdSubMas.ReadOnly = true;
+                    grdChpDet.ReadOnly = false;
+                    grdSubMas.AllowUserToAddRows = false;
+                    grdChpDet.AllowUserToAddRows = false;
                     btnMainPanel1.Select();
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 case "ADD":
-                    grdSubjectMaster.ReadOnly = false;
-                    grdChapterDetail.ReadOnly = false;
-                    grdSubjectMaster.AllowUserToAddRows = true;
-                    grdChapterDetail.AllowUserToAddRows = true;
-                    grdSubjectMaster.Focus();
-                    grdSubjectMaster.CurrentCell = grdSubjectMaster.Rows[grdSubjectMaster.Rows.Count - 1].Cells["SUB_ID"];
+                    grdSubMas.ReadOnly = false;
+                    grdChpDet.ReadOnly = false;
+                    grdSubMas.AllowUserToAddRows = true;
+                    grdChpDet.AllowUserToAddRows = true;
+                    grdSubMas.Focus();
+                    grdSubMas.CurrentCell = grdSubMas.Rows[grdSubMas.Rows.Count - 1].Cells["SUB_ID"];
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     break;
                 case "EDIT":
-                    grdSubjectMaster.AllowUserToAddRows = true;
-                    grdChapterDetail.AllowUserToAddRows = true;
-                    grdSubjectMaster.ReadOnly = false;
-                    grdChapterDetail.ReadOnly = false;
-                    grdSubjectMaster.Focus();
+                    grdSubMas.AllowUserToAddRows = true;
+                    grdChpDet.AllowUserToAddRows = true;
+                    grdSubMas.ReadOnly = false;
+                    grdChpDet.ReadOnly = false;
+                    grdSubMas.Focus();
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     break;
                 case "SAVE":
-                    grdSubjectMaster.ReadOnly = true;
-                    grdChapterDetail.ReadOnly = true;
-                    grdSubjectMaster.AllowUserToAddRows = false;
-                    grdChapterDetail.AllowUserToAddRows = false;
+                    grdSubMas.ReadOnly = true;
+                    grdChpDet.ReadOnly = true;
+                    grdSubMas.AllowUserToAddRows = false;
+                    grdChpDet.AllowUserToAddRows = false;
                     uti.SetPanelStatus(btnMainPanel1, "LOAD");
                     btnMainPanel1.Select();
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
@@ -267,32 +267,33 @@ namespace PeculiarTuitionERP.Master_Module
                 case "SEARCH":
                     if (dsMain != null)
                     {
-                        dsMain.Tables.Clear();
+                        dsMain.Tables["SubMas"].Rows.Clear();
+                        dsMain.Tables["ChpMas"].Rows.Clear();
                         dsMain.AcceptChanges();
                     }
-                    grdSubjectMaster.ReadOnly = false;
-                    grdSubjectMaster.AllowUserToAddRows = true;
-                    grdChapterDetail.ReadOnly = false;
-                    grdChapterDetail.AllowUserToAddRows = true;
-                    grdSubjectMaster.Focus();
-                    grdSubjectMaster.CurrentCell = grdSubjectMaster.Rows[0].Cells["SUB_ID"];
-                    grdSubjectMaster.Rows[0].Cells["SUB_ID"].Value = DBNull.Value;
+                    grdSubMas.ReadOnly = false;
+                    grdSubMas.AllowUserToAddRows = true;
+                    grdChpDet.ReadOnly = false;
+                    grdChpDet.AllowUserToAddRows = true;
+                    grdSubMas.Focus();
+                    grdSubMas.CurrentCell = grdSubMas.Rows[0].Cells["SUB_ID"];
+                    grdSubMas.Rows[0].Cells["SUB_ID"].Value = DBNull.Value;
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     break;
                 case "REFRESH":
-                    grdSubjectMaster.ReadOnly = true;
-                    grdSubjectMaster.AllowUserToAddRows = false;
-                    grdChapterDetail.ReadOnly = true;
-                    grdChapterDetail.AllowUserToAddRows = false;
+                    grdSubMas.ReadOnly = true;
+                    grdSubMas.AllowUserToAddRows = false;
+                    grdChpDet.ReadOnly = true;
+                    grdChpDet.AllowUserToAddRows = false;
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     btnMainPanel1.Select();
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Edit);
                     break;
                 case "CANCEL":
-                    grdSubjectMaster.AllowUserToAddRows = true;
-                    grdChapterDetail.AllowUserToAddRows = true;
-                    grdSubjectMaster.ReadOnly = true;
-                    grdSubjectMaster.ReadOnly = true;
+                    grdSubMas.AllowUserToAddRows = true;
+                    grdChpDet.AllowUserToAddRows = true;
+                    grdSubMas.ReadOnly = true;
+                    grdSubMas.ReadOnly = true;
                     uti.SetPanelStatus(btnMainPanel1, "LOAD");
                     btnMainPanel1.Focus();
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
@@ -324,6 +325,7 @@ namespace PeculiarTuitionERP.Master_Module
             }
 
         }
+
         private void LoadGrid()
         {
 
@@ -335,40 +337,44 @@ namespace PeculiarTuitionERP.Master_Module
                 return;
             }
 
-            dsMain = _libSubjectMas.FetchData("1=1", out ErrorMsg);
+            dsMain = _libSubjectMas.FetchData("1=2", out ErrorMsg);
             if (!string.IsNullOrEmpty(ErrorMsg))
             {
                 MessageBox.Show(ErrorMsg);
                 return;
             }
 
-            Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubjectMaster.Name + "'").CopyToDataTable(), out strSubChkBxColName);
-            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubjectMaster.Name + "'").CopyToDataTable(), out strSubCmbColName, out grdSubCmbCol);
-            Global.GridBindingSource(ref grdSubjectMaster, _dtGridDescriptor.Select("CTRL_NAME = '" + grdSubjectMaster.Name + "'").CopyToDataTable(), null, null, strSubChkBxColName, dsMain.Tables["SubMas"]);
+            Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), out strSubChkBxColName);
+            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), out strSubCmbColName, out grdSubCmbCol);
+            Global.GridBindingSource(ref grdSubMas, _dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), strSubCmbColName == null ? null : strSubCmbColName, grdSubCmbCol == null ? null : grdSubCmbCol, strSubChkBxColName, dsMain.Tables["SubMas"]);
 
-            //Global.AcquireGridCheckBoxColumn(_dtGridChapter, out strChpChkBxColName);
-            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + this.grpChapterDetail.Name + "'").CopyToDataTable(), out strChpCmbColName, out grdChpCmbCol);
-            Global.GridBindingSource(ref this.grdChapterDetail, _dtGridDescriptor.Select("CTRL_NAME = '" + this.grpChapterDetail.Name + "'").CopyToDataTable(), strChpCmbColName, grdChpCmbCol, null, dsMain.Tables["ChpDet"]);
+            Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), out strChpChkBxColName);
+            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), out strChpCmbColName, out grdChpCmbCol);
+            Global.GridBindingSource(ref grdChpDet, _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), strChpCmbColName == null ? null : strChpCmbColName, grdChpCmbCol == null ? null : grdChpCmbCol, strChpChkBxColName == null ? null : strChpChkBxColName, dsMain.Tables["ChpMas"]);
             MapRelOverGrids();
+            _strBtnActionType = "LOAD";
+            getLibraryInstance("UTILITY");
+            uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+            UpdateControlBehaviour();
         }
 
         private void MapRelOverGrids()
         {
-            dsMain.Relations.Add("RelationDet", new DataColumn[] { dsMain.Tables["SubMas"].Columns["SUB_ID"] }, new DataColumn[] { dsMain.Tables["ChpDet"].Columns["REF_SUB_ID"] });
+            dsMain.Relations.Add("RelationDet", new DataColumn[] { dsMain.Tables["SubMas"].Columns["SUB_ID"] }, new DataColumn[] { dsMain.Tables["ChpMas"].Columns["REF_SUB_ID"] });
 
-            grdSubjectMaster.DataSource = dsMain;
-            grdSubjectMaster.DataMember = "SubMas";
+            grdSubMas.DataSource = dsMain;
+            grdSubMas.DataMember = "SubMas";
 
-            grdChapterDetail.DataSource = dsMain;
-            grdChapterDetail.DataMember = "SubMas.RelationDet";
+            grdChpDet.DataSource = dsMain;
+            grdChpDet.DataMember = "SubMas.RelationDet";
 
             dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrement = true;
             dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementSeed = -1;
             dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementStep = -1;
 
-            dsMain.Tables["ChpDet"].Columns["SEQNO"].AutoIncrement = true;
-            dsMain.Tables["ChpDet"].Columns["SEQNO"].AutoIncrementSeed = -1;
-            dsMain.Tables["ChpDet"].Columns["SEQNO"].AutoIncrementStep = -1;
+            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrement = true;
+            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementSeed = -1;
+            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementStep = -1;
 
         }
         private Hashtable SaveData()
@@ -376,8 +382,23 @@ namespace PeculiarTuitionERP.Master_Module
             try
             {
                 Hashtable _htSave = new Hashtable();
-                getLibraryInstance("Subject");
-
+                if (dsMain.GetChanges() != null)
+                {
+                    getLibraryInstance("Subject");
+                    _htSave = _libSubjectMas.SaveData("NULL", "RLT", Environment.MachineName.ToString(), ref dsMain, out ErrorMsg);
+                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                }
+                else
+                {
+                    _htSave.Add("RESULT", "false");
+                }
+                if (_htSave["RESULT"].ToString().Trim() == "false")
+                {
+                    if (ErrorMsg != null)
+                    {
+                        throw new Exception(ErrorMsg.ToString());
+                    }
+                }
                 return _htSave;
 
             }

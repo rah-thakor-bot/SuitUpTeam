@@ -79,5 +79,25 @@ namespace PeculiarTuitionERP.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vector_wallpaper_black_7126_hd_wallpapers {
+            get {
+                object obj = ResourceManager.GetObject("vector-wallpaper-black-7126-hd-wallpapers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wallpapers {
+            get {
+                object obj = ResourceManager.GetObject("wallpapers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

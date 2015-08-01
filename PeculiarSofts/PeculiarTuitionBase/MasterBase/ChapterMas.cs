@@ -29,10 +29,10 @@ namespace PeculiarTuitionBase.MasterBase
             return null;
         }
 
-        public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataSet p_ds, out string p_err)
+        public Hashtable SaveData(string p_brid, string p_user, string p_terminal, ref DataSet p_ds, out string p_err)
         {
             #region variable Declaration
-            int _intNumRecords = 0, _intRptId = 0;
+            int _intNumRecords = 0, _intSeqno = 0;
             string _strCriteria = string.Empty;
             string _strErrMsg = "";
             string _strTimeStampErrMsg = "Timestamp  Error : \n";
@@ -48,61 +48,59 @@ namespace PeculiarTuitionBase.MasterBase
             {
                 _base.Connect();
                 DataTable _dtMas = p_ds.Tables["ChpMas"].GetChanges();
-                
-
                 foreach (DataRow _drRow in _dtMas.Rows)
                 {
                     switch (_drRow.RowState)
                     {
                         case DataRowState.Added:
                             _base.BeginTransaction(IsolationLevel.ReadCommitted);
-                            _htSave = Add(p_brid, p_coid, p_user, p_terminal, _drRow);
+                            _htSave = Add(p_brid, p_user, p_terminal, _drRow);
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strInsertErrMsg += "Report Id " + _drRow["RPT_ID"].ToString() + "";
+                                _strInsertErrMsg += "Seqno " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                _intRptId = int.Parse(_htSave["p_rpt_id"].ToString());
+                                _intSeqno = int.Parse(_htSave["p_seqno"].ToString());
                             }
                             break;
                         case DataRowState.Modified:
                             _base.BeginTransaction(IsolationLevel.ReadCommitted);
-                            _htSave = Update(p_brid, p_coid, p_user, p_terminal, _drRow);
+                            _htSave = Update(p_brid,  p_user, p_terminal, _drRow);
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID"].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strUpdateErrMsg += "Report Id. = " + _drRow["RPT_ID"].ToString() + "";
+                                _strUpdateErrMsg += "Seqno. = " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "Y")
                             {
-                                _intRptId = int.Parse(_drRow["RPT_ID"].ToString());
+                                _intSeqno = int.Parse(_drRow["SEQNO"].ToString());
                             }
                             break;
                         case DataRowState.Deleted:
                             _base.BeginTransaction(IsolationLevel.ReadCommitted);
 
-                            _htSave = Delete(p_brid, p_coid, p_user, p_terminal, _drRow);
+                            _htSave = Delete(p_brid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strTimeStampErrMsg += "Report Id. = " + _drRow["RPT_ID", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -112,18 +110,18 @@ namespace PeculiarTuitionBase.MasterBase
                     DataRow[] _drRows = null;
                     if (_drRow.RowState != DataRowState.Deleted)
                     {
-                        _drRows = p_ds.Tables["OP_RPT_MAS"].Select("RPT_ID = " + _drRow["RPT_ID"]);
+                        _drRows = p_ds.Tables["ChpMas"].Select("seqno = " + _drRow["SEQNO"]);
                         if (_drRow.RowState == DataRowState.Added)
                         {
-                            p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])]["RPT_ID"] = _intRptId;
+                            p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])]["SEQNO"] = _intSeqno;
                         }
-                        p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        //p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
-                        _drRows = p_ds.Tables["OP_RPT_MAS"].Select("RPT_ID =" + _drRow["RPT_ID", DataRowVersion.Original], "", DataViewRowState.Deleted);
+                        _drRows = p_ds.Tables["ChpMas"].Select("seqno =" + _drRow["SEQNO", DataRowVersion.Original], "", DataViewRowState.Deleted);
                     }
-                    p_ds.Tables["OP_RPT_MAS"].Rows[p_ds.Tables["OP_RPT_MAS"].Rows.IndexOf(_drRows[0])].AcceptChanges();
+                    p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])].AcceptChanges();
                     _intNumRecords += 1;
                     _base.Commit();
                 }
@@ -158,51 +156,27 @@ namespace PeculiarTuitionBase.MasterBase
             return _htSave;
         }
 
-        private Hashtable Add(string p_brid, string p_coid, string p_user, string p_term, DataRow p_dr)
+        private Hashtable Add(string p_brid, string p_user, string p_term, DataRow p_dr)
         {
             Hashtable _htAdd = new Hashtable();
             try
             {
                 _base.AddInParam("P_BRID", DbType.String, p_brid);
-                _base.AddInParam("P_COID", DbType.String, p_coid);
-                _base.AddInParam("P_RPT_NAME", DbType.String, p_dr["RPT_NAME"]);
-                _base.AddInParam("P_RPT_SHORT_NAME", DbType.String, p_dr["RPT_SHORT_NAME"]);
-                _base.AddInParam("P_MFG_CODE", DbType.String, p_dr["MFG_CODE"]);
-                _base.AddInParam("P_NO_OF_TIME", DbType.Int32, p_dr["NO_OF_TIME"]);
-                _base.AddInParam("P_PROC_FLG", DbType.String, p_dr["PROC_FLG"].ToString() == "" ? "N" : p_dr["PROC_FLG"].ToString());
-                _base.AddInParam("P_PARA_FLG", DbType.String, p_dr["PARA_FLG"].ToString() == "" ? "N" : p_dr["PARA_FLG"].ToString());
-                _base.AddInParam("P_RPT_GRP", DbType.String, p_dr["RPT_GRP"].ToString() == "" ? "N" : p_dr["RPT_GRP"].ToString());
-                _base.AddInParam("P_EXP_POL_FLG", DbType.String, p_dr["EXP_POL_FLG"].ToString() == "" ? "N" : p_dr["EXP_POL_FLG"].ToString());
-                _base.AddInParam("P_REP_FLG", DbType.String, p_dr["REP_FLG"].ToString() == "" ? "N" : p_dr["REP_FLG"].ToString());
-                _base.AddInParam("P_SELF_OP_FLG", DbType.String, p_dr["SELF_OP_FLG"].ToString() == "" ? "N" : p_dr["SELF_OP_FLG"].ToString());
-                _base.AddInParam("P_PROC_TYPE", DbType.String, p_dr["PROC_TYPE"]);
-                _base.AddInParam("P_PROC_ID", DbType.Int32, p_dr["PROC_ID"]);
-                _base.AddInParam("P_IS_ACTIVE", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                //_base.AddInParam("P_EXP_POL_FLG", DbType.String, p_dr["EXP_POL_FLG"]);
-                _base.AddInParam("P_COMP_AT", DbType.String, p_dr["COMP_AT"]);
-                _base.AddInParam("P_OP_TYPE", DbType.String, p_dr["OP_TYPE"].ToString() == "" ? "N" : p_dr["OP_TYPE"].ToString());
-                _base.AddInParam("P_EXP_POL_FLG1", DbType.String, p_dr["EXP_POL_FLG1"].ToString() == "" ? "N" : p_dr["EXP_POL_FLG1"].ToString());
-                _base.AddInParam("P_IS_THIRD_OP", DbType.String, p_dr["IS_THIRD_OP"].ToString() == "" ? "N" : p_dr["IS_THIRD_OP"].ToString());
-                _base.AddInParam("P_MUL_PLN_FLG", DbType.String, p_dr["MUL_PLN_FLG"].ToString() == "" ? "N" : p_dr["IS_THIRD_OP"].ToString());
-                _base.AddInParam("P_ALLOW_TO", DbType.String, p_dr["ALLOW_TO"].ToString() == "" ? "N" : p_dr["IS_THIRD_OP"].ToString());
-                _base.AddInParam("P_GRP", DbType.String, p_dr["GRP"]);
-                _base.AddInParam("P_ORD", DbType.Int32, p_dr["ORD"]);
-                _base.AddInParam("P_FLG1", DbType.String, p_dr["FLG1"]);
-                _base.AddInParam("P_REMARK", DbType.String, p_dr["REMARK"]);
+                
                 _base.AddInParam("P_ENT_USER", DbType.String, p_user);
                 _base.AddInParam("P_ENT_TERM", DbType.String, p_term);
                 _base.AddInParam("p_comma_sp_flg", DbType.String, p_dr["COMMA_SP_FLG"].ToString() == "" ? null : p_dr["COMMA_SP_FLG"].ToString());
                 _base.AddOutParam("P_TIME_STAMP", DbType.String, 50);
                 _base.AddOutParam("P_MSG", DbType.String, 50);
                 _base.AddOutParam("P_FLG", DbType.String, 1);
-                _base.AddOutParam("P_RPT_ID", DbType.Int64, 6);
+                _base.AddOutParam("P_seqno", DbType.Int64, 6);
 
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_INS");
+                _base.ExecSPWithTransaction("PKG_ChpMas.PRC_MAS_INS");
 
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                _htAdd.Add("p_rpt_id", _base.GetParameterValue("p_rpt_id"));
+                _htAdd.Add("p_seqno", _base.GetParameterValue("p_seqno"));
                 _htAdd.Add("P_TIME_STAMP", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
@@ -212,38 +186,13 @@ namespace PeculiarTuitionBase.MasterBase
             }
         }
 
-        private Hashtable Update(string p_brid, string p_coid, string p_user, string p_term, DataRow p_dr)
+        private Hashtable Update(string p_brid,  string p_user, string p_term, DataRow p_dr)
         {
             Hashtable _htUpd = new Hashtable();
             try
             {
                 _base.AddInParam("P_BRID", DbType.String, p_brid);
-                _base.AddInParam("P_COID", DbType.String, p_coid);
-                _base.AddInParam("P_RPT_ID", DbType.Int32, p_dr["RPT_ID"]);
-                _base.AddInParam("P_RPT_NAME", DbType.String, p_dr["RPT_NAME"]);
-                _base.AddInParam("P_RPT_SHORT_NAME", DbType.String, p_dr["RPT_SHORT_NAME"]);
-                _base.AddInParam("P_MFG_CODE", DbType.String, p_dr["MFG_CODE"]);
-                _base.AddInParam("P_NO_OF_TIME", DbType.Int32, p_dr["NO_OF_TIME"]);
-                _base.AddInParam("P_PROC_FLG", DbType.String, p_dr["PROC_FLG"].ToString() == "" ? "N" : p_dr["PROC_FLG"].ToString());
-                _base.AddInParam("P_PARA_FLG", DbType.String, p_dr["PARA_FLG"].ToString() == "" ? "N" : p_dr["PARA_FLG"].ToString());
-                _base.AddInParam("P_RPT_GRP", DbType.String, p_dr["RPT_GRP"].ToString() == "" ? "N" : p_dr["RPT_GRP"].ToString());
-                _base.AddInParam("P_EXP_POL_FLG", DbType.String, p_dr["EXP_POL_FLG"].ToString() == "" ? "N" : p_dr["EXP_POL_FLG"].ToString());
-                _base.AddInParam("P_REP_FLG", DbType.String, p_dr["REP_FLG"].ToString() == "" ? "N" : p_dr["REP_FLG"].ToString());
-                _base.AddInParam("P_SELF_OP_FLG", DbType.String, p_dr["SELF_OP_FLG"].ToString() == "" ? "N" : p_dr["SELF_OP_FLG"].ToString());
-                _base.AddInParam("P_PROC_TYPE", DbType.String, p_dr["PROC_TYPE"]);
-                _base.AddInParam("P_PROC_ID", DbType.Int32, p_dr["PROC_ID"]);
-                _base.AddInParam("P_IS_ACTIVE", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                //_base.AddInParam("P_EXP_POL_FLG", DbType.String, p_dr["EXP_POL_FLG"]);
-                _base.AddInParam("P_COMP_AT", DbType.String, p_dr["COMP_AT"]);
-                _base.AddInParam("P_OP_TYPE", DbType.String, p_dr["OP_TYPE"].ToString() == "" ? "N" : p_dr["OP_TYPE"].ToString());
-                _base.AddInParam("P_EXP_POL_FLG1", DbType.String, p_dr["EXP_POL_FLG1"].ToString() == "" ? "N" : p_dr["EXP_POL_FLG1"].ToString());
-                _base.AddInParam("P_IS_THIRD_OP", DbType.String, p_dr["IS_THIRD_OP"].ToString() == "" ? "N" : p_dr["IS_THIRD_OP"].ToString());
-                _base.AddInParam("P_MUL_PLN_FLG", DbType.String, p_dr["MUL_PLN_FLG"].ToString() == "" ? "N" : p_dr["MUL_PLN_FLG"].ToString());
-                _base.AddInParam("P_ALLOW_TO", DbType.String, p_dr["ALLOW_TO"].ToString() == "" ? "N" : p_dr["ALLOW_TO"].ToString());
-                _base.AddInParam("P_GRP", DbType.String, p_dr["GRP"]);
-                _base.AddInParam("P_ORD", DbType.Int32, p_dr["ORD"]);
-                _base.AddInParam("P_FLG1", DbType.String, p_dr["FLG1"]);
-                _base.AddInParam("P_REMARK", DbType.String, p_dr["REMARK"]);
+                
                 _base.AddInParam("P_UPD_USER", DbType.String, p_user);
                 _base.AddInParam("P_UPD_TERM", DbType.String, p_term);
                 _base.AddInParam("p_comma_sp_flg", DbType.String, p_dr["COMMA_SP_FLG"].ToString() == "" ? null : p_dr["COMMA_SP_FLG"].ToString());
@@ -254,7 +203,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddOutParam("P_FLG", DbType.String, 1);
 
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_UPD");
+                _base.ExecSPWithTransaction("PKG_ChpMas.PRC_MAS_UPD");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
@@ -270,23 +219,20 @@ namespace PeculiarTuitionBase.MasterBase
 
         }
 
-        private Hashtable Delete(string p_brid, string p_coid, string p_user, string p_term, DataRow p_dr)
+        private Hashtable Delete(string p_brid, string p_user, string p_term, DataRow p_dr)
         {
             Hashtable _htDel = new Hashtable();
             try
             {
                 _base.Connect();
                 _base.AddInParam("p_brid", DbType.String, p_brid);
-                _base.AddInParam("p_coid", DbType.String, p_coid);
-                _base.AddInParam("p_rpt_id", DbType.Int32, p_dr["RPT_ID", DataRowVersion.Original]);
-                _base.AddInParam("p_del_user", DbType.String, p_user);
-                _base.AddInParam("p_del_term", DbType.String, p_term);
-                _base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
+                _base.AddInParam("p_seqno", DbType.Int32, p_dr["SEQNO", DataRowVersion.Original]);
+                //_base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
 
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
 
-                _base.ExecSPWithTransaction("PKG_OP_RPT_MAS.PRC_MAS_DEL");
+                _base.ExecSPWithTransaction("PKG_ChpMas.PRC_MAS_DEL");
 
                 _htDel.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htDel.Add("p_msg", _base.GetParameterValue("p_msg"));

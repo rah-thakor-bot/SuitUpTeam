@@ -279,9 +279,9 @@ namespace PeculiarTuitionERP.Master_Module
                 }
                 return _htSave;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(ex.Message.ToString());
             }
             finally
             {

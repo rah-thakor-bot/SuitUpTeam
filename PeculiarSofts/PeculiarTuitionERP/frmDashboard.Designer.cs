@@ -55,6 +55,7 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.BackgroundImage = global::PeculiarTuitionERP.Properties.Resources.wallpapers;
             this.flowLayoutPanel1.Controls.Add(this.btnNewAdmission);
             this.flowLayoutPanel1.Controls.Add(this.btnTimetable);
             this.flowLayoutPanel1.Controls.Add(this.btnExamDet);
@@ -116,9 +117,9 @@
             // btnResult
             // 
             this.btnResult.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnResult.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnResult.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResult.ForeColor = System.Drawing.Color.GreenYellow;
+            this.btnResult.BackColor = System.Drawing.Color.White;
+            this.btnResult.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResult.ForeColor = System.Drawing.Color.Black;
             this.btnResult.Location = new System.Drawing.Point(308, 248);
             this.btnResult.Margin = new System.Windows.Forms.Padding(12, 13, 12, 13);
             this.btnResult.Name = "btnResult";

@@ -419,7 +419,7 @@ namespace PeculiarTuitionERP.Utility_Module
         #endregion
 
         #region Check for Required Col in Grid
-        public static Hashtable ValidateGrid(this DataGridView CtrlGrid,DataTable gridProperty)
+        public static Hashtable ValidateGrid(DataGridView CtrlGrid,DataTable gridProperty)
         {
             try
             {
@@ -442,6 +442,44 @@ namespace PeculiarTuitionERP.Utility_Module
                                         hashtable.Add((object)"COLUMN", (object)CtrlGrid.Columns[requiredCol[index].Trim()].Name);
                                         int num = ((DataTable)CtrlGrid.DataSource).Rows.IndexOf(row);
                                         hashtable.Add((object)"ROW", (object)num);
+                                        return hashtable;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (hashtable.Count == 0 || CtrlGrid == null)
+                    hashtable.Add((object)"RESULT", (object)"true");
+                return hashtable;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static Hashtable ValidateGrid(DataGridView CtrlGrid, string DataTableName, DataTable gridProperty)
+        {
+            try
+            {
+                Hashtable hashtable = new Hashtable();
+                if (CtrlGrid != null)
+                {
+                    DataTable changes = ((DataSet)CtrlGrid.DataSource).Tables[DataTableName].GetChanges();
+                    string[] requiredCol = GetColumnBehaviour(gridProperty, "REQUIRED");
+                    if (changes != null && requiredCol != null)
+                    {
+                        for (int index1 = 0; index1 < changes.Rows.Count; ++index1)
+                        {
+                            if (changes.Rows[index1].RowState != DataRowState.Deleted)
+                            {
+                                for (int index2 = 0; index2 < requiredCol.Length; ++index2)
+                                {
+                                    if (changes.Columns.Contains(requiredCol[index2].ToString().Trim()) && string.IsNullOrEmpty(changes.Rows[index1][requiredCol[index2].ToString().Trim()].ToString().Trim()))
+                                    {
+                                        hashtable.Add((object)"RESULT", (object)"false");
+                                        hashtable.Add((object)"COLUMN", (object)CtrlGrid.Columns[requiredCol[index2].ToString().Trim()].Name);
                                         return hashtable;
                                     }
                                 }

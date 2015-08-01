@@ -19,6 +19,7 @@ namespace PeculiarTuitionERP
             InitializeComponent();
             _ActiveFormList = new Hashtable();
             Global.LoginBranch = ConfigurationManager.AppSettings["Branch"].ToString() == null ? "Testing" : ConfigurationManager.AppSettings["Branch"].ToString();
+            Global.DefaultUser = ConfigurationManager.AppSettings["DefaultUser"].ToString();
 
             // Initialize MaterialSkinManager
             //materialSkinManager = MaterialSkinManager.Instance;

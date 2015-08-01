@@ -21,6 +21,8 @@ namespace PeculiarTuitionERP.Utility_Module
     {
         #region Class variable and declaration
         public static string LoginBranch;
+        public static string DefaultUser;
+        public static string LoginUser;
         private static TuitionBase _base;
         private static string ErrorMsg;
         #endregion

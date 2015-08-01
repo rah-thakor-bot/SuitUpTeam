@@ -385,7 +385,7 @@ namespace PeculiarTuitionERP.Master_Module
                 if (dsMain.GetChanges() != null)
                 {
                     getLibraryInstance("Subject");
-                    _htSave = _libSubjectMas.SaveData("NULL", "RLT", Environment.MachineName.ToString(), ref dsMain, out ErrorMsg);
+                    _htSave = _libSubjectMas.SaveData(Global.LoginBranch, "RLT", Environment.MachineName.ToString(), ref dsMain, out ErrorMsg);
                     if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                 }
                 else

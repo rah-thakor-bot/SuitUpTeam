@@ -60,6 +60,7 @@
       <HintPath>bin\Debug\Private.MyUserControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
@@ -245,6 +246,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wallpapers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Awesome-Icons_pay.png" />
+    <Content Include="Resources\bw-data-template.png" />
+    <Content Include="Resources\checklist_todo-512.png" />
+    <Content Include="Resources\result-512.png" />
+    <Content Include="Resources\stock_market-512.png" />
+    <Content Include="Resources\teacher-and-pupils-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

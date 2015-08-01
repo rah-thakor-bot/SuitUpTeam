@@ -4,6 +4,7 @@ using PeculiarTuitionERP.Utility_Module;
 using PeculiarTuitionERP.Exam_Module;
 using PeculiarTuitionERP.Master_Module;
 using System.Collections;
+using System.Configuration;
 
 
 
@@ -17,6 +18,8 @@ namespace PeculiarTuitionERP
         {
             InitializeComponent();
             _ActiveFormList = new Hashtable();
+            Global.LoginBranch = ConfigurationManager.AppSettings["Branch"].ToString() == null ? "Testing" : ConfigurationManager.AppSettings["Branch"].ToString();
+
             // Initialize MaterialSkinManager
             //materialSkinManager = MaterialSkinManager.Instance;
             //materialSkinManager.AddFormToManage(this);

@@ -25,6 +25,8 @@ namespace PeculiarTuitionERP.Utility_Module
         private static string ErrorMsg;
         #endregion
 
+        
+
         #region Get Instances
         /// <summary>
         /// Get Base Instance

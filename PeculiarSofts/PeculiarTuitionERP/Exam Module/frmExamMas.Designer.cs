@@ -73,6 +73,12 @@ namespace PeculiarTuitionERP.Exam_Module
             this.btnMainPanel1.Size = new System.Drawing.Size(1295, 106);
             this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
             this.btnMainPanel1.TabIndex = 7;
+            this.btnMainPanel1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnAddClick);
+            this.btnMainPanel1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnEditClick);
+            this.btnMainPanel1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnDeleteClick);
+            this.btnMainPanel1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnSearchClick);
+            this.btnMainPanel1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnRefreshClick);
+            this.btnMainPanel1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnCloseClick);
             // 
             // grpExamMas
             // 
@@ -97,6 +103,7 @@ namespace PeculiarTuitionERP.Exam_Module
             this.grdExamMas.Name = "grdExamMas";
             this.grdExamMas.Size = new System.Drawing.Size(1289, 603);
             this.grdExamMas.TabIndex = 0;
+            this.grdExamMas.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdExamMas_RowEnter);
             // 
             // frmExamMas
             // 
@@ -108,7 +115,9 @@ namespace PeculiarTuitionERP.Exam_Module
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmExamMas";
+            this.Tag = "ExamMas";
             this.Text = "Exam Master";
+            this.Load += new System.EventHandler(this.frmExamMas_Load);
             this.grpExamMas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdExamMas)).EndInit();
             this.ResumeLayout(false);

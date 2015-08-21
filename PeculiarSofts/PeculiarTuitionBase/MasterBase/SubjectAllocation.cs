@@ -28,15 +28,15 @@ namespace PeculiarTuitionBase.MasterBase
             return null;
         }
 
-        public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
+        public Hashtable SaveData(string p_brid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
             int _intNumRecords = 0,seqno = 0;
             string _strErrMsg = "";
-            string _strTimeStampErrMsg = "Timestamp  Error : \n";
-            string _strInsertErrMsg = "Problem in inserting record : \n";
-            string _strUpdateErrMsg = "Problem in updating record : \n";
-            string _strDeleteErrMsg = "Problem in deleting record : \n";
+            string _strTimeStampErrMsg = TimestampMsg;
+            string _strInsertErrMsg = InsertMessage; ;
+            string _strUpdateErrMsg = UpdateMessage;
+            string _strDeleteErrMsg = DeleteMessage;
 
             p_err = null;
             Hashtable _htSave = new Hashtable();
@@ -125,17 +125,7 @@ namespace PeculiarTuitionBase.MasterBase
                     _base.Commit();
                 }
 
-                if (_strTimeStampErrMsg != "Timestamp  Error : \n")
-                    _strErrMsg = _strTimeStampErrMsg + "\n \n";
-
-                if (_strInsertErrMsg != "Problem In Inserting Record : \n")
-                    _strErrMsg = _strInsertErrMsg + "\n \n";
-
-                if (_strUpdateErrMsg != "Problem In Updating Record : \n")
-                    _strErrMsg = _strUpdateErrMsg + "\n \n";
-
-                if (_strDeleteErrMsg != "Record can't deleted due to child record exist : \n")
-                    _strErrMsg = _strDeleteErrMsg + "\n \n";
+                GetTransactionSummary(_strInsertErrMsg, _strUpdateErrMsg, _strDeleteErrMsg, _strTimeStampErrMsg, out _strErrMsg);
 
 
                 _htSave.Add("RESULT", "true");
@@ -161,12 +151,12 @@ namespace PeculiarTuitionBase.MasterBase
             try
             {
                 _base.AddInParam("p_branch", DbType.String, p_branch_id);
-                _base.AddInParam("p_batch_id", DbType.String, p_dr["BATCH_ID"]);
-                _base.AddInParam("p_entity_id", DbType.String, p_dr["ENTITY_ID"]);
+                _base.AddInParam("p_batch_id", DbType.Int32, p_dr["BATCH_ID"]);
+                _base.AddInParam("p_entity_id", DbType.Int32, p_dr["ENTITY_ID"]);
                 _base.AddInParam("p_entity_type_id", DbType.Int32, p_dr["ENTITY_TYPE_ID"]);
                 _base.AddInParam("p_ref_sub_id", DbType.Int32, p_dr["REF_SUB_ID"]);
                 _base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
+                _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
                 //_base.AddOutParam("p_time_stamp", DbType.String, 50);
@@ -194,12 +184,12 @@ namespace PeculiarTuitionBase.MasterBase
             {
                 _base.AddInParam("p_branch", DbType.String, p_branch_id);
                 _base.AddInParam("p_allocation_id", DbType.Int32, p_dr["ALLOCATION_ID"]);
-                _base.AddInParam("p_batch_id", DbType.String, p_dr["BATCH_ID"]);
-                _base.AddInParam("p_entity_id", DbType.String, p_dr["ENTITY_ID"]);
-                _base.AddInParam("p_entity_type_id", DbType.String, p_dr["ENTITY_TYPE_ID"]);
-                _base.AddInParam("p_ref_sub_id", DbType.Int32, p_dr["STD_NAME"]);
+                _base.AddInParam("p_batch_id", DbType.Int32, p_dr["BATCH_ID"]);
+                _base.AddInParam("p_entity_id", DbType.Int32, p_dr["ENTITY_ID"]);
+                _base.AddInParam("p_entity_type_id", DbType.Int32, p_dr["ENTITY_TYPE_ID"]);
+                _base.AddInParam("p_ref_sub_id", DbType.Int32, p_dr["REF_SUB_ID"]);
                 _base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
-                _base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
+                _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
                 _base.AddInParam("p_upd_term", DbType.String, p_user);
                 _base.AddInParam("p_upd_user", DbType.String, p_term);
                 //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["TIME_STAMP"].ToString());

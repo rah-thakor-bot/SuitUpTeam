@@ -69,6 +69,12 @@
             this.btnMainPanel1.Size = new System.Drawing.Size(1292, 106);
             this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
             this.btnMainPanel1.TabIndex = 7;
+            this.btnMainPanel1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnAddClick);
+            this.btnMainPanel1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnEditClick);
+            this.btnMainPanel1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnDeleteClick);
+            this.btnMainPanel1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnSearchClick);
+            this.btnMainPanel1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnRefreshClick);
+            this.btnMainPanel1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnCloseClick);
             // 
             // grpResultMas
             // 
@@ -105,7 +111,9 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmResultMas";
+            this.Tag = "ResultMas";
             this.Text = "Result Master";
+            this.Load += new System.EventHandler(this.frmResultMas_Load);
             this.grpResultMas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdResultMas)).EndInit();
             this.ResumeLayout(false);

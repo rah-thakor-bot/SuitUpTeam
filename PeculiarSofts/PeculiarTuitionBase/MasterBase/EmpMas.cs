@@ -88,7 +88,6 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_branch", DbType.String, branch == string.Empty ? "BR_TEST" : branch);
                 _base.AddInParam("p_entity_id", DbType.Int32, Int32.Parse(entity_id));
                 _base.AddInParam("p_f_name", DbType.String, fName);
-                _base.AddInParam("p_f_name", DbType.String, fName);
                 _base.AddInParam("p_m_name", DbType.String, mName);
                 _base.AddInParam("p_l_name", DbType.String, lName);
                 //_base.AddInParam("p_dob", DbType.Date, null);
@@ -104,7 +103,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_city", DbType.String, city);
                 _base.AddInParam("p_state", DbType.String, state);
                 //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_time_stamp);
-                _base.AddInParam("p_pincode", DbType.String, pincode);
+                _base.AddInParam("p_pincode", DbType.Int32, Convert.ToInt32(pincode == string.Empty ? "0" : pincode));
                 _base.AddInParam("p_email_id", DbType.String, email);
                 _base.AddInParam("p_upd_user", DbType.String, user);
                 _base.AddInParam("p_upd_term", DbType.String, terminal);

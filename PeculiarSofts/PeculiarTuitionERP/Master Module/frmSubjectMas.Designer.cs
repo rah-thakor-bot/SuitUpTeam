@@ -73,6 +73,8 @@
             this.grdChpDet.Name = "grdChpDet";
             this.grdChpDet.Size = new System.Drawing.Size(1282, 315);
             this.grdChpDet.TabIndex = 1;
+            this.grdChpDet.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdChpDet_DataError);
+            this.grdChpDet.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdChpDet_RowEnter);
             // 
             // grdSubMas
             // 
@@ -83,6 +85,8 @@
             this.grdSubMas.Name = "grdSubMas";
             this.grdSubMas.Size = new System.Drawing.Size(1288, 276);
             this.grdSubMas.TabIndex = 0;
+            this.grdSubMas.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdSubMas_DataError);
+            this.grdSubMas.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSubMas_RowEnter);
             // 
             // btnMainPanel1
             // 

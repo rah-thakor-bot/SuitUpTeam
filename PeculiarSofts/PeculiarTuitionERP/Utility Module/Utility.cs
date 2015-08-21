@@ -136,7 +136,7 @@ namespace PeculiarTuitionERP.Utility_Module
                             {
                                 if (!andFlag)
                                 {
-                                    criteria += dc.DataPropertyName + " = '" + ((DataGridView)Ctrl).Rows[0].Cells[dc.DataPropertyName].Value.ToString() + "'";
+                                    criteria += dc.DataPropertyName + " LIKE '%" + ((DataGridView)Ctrl).Rows[0].Cells[dc.DataPropertyName].Value.ToString() + "%'";
                                     andFlag = true;
                                 }
                                 else

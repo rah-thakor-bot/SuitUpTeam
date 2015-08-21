@@ -15,15 +15,19 @@ namespace PeculiarTuitionERP.Master_Module
         private SubjectMas _libSubjectMas;
         private ChapterMas _libChpMas;
         private Utility uti;
+        DataSet dsMain;
+        DataTable _dtGridDescriptor;
+        DataGridViewComboBoxColumn[] grdSubCmbCol, grdChpCmbCol;
+
+        const string DefaultLoadCriteria = "1 = 2";
+        const string DefaultRefreshCriteria = "1 = 1";
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
+        string CommonSearchCriteria = string.Empty;
         string ErrorMsg = string.Empty;
         string[] strSubChkBxColName, strChpChkBxColName;
         string[] strSubCmbColName, strChpCmbColName;
-
-        DataSet dsMain;
-        DataTable _dtGridDescriptor;
-        DataGridViewComboBoxColumn[] grdSubCmbCol,grdChpCmbCol;
+        
         #endregion
 
         #region Constructor
@@ -49,6 +53,8 @@ namespace PeculiarTuitionERP.Master_Module
         {
             try
             {
+                _strBtnActionType = "LOAD";
+                UpdateControlBehaviour();
                 LoadGrid();
             }
             catch (Exception ex)
@@ -57,6 +63,9 @@ namespace PeculiarTuitionERP.Master_Module
             }
         }
 
+        #endregion
+
+        #region ButtonPanel Events
         private void buttonPanelControl1_btnAddClick(object sender, EventArgs e)
         {
             try
@@ -199,10 +208,19 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void buttonPanelControl1_btnRefreshClick(object sender, EventArgs e)
         {
-            _strBtnActionType = "REFRESH";
-            //Build SearchCriteria and Get Data
-            UpdateControlBehaviour();
-            MapRelOverGrids();
+            try
+            {
+                _strBtnActionType = "REFRESH";
+                getLibraryInstance("UTILITY");
+                CommonSearchCriteria = uti.GetGridCriteria(grdSubMas);
+                GetDataSet((string.IsNullOrWhiteSpace(CommonSearchCriteria)) == true ? DefaultRefreshCriteria : CommonSearchCriteria);
+                MapRelOverGrids();
+                UpdateControlBehaviour();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void buttonPanelControl1_btnSearchClick(object sender, EventArgs e)
@@ -216,8 +234,50 @@ namespace PeculiarTuitionERP.Master_Module
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            
         }
+
+        #endregion
+
+        #region GridEvents
+
+        private void grdSubMas_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            SetAutoIncrement("SUB");
+        }
+
+        private void grdChpDet_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            SetAutoIncrement("CHP");
+        }
+
+        private void grdSubMas_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void grdChpDet_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            try
+            {
+                throw new FormatException(e.Exception.GetType().ToString());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(System.FormatException))
+                    MessageBox.Show("Input string in not in correct format");
+                else
+                    MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -234,9 +294,6 @@ namespace PeculiarTuitionERP.Master_Module
                     grdChpDet.ReadOnly = false;
                     grdSubMas.AllowUserToAddRows = false;
                     grdChpDet.AllowUserToAddRows = false;
-                    btnMainPanel1.Select();
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 case "ADD":
                     grdSubMas.ReadOnly = false;
@@ -245,7 +302,7 @@ namespace PeculiarTuitionERP.Master_Module
                     grdChpDet.AllowUserToAddRows = true;
                     grdSubMas.Focus();
                     grdSubMas.CurrentCell = grdSubMas.Rows[grdSubMas.Rows.Count - 1].Cells["SUB_ID"];
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                    SetAutoIncrement("SUB");
                     break;
                 case "EDIT":
                     grdSubMas.AllowUserToAddRows = true;
@@ -253,22 +310,18 @@ namespace PeculiarTuitionERP.Master_Module
                     grdSubMas.ReadOnly = false;
                     grdChpDet.ReadOnly = false;
                     grdSubMas.Focus();
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     break;
                 case "SAVE":
                     grdSubMas.ReadOnly = true;
                     grdChpDet.ReadOnly = true;
                     grdSubMas.AllowUserToAddRows = false;
                     grdChpDet.AllowUserToAddRows = false;
-                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
-                    btnMainPanel1.Select();
-                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 case "SEARCH":
                     if (dsMain != null)
                     {
-                        dsMain.Tables["SubMas"].Rows.Clear();
                         dsMain.Tables["ChpMas"].Rows.Clear();
+                        dsMain.Tables["SubMas"].Rows.Clear();
                         dsMain.AcceptChanges();
                     }
                     grdSubMas.ReadOnly = false;
@@ -278,33 +331,69 @@ namespace PeculiarTuitionERP.Master_Module
                     grdSubMas.Focus();
                     grdSubMas.CurrentCell = grdSubMas.Rows[0].Cells["SUB_ID"];
                     grdSubMas.Rows[0].Cells["SUB_ID"].Value = DBNull.Value;
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     break;
                 case "REFRESH":
                     grdSubMas.ReadOnly = true;
                     grdSubMas.AllowUserToAddRows = false;
                     grdChpDet.ReadOnly = true;
                     grdChpDet.AllowUserToAddRows = false;
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    btnMainPanel1.Select();
-                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Edit);
                     break;
                 case "CANCEL":
                     grdSubMas.AllowUserToAddRows = true;
                     grdChpDet.AllowUserToAddRows = true;
                     grdSubMas.ReadOnly = true;
                     grdSubMas.ReadOnly = true;
-                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
-                    btnMainPanel1.Focus();
-                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 default:
                     MessageBox.Show("Form behavious is not set for following behaviuor" + _strBtnActionType);
                     break;
             }
+            UpdatePanelBehaviour(_strBtnActionType);
         }
 
-        private void getLibraryInstance(string objName)
+        private void UpdatePanelBehaviour(string ActionType)//Do not call directly
+        {
+            //string BehaviourType = ActionType == null ? strBtnActionType.ToUpper() : ActionType.ToUpper();
+            string BehaviourType = ActionType.ToUpper();
+            getLibraryInstance("UTILITY");
+            switch (BehaviourType)
+            {
+                case "LOAD":
+                    btnMainPanel1.Select();
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "ADD":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "EDIT":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "SAVE":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "SEARCH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "REFRESH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Edit);
+                    break;
+                case "CANCEL":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Focus();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                default:
+                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", _strBtnActionType);
+                    break;
+            }
+        }
+
+        private void getLibraryInstance(string objName= "SUBJECT")
         {
             if (objName.ToUpper() == "SUBJECT")
             {
@@ -326,6 +415,30 @@ namespace PeculiarTuitionERP.Master_Module
 
         }
 
+        private void GetDataSet(string criteria = DefaultLoadCriteria)
+        {
+            try
+            {
+                getLibraryInstance();
+                dsMain = new DataSet();
+                dsMain = _libSubjectMas.FetchData(criteria, out ErrorMsg);
+                if (!string.IsNullOrEmpty(ErrorMsg))
+                {
+                    throw new Exception(ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            finally
+            {
+
+            }
+            
+            
+        }
+
         private void LoadGrid()
         {
 
@@ -336,47 +449,62 @@ namespace PeculiarTuitionERP.Master_Module
                 MessageBox.Show(ErrorMsg);
                 return;
             }
-
-            dsMain = _libSubjectMas.FetchData("1=2", out ErrorMsg);
-            if (!string.IsNullOrEmpty(ErrorMsg))
-            {
-                MessageBox.Show(ErrorMsg);
-                return;
-            }
+            GetDataSet();
 
             Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), out strSubChkBxColName);
             Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), out strSubCmbColName, out grdSubCmbCol);
             Global.GridBindingSource(ref grdSubMas, _dtGridDescriptor.Select("CTRL_NAME = '" + grdSubMas.Name + "'").CopyToDataTable(), strSubCmbColName == null ? null : strSubCmbColName, grdSubCmbCol == null ? null : grdSubCmbCol, strSubChkBxColName, dsMain.Tables["SubMas"]);
 
-            Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), out strChpChkBxColName);
-            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), out strChpCmbColName, out grdChpCmbCol);
-            Global.GridBindingSource(ref grdChpDet, _dtGridDescriptor.Select("CTRL_NAME = '" + this.grdChpDet.Name + "'").CopyToDataTable(), strChpCmbColName == null ? null : strChpCmbColName, grdChpCmbCol == null ? null : grdChpCmbCol, strChpChkBxColName == null ? null : strChpChkBxColName, dsMain.Tables["ChpMas"]);
+            Global.AcquireGridCheckBoxColumn(_dtGridDescriptor.Select("CTRL_NAME = '" + grdChpDet.Name + "'").CopyToDataTable(), out strChpChkBxColName);
+            Global.AcquireComboListWithSource(_dtGridDescriptor.Select("CTRL_NAME = '" + grdChpDet.Name + "'").CopyToDataTable(), out strChpCmbColName, out grdChpCmbCol);
+            Global.GridBindingSource(ref grdChpDet, _dtGridDescriptor.Select("CTRL_NAME = '" + grdChpDet.Name + "'").CopyToDataTable(), strChpCmbColName == null ? null : strChpCmbColName, grdChpCmbCol == null ? null : grdChpCmbCol, strChpChkBxColName == null ? null : strChpChkBxColName, dsMain.Tables["ChpMas"]);
+
             MapRelOverGrids();
-            _strBtnActionType = "LOAD";
-            getLibraryInstance("UTILITY");
-            uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-            UpdateControlBehaviour();
+            
         }
 
         private void MapRelOverGrids()
         {
-            dsMain.Relations.Add("RelationDet", new DataColumn[] { dsMain.Tables["SubMas"].Columns["SUB_ID"] }, new DataColumn[] { dsMain.Tables["ChpMas"].Columns["REF_SUB_ID"] });
+            try
+            {
+                dsMain.Relations.Add("RelationDet", new DataColumn[] { dsMain.Tables["SubMas"].Columns["SUB_ID"] }, new DataColumn[] { dsMain.Tables["ChpMas"].Columns["REF_SUB_ID"] });
+                AssignRelation();
+                SetAutoIncrement();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
 
+        private void AssignRelation()
+        {
             grdSubMas.DataSource = dsMain;
             grdSubMas.DataMember = "SubMas";
 
             grdChpDet.DataSource = dsMain;
             grdChpDet.DataMember = "SubMas.RelationDet";
-
-            dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrement = true;
-            dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementSeed = -1;
-            dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementStep = -1;
-
-            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrement = true;
-            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementSeed = -1;
-            dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementStep = -1;
-
         }
+
+        private void SetAutoIncrement(string ActionOn="ALLGRID")
+        {
+            if (_strBtnActionType != "SEARCH")
+            {
+                if (ActionOn == "ALLGRID" || ActionOn == "SUB")
+                {
+                    dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrement = true;
+                    dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementSeed = -1;
+                    dsMain.Tables["SubMas"].Columns["SUB_ID"].AutoIncrementStep = -1;
+                }
+                if (ActionOn == "ALLGRID" || ActionOn == "CHP")
+                {
+                    dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrement = true;
+                    dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementSeed = -1;
+                    dsMain.Tables["ChpMas"].Columns["SEQNO"].AutoIncrementStep = -1;
+                }
+            }
+        }
+
         private Hashtable SaveData()
         {
             try
@@ -384,8 +512,8 @@ namespace PeculiarTuitionERP.Master_Module
                 Hashtable _htSave = new Hashtable();
                 if (dsMain.GetChanges() != null)
                 {
-                    getLibraryInstance("Subject");
-                    _htSave = _libSubjectMas.SaveData(Global.LoginBranch, "RLT", Environment.MachineName.ToString(), ref dsMain, out ErrorMsg);
+                    getLibraryInstance();
+                    _htSave = _libSubjectMas.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName.ToString(), ref dsMain, out ErrorMsg);
                     if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                 }
                 else
@@ -463,6 +591,7 @@ namespace PeculiarTuitionERP.Master_Module
                 //Dispose or Nullify Objects
             }
         }
+
         #endregion
     }
 }

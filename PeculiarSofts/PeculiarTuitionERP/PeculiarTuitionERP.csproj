@@ -57,7 +57,7 @@
     </Reference>
     <Reference Include="Private.MyUserControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Private.MyUserControls.dll</HintPath>
+      <HintPath>..\..\..\..\Peculiar Softs\Private.MyUserControls-2015-03-04\Private.MyUserControls\Private.MyUserControls\bin\Debug\Private.MyUserControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -149,13 +149,32 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Super\frmGridFields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Super\frmGridFields.Designer.cs">
+      <DependentUpon>frmGridFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transaction Module\frmPaymentMaster.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Transaction Module\frmPaymentMaster.Designer.cs">
       <DependentUpon>frmPaymentMaster.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transaction Module\frmTransactionSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaction Module\frmTransactionSetting.Designer.cs">
+      <DependentUpon>frmTransactionSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility Module\Global.cs" />
+    <Compile Include="Utility Module\InstructionManager.cs" />
     <Compile Include="Utility Module\Utility.cs" />
     <EmbeddedResource Include="Exam Module\frmExamMas.resx">
       <DependentUpon>frmExamMas.cs</DependentUpon>
@@ -203,8 +222,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Super\frmGridFields.resx">
+      <DependentUpon>frmGridFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transaction Module\frmPaymentMaster.resx">
       <DependentUpon>frmPaymentMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transaction Module\frmTransactionSetting.resx">
+      <DependentUpon>frmTransactionSetting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -248,12 +276,25 @@
     <None Include="Resources\wallpapers.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Accounts.png" />
     <Content Include="Resources\Awesome-Icons_pay.png" />
     <Content Include="Resources\bw-data-template.png" />
     <Content Include="Resources\checklist_todo-512.png" />
+    <None Include="Resources\Tutor.png" />
+    <None Include="Resources\White.png" />
+    <None Include="Resources\jaimin.png" />
+    <None Include="Resources\Enroll Student.png" />
+    <None Include="Resources\Exam.png" />
+    <None Include="Resources\Reports.png" />
+    <None Include="Resources\Manage Batch.png" />
     <Content Include="Resources\result-512.png" />
+    <None Include="Resources\Result.png" />
+    <None Include="Resources\Settings.png" />
     <Content Include="Resources\stock_market-512.png" />
+    <None Include="Resources\subject details.png" />
+    <None Include="Resources\subject Allocation.png" />
     <Content Include="Resources\teacher-and-pupils-icon.png" />
+    <None Include="Resources\testDashboard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

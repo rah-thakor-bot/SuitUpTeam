@@ -3,10 +3,13 @@ using System.Data;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PeculiarTuitionBase;
+using PeculiarTuitionERP.Properties;
 
 namespace PeculiarTuitionERP.Utility_Module
 {
@@ -25,9 +28,13 @@ namespace PeculiarTuitionERP.Utility_Module
         public static string LoginUser;
         private static TuitionBase _base;
         private static string ErrorMsg;
+        private static string DateFormat = "dd/MM/yyyy";
+        //Roboto font
+        private static Font ROBOTO_MEDIUM_12;
+        private static Font ROBOTO_REGULAR_11;
+        private static Font ROBOTO_MEDIUM_11;
+        private static Font ROBOTO_MEDIUM_10;
         #endregion
-
-        
 
         #region Get Instances
         /// <summary>
@@ -78,6 +85,26 @@ namespace PeculiarTuitionERP.Utility_Module
         #endregion
 
         #region Grid Binding 
+
+        #region Font Import Methods
+        public static int FORM_PADDING = 14;
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pvd, [In] ref uint pcFonts);
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static FontFamily LoadFont(byte[] fontResource)
+        {
+            int dataLength = fontResource.Length;
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(dataLength);
+            Marshal.Copy(fontResource, 0, fontPtr, dataLength);
+
+            uint cFonts = 0;
+            AddFontMemResourceEx(fontPtr, (uint)fontResource.Length, IntPtr.Zero, ref cFonts);
+            privateFontCollection.AddMemoryFont(fontPtr, dataLength);
+
+            return privateFontCollection.Families.Last();
+        }
+        #endregion
+
         public static void GridBindingSource(ref DataGridView p_dgv,DataTable p_gridFields, string[] p_comboColName, DataGridViewComboBoxColumn[] p_comboBox, string[] p_checkBoxColName, DataTable p_dataSource)
         {
             try
@@ -176,7 +203,7 @@ namespace PeculiarTuitionERP.Utility_Module
                             }
                             if (flag1)
                                 p_comboBox[element].Visible = false;
-                            p_dgv.Columns.Add((DataGridViewColumn)p_comboBox[element]);
+                            p_dgv.Columns.Add(p_comboBox[element]);
                             p_comboBox[element].SortMode = DataGridViewColumnSortMode.Programmatic;
                             flag2 = true;
                         }
@@ -208,7 +235,7 @@ namespace PeculiarTuitionERP.Utility_Module
                                     viewCheckBoxColumn.ReadOnly = true;
                                 }
                             }
-                            p_dgv.Columns.Add((DataGridViewColumn)viewCheckBoxColumn);
+                            p_dgv.Columns.Add(viewCheckBoxColumn);
                             flag2 = true;
                         }
                     }
@@ -241,6 +268,15 @@ namespace PeculiarTuitionERP.Utility_Module
                         
                         if (dataColumn.DataType.ToString() == "System.DateTime")
                         {
+                            //DataGridViewColumn dgvc = new DataGridViewColumn();
+                            viewTextBoxColumn.DataPropertyName = dataColumn.ColumnName.ToString();
+                            viewTextBoxColumn.DefaultCellStyle.BackColor = Color.White;
+                            viewTextBoxColumn.Name = dataColumn.ColumnName.ToString();
+                            viewTextBoxColumn.HeaderText = dataColumn.ColumnName.ToString();
+                            viewTextBoxColumn.ValueType = typeof(DateTime);
+                            //p_dgv.Columns.Add(viewTextBoxColumn);
+                            //++p_columnIndex;
+                            //continue;
                             #region Commented by Rahul Thakor
                             //DataGridViewColumn dataGridViewColumn1 = new DataGridViewColumn();
                             ////DataGridViewColumn dataGridViewColumn2 = this._dateColumnStyle != LTPLGridView.DateColumnStyle.Mask ? (DataGridViewColumn)new LTPLDateTimePickerColumn() : (DataGridViewColumn)new LTPLMaskedTextBoxColumn();
@@ -325,7 +361,7 @@ namespace PeculiarTuitionERP.Utility_Module
                             #endregion
                         }
                         viewTextBoxColumn.Name = p_dataSource.Columns[p_columnIndex].ColumnName;
-                        p_dgv.Columns.Add((DataGridViewColumn)viewTextBoxColumn);
+                        p_dgv.Columns.Add(viewTextBoxColumn);
                     }
                     ++p_columnIndex;
                 }
@@ -333,7 +369,7 @@ namespace PeculiarTuitionERP.Utility_Module
 
                 #region Assign Column Behaviour
                 /*Assign Column Behaviour------------>*/
-                List<Object> assignDCType = (from row in p_gridFields.AsEnumerable()
+                List<object> assignDCType = (from row in p_gridFields.AsEnumerable()
                               select row["COL_TYPE"]).Distinct().ToList();
                 foreach (object type in assignDCType)
                 {
@@ -395,11 +431,17 @@ namespace PeculiarTuitionERP.Utility_Module
                 /*Assign Column Behaviour<------------*/
                 #endregion
 
-                #region Change Header Text and Width
+                #region Manange Row&Column style
                 foreach (DataRow rowValues in p_gridFields.Rows)
                 {
-                    p_dgv.Columns[rowValues["DATA_FIELD_NAME"].ToString()].HeaderText = rowValues["DISP_NAME"].ToString();
-                    p_dgv.Columns[rowValues["DATA_FIELD_NAME"].ToString()].Width = Int32.Parse(rowValues["FIELD_SIZE"].ToString());
+                    p_dgv.Columns[rowValues["DATA_FIELD_NAME"].ToString().Trim()].HeaderText = rowValues["DISP_NAME"].ToString();
+                    p_dgv.Columns[rowValues["DATA_FIELD_NAME"].ToString().Trim()].Width = Int32.Parse(rowValues["FIELD_SIZE"].ToString());
+                }
+
+                foreach (DataGridViewColumn dgvc in p_dgv.Columns)
+                {
+                    dgvc.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvc.HeaderCell.Style.Font = new Font("Arial", 10F,FontStyle.Bold, GraphicsUnit.Point);
                 }
                 #endregion
 
@@ -407,8 +449,18 @@ namespace PeculiarTuitionERP.Utility_Module
 
                 p_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 p_dgv.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
-                p_dgv.BackgroundColor = Color.CornflowerBlue;
-                p_dgv.RowTemplate.Height = 25;
+                p_dgv.BackgroundColor = Color.BlanchedAlmond;
+                DataGridViewCellStyle dgv_cellStyle = new DataGridViewCellStyle();
+                
+                dgv_cellStyle.BackColor = Color.Azure;
+                ROBOTO_MEDIUM_12 = new Font(LoadFont(Resources.Roboto_Medium), 12f);
+                ROBOTO_MEDIUM_10 = new Font(LoadFont(Resources.Roboto_Medium), 10f);
+                ROBOTO_REGULAR_11 = new Font(LoadFont(Resources.Roboto_Regular), 11f);
+                ROBOTO_MEDIUM_11 = new Font(LoadFont(Resources.Roboto_Medium), 11f);
+                dgv_cellStyle.Font = ROBOTO_MEDIUM_10;
+
+                p_dgv.DefaultCellStyle = dgv_cellStyle;
+                p_dgv.RowTemplate.Height = 28;
 
                 #endregion
             }
@@ -599,7 +651,8 @@ namespace PeculiarTuitionERP.Utility_Module
                                 GetLibInstance();
                                 using (_dtBindingSource = new DataTable())
                                 {
-                                    _dtBindingSource = _base.GetStdList(out ErrorMsg);//Called With Default Parameters
+                                    _dtBindingSource = _base.GetStdList(out ErrorMsg, p_branch_id: LoginBranch);//Called With Default Parameters
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "STD_NAME";
@@ -613,7 +666,8 @@ namespace PeculiarTuitionERP.Utility_Module
                                 GetLibInstance();
                                 using (_dtBindingSource = new DataTable())
                                 {
-                                    _dtBindingSource = _base.GetSubjectList(null, out ErrorMsg, p_subject_status: "A");
+                                    _dtBindingSource = _base.GetSubjectList(null, out ErrorMsg, p_active_flg: string.Empty);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "SUB_NAME";
@@ -628,6 +682,7 @@ namespace PeculiarTuitionERP.Utility_Module
                                 using (_dtBindingSource = new DataTable())
                                 {
                                     _dtBindingSource = _base.GetStdType(out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "DISP_OPTION";
@@ -642,6 +697,7 @@ namespace PeculiarTuitionERP.Utility_Module
                                 using (_dtBindingSource = new DataTable())
                                 {
                                     _dtBindingSource = _base.GetStdMedium(out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "DISP_OPTION";
@@ -655,11 +711,87 @@ namespace PeculiarTuitionERP.Utility_Module
                                 GetLibInstance();
                                 using (_dtBindingSource = new DataTable())
                                 {
-                                    _dtBindingSource = _base.GetTeacherList('A', out ErrorMsg);
+                                    _dtBindingSource = _base.GetTeacherList(p_active_flg: string.Empty, Error: out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
                                     DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
                                     temp.DataSource = _dtBindingSource.Copy();
                                     temp.DisplayMember = "DISP_OPTION";
                                     temp.ValueMember = "VALUE_MEMBER";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "STATIC":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.FetchStaticCombo(dr["REMARK"].ToString(), out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "DISP_MEM";
+                                    temp.ValueMember = "VALUE_MEM";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "BATCH":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.FetchBatchList(p_active_flg: string.Empty, Error: out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "DISP_MEM";
+                                    temp.ValueMember = "VALUE_MEM";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "EXAM":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.GetExamList(p_exam_flg: string.Empty, Error: out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "EXAM_ID";
+                                    temp.ValueMember = "EXAM_ID";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "EMPTYPE":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.FetchEntityType(p_flg: string.Empty, Error: out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "DISP_MEM";
+                                    temp.ValueMember = "VALUE_MEM";
+                                    localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
+                                    localCmbCol[index] = temp;
+                                    ++index;
+                                }
+                                break;
+                            case "ACTEMP":
+                                GetLibInstance();
+                                using (_dtBindingSource = new DataTable())
+                                {
+                                    _dtBindingSource = _base.GetEmpList(p_entity_type:null, p_is_active: string.Empty, Error: out ErrorMsg);
+                                    if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
+                                    DataGridViewComboBoxColumn temp = new DataGridViewComboBoxColumn();
+                                    temp.DataSource = _dtBindingSource.Copy();
+                                    temp.DisplayMember = "ENTITY_NAME";
+                                    temp.ValueMember = "ENTITY_ID";
                                     localCmbColName[index] = dr["DATA_FIELD_NAME"].ToString();
                                     localCmbCol[index] = temp;
                                     ++index;

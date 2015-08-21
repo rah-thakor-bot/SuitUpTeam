@@ -23,7 +23,7 @@ namespace PeculiarTuitionERP.Master_Module
         private Utility uti;
         private DataSet dsEmpData;
         private string errMsg = string.Empty;
-        string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id;
+        string branch, emp_type, fname, mname, lname, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, entity_id;
 
 
 
@@ -52,7 +52,7 @@ namespace PeculiarTuitionERP.Master_Module
             grpEmpType.Enabled = flMainData.Enabled = grpSearchBox.Enabled = false;
             getLibraryInstance("UTILITY");
             uti.SetPanelStatus(this.btnMainPanel1, "LOAD");
-            branch = emp_type = fname = mname = lname = sex = bldGrp = ph1 = ph2 = adr1 = adr2 = city = state = pincode = email_id = string.Empty;
+            branch = emp_type = fname = mname = lname = sex = bldGrp = ph1 = ph2 = adr1 = adr2 = city = state = pincode = email_id = entity_id = string.Empty;
             dob = doj = DateTime.Now;
             DatetimeCulture = new CultureInfo("en-US", false);
             btnMainPanel1.SetFocus(Private.MyUserControls.ButtonPanelControl.Action.Add);
@@ -148,6 +148,7 @@ namespace PeculiarTuitionERP.Master_Module
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
                     _strBtnActionType = "EDIT";
+                    action_flg = 'U';
                     getLibraryInstance("UTILITY");
                     uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
                     grpEmpType.Enabled = true;
@@ -183,7 +184,7 @@ namespace PeculiarTuitionERP.Master_Module
                 _strBtnActionType = "SEARCH";
                 getLibraryInstance("UTILITY");
                 uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                grpEmpType.Enabled = false;
+                grpEmpType.Enabled = true;
                 flMainData.Enabled = false;
                 grpSearchBox.Enabled = true;
                 grpSearchBox.Select();
@@ -309,7 +310,7 @@ namespace PeculiarTuitionERP.Master_Module
                     getLibraryInstance("EMP");
                     if (action_flg == 'I')//Action flag for insert
                     {
-                        Response = libEmpMas.insertData(branch, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, "RLT", Environment.MachineName.ToString(), out errMsg);
+                        Response = libEmpMas.insertData(Global.LoginBranch, emp_type, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, Global.LoginUser, Environment.MachineName.ToString(), out errMsg);
                         if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
                         if (Response.Contains("p_flg"))
                         {
@@ -331,7 +332,7 @@ namespace PeculiarTuitionERP.Master_Module
                     }
                     else//Action flag for update
                     {
-                        Response = libEmpMas.updateData(branch, emp_type, null, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, "RLT", Environment.MachineName.ToString(), null, out errMsg);
+                        Response = libEmpMas.updateData(Global.LoginBranch, emp_type, entity_id, fname, mname, lname, dob, doj, sex, bldGrp, ph1, ph2, adr1, adr2, city, state, pincode, email_id, Global.LoginUser, Environment.MachineName.ToString(), null, out errMsg);
                         if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
                         if (Response.Contains("p_flg"))
                         {
@@ -367,25 +368,122 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void RefreshData()
         {
-            getLibraryInstance("Emp");
-            dsEmpData = libEmpMas.FetchData("a.ENTITY_ID = 27", out errMsg);
-            if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
-            if (dsEmpData.Tables["EmpMas"].Rows.Count > 0)
+            if (!(string.IsNullOrWhiteSpace(txtSearchBox.Text)))
             {
-                _strBtnActionType = "REFRESH";
-                getLibraryInstance("UTILITY");
-                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                DisplayData();
-            }
-            else
-            {
-                MessageBox.Show("Record not found");
+                getLibraryInstance("Emp");
+                string criteria = string.Empty;
+
+                if (rdbtnStd.Checked)
+                    emp_type = "Student";
+                else if (rdbtnTeacher.Checked)
+                    emp_type = "Teacher";
+                else
+                    emp_type = "Other";
+                criteria = "A.ENTITY_ID = '" + txtSearchBox.Text + "'";
+                criteria += emp_type == null ? "" : " AND B.ENTITY_TYPE_ID IN (SELECT C.ENTITY_TYPE_ID FROM ENTITY_TYPE_MAS C WHERE C.ENTITY_TYPE_NAME LIKE '%" + emp_type.ToUpper() + "%') ";
+                dsEmpData = libEmpMas.FetchData(criteria, out errMsg);
+                if (!string.IsNullOrEmpty(errMsg)) throw new Exception(errMsg);
+                if (dsEmpData.Tables["EmpMas"].Rows.Count > 0)
+                {
+                    _strBtnActionType = "REFRESH";
+                    getLibraryInstance("UTILITY");
+                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
+                    DisplayData(dsEmpData.Tables["EmpMas"].Rows[0]);
+                }
+                else
+                {
+                    MessageBox.Show("Record not found");
+                }
             }
            
         }
-        private void DisplayData()
+        private void DisplayData(DataRow drResult)
         {
-            
+            emp_type = drResult["ENTITY_TYPE_ID"].ToString();
+            entity_id = drResult["ENTITY_ID"].ToString();
+            fname = drResult["F_NAME"].ToString();
+            lname = drResult["L_NAME"].ToString(); 
+            mname = drResult["M_NAME"].ToString();
+            sex = drResult["SEX"].ToString();
+            ph1 = drResult["PHONE1"].ToString();
+            ph2 = drResult["PHONE2"].ToString();
+            adr1 = drResult["ADD1"].ToString();
+            adr2 = drResult["ADD2"].ToString();
+            bldGrp = drResult["BLOOD_GRP"].ToString();
+            city = drResult["CITY"].ToString();
+            state = drResult["STATE"].ToString();
+            pincode = drResult["PINCODE"].ToString();
+            email_id = drResult["EMAIL_ID"].ToString();
+            {//Emp Type
+
+                if (emp_type == "Student".ToUpper())
+                    rdbtnStd.Checked = true;
+                else if (emp_type == "Teacher".ToUpper())
+                    rdbtnTeacher.Checked = true;
+                else
+                    rdbtnOther.Checked = true;
+            }
+
+            {//First Name
+                if (!string.IsNullOrEmpty(fname))
+                    txtbxFname.Text = fname;
+            }
+
+            {//Middle Name
+                if (!string.IsNullOrEmpty(mname))
+                    txtbxMname.Text = mname;
+            }
+
+            {//Last Name
+                if (!string.IsNullOrEmpty(lname))
+                    txtbxLname.Text = lname;
+            }
+
+            //Peding Code for Datetime format
+
+            {//Sex 
+                if (!string.IsNullOrEmpty(sex))
+                    cmbSex.Text = sex;
+            }
+            {//Primary Phone
+                if (!string.IsNullOrEmpty(ph1))
+                    txtbxPh1.Text = ph1;
+            }
+            {//Secondary Phone
+                if (!string.IsNullOrEmpty(ph2))
+                    txtbxPh2.Text = ph2;
+            }
+            {
+                if (!string.IsNullOrEmpty(bldGrp))
+                    txtbxBldGrp.Text = bldGrp;
+            }
+            {//Address 1
+                if (!string.IsNullOrEmpty(adr1))
+                    txtbxAdr1.Text = adr1;
+            }
+            {//Address 2
+                if (!string.IsNullOrEmpty(adr2))
+                    txtbxAdr2.Text = adr2;
+            }
+            {//City
+                if (!string.IsNullOrEmpty(city))
+                    txtbxCity.Text = city;
+
+            }
+            {//State
+                if (!string.IsNullOrEmpty(state))
+                    txtbxState.Text = state;
+
+            }
+            {//Pincode
+                if (!string.IsNullOrEmpty(pincode))
+                    txtbxPincode.Text = pincode;
+
+            }
+            {//Email
+                if (!string.IsNullOrEmpty(email_id))
+                    txtbxEmail.Text = email_id;
+            }
         }
 
         private void GetCurrentValues()

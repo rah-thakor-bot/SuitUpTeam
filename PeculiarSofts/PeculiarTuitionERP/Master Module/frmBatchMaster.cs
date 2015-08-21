@@ -2,6 +2,7 @@
 using System.Data;
 using System.Collections;
 using System.Windows.Forms;
+using Private.MyUserControls;
 using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
 
@@ -17,6 +18,8 @@ namespace PeculiarTuitionERP.Master_Module
         DataTable _dtBatchMaster;
         DataGridViewComboBoxColumn[] dgvcm_BatchMaster;
 
+        const string DefaultLoadCriteria = "1 = 2";
+        const string DefaultRefreshCriteria = "1 = 1";
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string ErrorMsg = string.Empty;
@@ -38,7 +41,9 @@ namespace PeculiarTuitionERP.Master_Module
         {
             try
             {
+                _strBtnActionType = "LOAD";
                 LoadGrid();
+                UpdateControlBehaviour();
             }
             catch (Exception ex)
             {
@@ -59,12 +64,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void grdBatchMaster_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (_strBtnActionType != "SEARCH")
-            {
-                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrement = true;
-                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrementSeed = -1;
-                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrementStep = -1;
-            }
+            SetAutoIncrement();
         }
         #endregion
 
@@ -76,78 +76,25 @@ namespace PeculiarTuitionERP.Master_Module
                 if (btnMainPanel1.ButtonAddText == "&Add")
                 {
                     _strBtnActionType = "ADD";
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-
-                    grdBatchMaster.ReadOnly = false;
-                    grdBatchMaster.AllowUserToAddRows = true;
-
-                    grdBatchMaster.Focus();
-                    grdBatchMaster.CurrentCell = grdBatchMaster.Rows[grdBatchMaster.Rows.Count - 1].Cells["BATCH_ID"];
+                    UpdateControlBehaviour();
                 }
                 else
                 {
-                    Hashtable _htmas = new Hashtable();
-                    //_htmas= _objUtil.CheckGridRequriedCol(grdRptMas, "OP_RPT_MAS");
-                    _htmas.Add("RESULT", "true");
-                    if (_htmas["RESULT"].ToString() == "true")
+                    Hashtable ValGrid = new Hashtable();
+                    ValGrid = Global.ValidateGrid(grdBatchMaster, _dtGridFields);
+                    if (ValGrid["RESULT"].ToString() == "true")
                     {
                         Hashtable _htResult = new Hashtable();
                         _htResult = SaveData();
 
                         if (_htResult["RESULT"].ToString().Trim() == "true")
                         {
-                            //if (_htResult["TIMESTAMP"].ToString() != "")
-                            //{
-                            //    string _strMessage = _htResult["TIMESTAMP"].ToString();
-                            //    //_strMessage = _strMessage.Replace("Timestamp  Error : ", "Following " + Resources.TimeStampMessage);
-                            //    _strMessage += "Rest of Records ";
-
-                            //    //if (_strActionType == "Add")
-                            //    //    _strMessage += Resources.InsertMessage;
-                            //    //else
-                            //    //    _strMessage += Resources.UpdateMessage;
-
-                            //    //Global.Information(_strMessage, Resources.DialogText);
-                            //}
-                            //else
-                            //{
-                            //    //if (_strActionType == "Add")
-                            //    //    Global.Information(Resources.InsertMessage, Resources.DialogText);
-                            //    //else
-                            //    //    Global.Information(Resources.UpdateMessage, Resources.DialogText);
-
-                            //    //grdMas.RequiredCol = null;
-
-
-
-                            //    //_dtMas.AcceptChanges();
-                            //    //grdSubjectMaster.DataSource = _dtMas;
-
-
-                            //    //grdRptMas.RequiredCol = _strReqColMas;
-
-
-                            //}
-                            //if (_dtMas != null && _dtMas.Rows.Count > 0)
-                            //{
-                            //    btnMainPanel.ButtonEditEnable = true;
-                            //}
-                            //else
-                            //{
-                            //    btnMainPanel.ButtonEditEnable = false;
-                            //}
-
                             MessageBox.Show("Saved Succesfully.");
                             getLibraryInstance("UTILITY");
                             _strBtnActionType = "SAVE";
-                            uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                            grdBatchMaster.ReadOnly = true;
-                            btnMainPanel1.Select();
-                        }
 
-                        else if (_htResult.Contains("ROW"))
-                        {
-                            //Code for Required Column
+
+                            btnMainPanel1.Select();
                         }
                         else
                         {
@@ -157,7 +104,19 @@ namespace PeculiarTuitionERP.Master_Module
 
                     else
                     {
-                        uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                        MessageBox.Show("Some fields are required");
+                        if (grdBatchMaster != null && grdBatchMaster.CurrentCell != null && grdBatchMaster.CurrentCell.RowIndex != 0)
+                        {
+                            grdBatchMaster.Select();
+                            grdBatchMaster.CurrentCell = grdBatchMaster.Rows[grdBatchMaster.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
+                        }
+                        else
+                        {
+                            grdBatchMaster.Focus();
+                        }
+
+                        return;
+
                     }
                 }
             }
@@ -208,21 +167,14 @@ namespace PeculiarTuitionERP.Master_Module
             {
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
-                    grdBatchMaster.AllowUserToAddRows = true;
-                    grdBatchMaster.ReadOnly = false;
                     _strBtnActionType = "EDIT";
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    grdBatchMaster.Focus();
+                    UpdateControlBehaviour();
+
                 }
                 else
                 {
-                    grdBatchMaster.AllowUserToAddRows = true;
-                    grdBatchMaster.ReadOnly = true;
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
-                    btnMainPanel1.Focus();
-                    btnMainPanel1.SetFocus(Private.MyUserControls.ButtonPanelControl.Action.Add);
+                    _strBtnActionType = "CANCEL";
+                    UpdateControlBehaviour();
                 }
             }
             catch (Exception ex)
@@ -233,16 +185,170 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void btnMainPanel1_btnRefreshClick(object sender, EventArgs e)
         {
-            RefreshData();
+            try
+            {
+                getLibraryInstance("UTILITY");
+                string criteria = uti.GetGridCriteria(grdBatchMaster);
+                criteria = (string.IsNullOrWhiteSpace(criteria) == true ? DefaultRefreshCriteria : criteria);
+                GetDataSet(criteria);
+                if (_dtBatchMaster.Rows.Count > 0)
+                {
+                    _strBtnActionType = "REFRESH";
+                    grdBatchMaster.DataSource = _dtBatchMaster;
+                    UpdateControlBehaviour();
+                }
+                else
+                {
+                    MessageBox.Show("Record not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void btnMainPanel1_btnSearchClick(object sender, EventArgs e)
         {
-            SearchData();
+            try
+            {
+                _strBtnActionType = "SEARCH";
+                UpdateControlBehaviour();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+                throw;
+            }
         }
         #endregion
 
         #region Private Methods
+        private void UpdateControlBehaviour()
+        {
+            getLibraryInstance("UTILITY");
+            switch (_strBtnActionType.ToUpper())
+            {
+                case "LOAD":
+                    grdBatchMaster.AllowUserToAddRows = false;
+                    grdBatchMaster.ReadOnly = true;
+                    SetAutoIncrement();
+                    break;
+                case "ADD":
+                    grdBatchMaster.ReadOnly = false;
+                    grdBatchMaster.AllowUserToAddRows = true;
+
+                    grdBatchMaster.Focus();
+                    grdBatchMaster.CurrentCell = grdBatchMaster.Rows[grdBatchMaster.Rows.Count - 1].Cells["BATCH_ID"];
+                    SetAutoIncrement();
+                    break;
+                case "EDIT":
+                    grdBatchMaster.AllowUserToAddRows = true;
+                    grdBatchMaster.ReadOnly = false;
+                    grdBatchMaster.Focus();
+                    break;
+                case "SAVE":
+                    grdBatchMaster.ReadOnly = true;
+                    grdBatchMaster.AllowUserToAddRows = false;
+                    break;
+                case "SEARCH":
+                    if (_dtBatchMaster != null)
+                    {
+                        _dtBatchMaster.Rows.Clear();
+                        _dtBatchMaster.AcceptChanges();
+                    }
+                    grdBatchMaster.AllowUserToAddRows = true;
+                    grdBatchMaster.CurrentCell = grdBatchMaster.Rows[0].Cells["BATCH_ID"];
+                    grdBatchMaster.Rows[0].Cells["BATCH_ID"].Value = DBNull.Value;
+                    grdBatchMaster.Focus();
+                    grdBatchMaster.ReadOnly = false;
+                    break;
+                case "REFRESH":
+                    grdBatchMaster.ReadOnly = true;
+                    grdBatchMaster.AllowUserToAddRows = false;
+                    break;
+                case "CANCEL":
+                    grdBatchMaster.AllowUserToAddRows = true;
+                    grdBatchMaster.ReadOnly = true;
+                    break;
+                default:
+                    MessageBox.Show("Form behavious is not set for following behaviuor" + _strBtnActionType);
+                    break;
+            }
+            UpdatePanelBehaviour(_strBtnActionType);
+        }
+
+        private void UpdatePanelBehaviour(string ActionType)//Do not call directly
+        {
+            //string BehaviourType = ActionType == null ? strBtnActionType.ToUpper() : ActionType.ToUpper();
+            string BehaviourType = ActionType.ToUpper();
+            getLibraryInstance("UTILITY");
+            switch (BehaviourType)
+            {
+                case "LOAD":
+                    btnMainPanel1.Select();
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "ADD":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "EDIT":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "SAVE":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "SEARCH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "REFRESH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Edit);
+                    break;
+                case "CANCEL":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Focus();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                default:
+                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", _strBtnActionType);
+                    break;
+            }
+        }
+
+        private void SetAutoIncrement()
+        {
+            if (_strBtnActionType != "SEARCH")
+            {
+                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrement = true;
+                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrementSeed = -1;
+                _dtBatchMaster.Columns["BATCH_ID"].AutoIncrementStep = -1;
+            }
+        }
+        private void GetDataSet(string criteria = DefaultLoadCriteria)
+        {
+            try
+            {
+                getLibraryInstance();
+                _dtBatchMaster = libBatchMaster.FetchData(criteria, out ErrorMsg);
+                if (!string.IsNullOrEmpty(ErrorMsg))
+                {
+                    throw new Exception(ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            finally
+            {
+
+            }
+        }
 
         private void LoadGrid()
         {
@@ -274,7 +380,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         }
 
-        private void getLibraryInstance(string libName)
+        private void getLibraryInstance(string libName ="BATCHMAS")
         {
             if (libName.ToUpper() == "BATCHMAS")
             {
@@ -296,7 +402,7 @@ namespace PeculiarTuitionERP.Master_Module
                 getLibraryInstance("BATCHMAS");
                 if (_dtBatchMaster.GetChanges() != null)
                 {
-                    _htSave = libBatchMaster.SaveData("NULL", "", "RLT", Environment.MachineName, ref _dtBatchMaster, out ErrorMsg);
+                    _htSave = libBatchMaster.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtBatchMaster, out ErrorMsg);
                     if (ErrorMsg != null) throw new Exception(ErrorMsg);
                 }
                 else
@@ -323,98 +429,6 @@ namespace PeculiarTuitionERP.Master_Module
             }
             return null;
         }
-
-
-        private void SearchData()
-        {
-            try
-            {
-                grdBatchMaster.AllowUserToAddRows = true;
-
-                _strBtnActionType = "SEARCH";
-                if (_dtBatchMaster != null)
-                {
-                    _dtBatchMaster.Rows.Clear();
-                    _dtBatchMaster.AcceptChanges();
-                }
-                getLibraryInstance("UTILITY");
-                uti.SetPanelStatus(btnMainPanel1, "SEARCH");
-                grdBatchMaster.CurrentCell = grdBatchMaster.Rows[0].Cells["BATCH_ID"];
-                grdBatchMaster.Rows[0].Cells["BATCH_ID"].Value = DBNull.Value;
-                grdBatchMaster.Focus();
-                grdBatchMaster.ReadOnly = false;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-            finally
-            {
-                //Nullify Objects
-            }
-        }
-
-        private void RefreshData()
-        {
-            try
-            {
-                getLibraryInstance("UTILITY");
-                string criteria = uti.GetGridCriteria(this.grdBatchMaster);
-
-                getLibraryInstance("BATCHMAS");
-                if (!(string.IsNullOrEmpty(criteria)))
-                {
-                    _dtBatchMaster = libBatchMaster.FetchData(criteria, out ErrorMsg);
-                    if (ErrorMsg == null) throw new Exception(ErrorMsg);
-                }
-                else
-                {
-                    _dtBatchMaster = libBatchMaster.FetchData("1=1", out ErrorMsg);
-                    if (ErrorMsg == null) throw new Exception(ErrorMsg);
-                }
-                if (_dtBatchMaster.Rows.Count > 0)
-                {
-                    _strBtnActionType = "REFRESH";
-                    grdBatchMaster.DataSource = _dtBatchMaster;
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    grdBatchMaster.ReadOnly = true;
-                    grdBatchMaster.AllowUserToAddRows = false;
-                }
-                else
-                {
-                    MessageBox.Show("Record not found");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message.ToString());
-            }
-            finally
-            {
-                //Dispose or Nullify Objects
-            }
-        }
-
-        private void DeteleData()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message.ToString());
-            }
-            finally
-            {
-                //Dispose or Nullify Objects
-            }
-        }
-
 
         #endregion
         

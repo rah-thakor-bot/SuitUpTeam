@@ -28,12 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.grdPaymentMas = new System.Windows.Forms.DataGridView();
             this.btnMainPanel1 = new Private.MyUserControls.ButtonPanelControl();
             this.grpPaymentMas = new System.Windows.Forms.GroupBox();
-            this.grdPaymentMas = new System.Windows.Forms.DataGridView();
-            this.grpPaymentMas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPaymentMas)).BeginInit();
+            this.grpPaymentMas.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // grdPaymentMas
+            // 
+            this.grdPaymentMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdPaymentMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPaymentMas.Location = new System.Drawing.Point(3, 22);
+            this.grdPaymentMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grdPaymentMas.Name = "grdPaymentMas";
+            this.grdPaymentMas.RowHeadersVisible = false;
+            this.grdPaymentMas.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdPaymentMas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdPaymentMas.Size = new System.Drawing.Size(1289, 603);
+            this.grdPaymentMas.TabIndex = 0;
+            this.grdPaymentMas.Tag = "grdPaymentMas";
             // 
             // btnMainPanel1
             // 
@@ -59,40 +73,36 @@
             this.btnMainPanel1.ButtonSearchText = "Search";
             this.btnMainPanel1.ButtonSearchVisible = true;
             this.btnMainPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnMainPanel1.Location = new System.Drawing.Point(0, 690);
+            this.btnMainPanel1.Location = new System.Drawing.Point(0, 707);
             this.btnMainPanel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.btnMainPanel1.MessageText = "";
             this.btnMainPanel1.Name = "btnMainPanel1";
             this.btnMainPanel1.SetColor = System.Drawing.Color.Empty;
             this.btnMainPanel1.SetDuration = 0;
             this.btnMainPanel1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnMainPanel1.Size = new System.Drawing.Size(1295, 106);
+            this.btnMainPanel1.Size = new System.Drawing.Size(1295, 89);
             this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
-            this.btnMainPanel1.TabIndex = 7;
+            this.btnMainPanel1.TabIndex = 13;
+            this.btnMainPanel1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnAddClick);
+            this.btnMainPanel1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnEditClick);
+            this.btnMainPanel1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnDeleteClick);
+            this.btnMainPanel1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnSearchClick);
+            this.btnMainPanel1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnRefreshClick);
+            this.btnMainPanel1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnCloseClick);
             // 
             // grpPaymentMas
             // 
             this.grpPaymentMas.Controls.Add(this.grdPaymentMas);
             this.grpPaymentMas.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpPaymentMas.Location = new System.Drawing.Point(0, 0);
-            this.grpPaymentMas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.grpPaymentMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpPaymentMas.Name = "grpPaymentMas";
-            this.grpPaymentMas.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.grpPaymentMas.Size = new System.Drawing.Size(1295, 823);
-            this.grpPaymentMas.TabIndex = 6;
+            this.grpPaymentMas.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpPaymentMas.Size = new System.Drawing.Size(1295, 629);
+            this.grpPaymentMas.TabIndex = 12;
             this.grpPaymentMas.TabStop = false;
-            this.grpPaymentMas.Tag = "PaymentMaster";
+            this.grpPaymentMas.Tag = "PaymentMas";
             this.grpPaymentMas.Text = "Payment Master";
-            // 
-            // grdPaymentMas
-            // 
-            this.grdPaymentMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdPaymentMas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPaymentMas.Location = new System.Drawing.Point(3, 23);
-            this.grdPaymentMas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.grdPaymentMas.Name = "grdPaymentMas";
-            this.grdPaymentMas.Size = new System.Drawing.Size(1289, 795);
-            this.grdPaymentMas.TabIndex = 0;
             // 
             // frmPaymentMaster
             // 
@@ -106,16 +116,17 @@
             this.Name = "frmPaymentMaster";
             this.Tag = "PaymentMas";
             this.Text = "Payment Detail";
-            this.grpPaymentMas.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.frmPaymentMaster_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdPaymentMas)).EndInit();
+            this.grpPaymentMas.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.DataGridView grdPaymentMas;
         private Private.MyUserControls.ButtonPanelControl btnMainPanel1;
         private System.Windows.Forms.GroupBox grpPaymentMas;
-        private System.Windows.Forms.DataGridView grdPaymentMas;
     }
 }

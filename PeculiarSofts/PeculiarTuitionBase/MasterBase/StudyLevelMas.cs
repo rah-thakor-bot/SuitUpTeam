@@ -34,15 +34,15 @@ namespace PeculiarTuitionBase.MasterBase
             return null;
         }
 
-        public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
+        public Hashtable SaveData(string p_brid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
             int _intNumRecords = 0, _intStdID = 0;
             string _strErrMsg = "";
-            string _strTimeStampErrMsg = "Timestamp  Error : \n";
-            string _strInsertErrMsg = "Problem in inserting record : \n";
-            string _strUpdateErrMsg = "Problem in updating record : \n";
-            string _strDeleteErrMsg = "Problem in deleting record : \n";
+            string _strTimeStampErrMsg = TimestampMsg;
+            string _strInsertErrMsg = InsertMessage; ;
+            string _strUpdateErrMsg = UpdateMessage;
+            string _strDeleteErrMsg = DeleteMessage;
 
             p_err = null;
             Hashtable _htSave = new Hashtable();
@@ -97,7 +97,7 @@ namespace PeculiarTuitionBase.MasterBase
                         case DataRowState.Deleted:
                             _base.BeginTransaction(IsolationLevel.ReadCommitted);
 
-                            _htSave = Delete(p_brid, p_coid, p_user, p_terminal, _drRow);
+                            _htSave = Delete(p_brid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
                                 _strTimeStampErrMsg += "Std Id. = " + _drRow["STD_ID", DataRowVersion.Original].ToString() + "";
@@ -132,18 +132,7 @@ namespace PeculiarTuitionBase.MasterBase
                     _base.Commit();
                 }
 
-                if (_strTimeStampErrMsg != "Timestamp  Error : \n")
-                    _strErrMsg = _strTimeStampErrMsg + "\n \n";
-
-                if (_strInsertErrMsg != "Problem In Inserting Record : \n")
-                    _strErrMsg = _strInsertErrMsg + "\n \n";
-
-                if (_strUpdateErrMsg != "Problem In Updating Record : \n")
-                    _strErrMsg = _strUpdateErrMsg + "\n \n";
-
-                if (_strDeleteErrMsg != "Record can't deleted due to child record exist : \n")
-                    _strErrMsg = _strDeleteErrMsg + "\n \n";
-
+                GetTransactionSummary(_strInsertErrMsg, _strUpdateErrMsg, _strDeleteErrMsg, _strTimeStampErrMsg, out _strErrMsg);
 
                 _htSave.Add("RESULT", "true");
                 _htSave["TIMESTAMP"] = _strErrMsg;
@@ -227,7 +216,7 @@ namespace PeculiarTuitionBase.MasterBase
 
         }
 
-        private Hashtable Delete(string p_brid, string p_coid, string p_user, string p_term, DataRow p_dr)
+        private Hashtable Delete(string p_brid, string p_user, string p_term, DataRow p_dr)
         {
             Hashtable _htDel = new Hashtable();
             try

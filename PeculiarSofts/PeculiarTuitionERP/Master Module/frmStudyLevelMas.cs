@@ -18,11 +18,13 @@ namespace PeculiarTuitionERP.Master_Module
         string _strFormType = string.Empty;
         string _strBtnActionType = string.Empty;
         string ErrorMsg = string.Empty;
+        const string DefaultLoadCriteria = "1 = 2";
+        const string DefaultRefreshCriteria = "1 = 1";
+        string[] strStudyLevelChkBxColName;
+        string[] strStudyLevelCmbColName;
 
         DataTable _dtGridFields;
         DataTable _dtStudyLevelMas;
-        string[] strStudyLevelChkBxColName;
-        string[] strStudyLevelCmbColName;
         DataGridViewComboBoxColumn[] dgvcm_StudyLevel;
         #endregion
 
@@ -39,7 +41,9 @@ namespace PeculiarTuitionERP.Master_Module
         {
             try
             {
+                _strBtnActionType = "LOAD";
                 LoadGrid();
+                UpdateControlBehaviour();
             }
             catch (Exception ex)
             {
@@ -60,12 +64,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void grdStudyLevelMas_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (_strBtnActionType != "SEARCH")
-            {
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
-            }
+            SetAutoIncrement();
         }
         #endregion
 
@@ -77,13 +76,7 @@ namespace PeculiarTuitionERP.Master_Module
                 if (btnMainPanel1.ButtonAddText == "&Add")
                 {
                     _strBtnActionType = "ADD";
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-
-                    grdStudyLevelMas.ReadOnly = false;
-                    grdStudyLevelMas.AllowUserToAddRows = true;
-                    
-                    grdStudyLevelMas.Focus();
-                    grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[grdStudyLevelMas.Rows.Count - 1].Cells["STD_ID"];
+                    UpdateControlBehaviour();
                 }
                 else
                 {
@@ -99,8 +92,8 @@ namespace PeculiarTuitionERP.Master_Module
                             MessageBox.Show("Saved Succesfully.");
                             getLibraryInstance("UTILITY");
                             _strBtnActionType = "SAVE";
-                            uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                            grdStudyLevelMas.ReadOnly = true;
+                            
+                            
                             btnMainPanel1.Select();
                         }
                         else
@@ -172,22 +165,15 @@ namespace PeculiarTuitionERP.Master_Module
             {
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
-                    grdStudyLevelMas.AllowUserToAddRows = true;
-                    grdStudyLevelMas.ReadOnly = false;
                     _strBtnActionType = "EDIT";
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    grdStudyLevelMas.Focus();
+                    UpdateControlBehaviour();
+                    
                 }
                 else
                 {
-                    grdStudyLevelMas.AllowUserToAddRows = true;
-                    grdStudyLevelMas.ReadOnly = true;
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
-                    btnMainPanel1.Focus();
-                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
-                }
+                    _strBtnActionType = "CANCEL";
+                    UpdateControlBehaviour();
+               }
             }
             catch (Exception ex)
             {
@@ -197,41 +183,185 @@ namespace PeculiarTuitionERP.Master_Module
 
         private void btnMainPanel1_btnRefreshClick(object sender, EventArgs e)
         {
-            RefreshData();
+            try
+            {
+                getLibraryInstance("UTILITY");
+                string criteria = uti.GetGridCriteria(grdStudyLevelMas);
+                criteria = (string.IsNullOrWhiteSpace(criteria) == true ? DefaultRefreshCriteria : criteria);
+                GetDataSet(criteria);
+                if (_dtStudyLevelMas.Rows.Count > 0)
+                {
+                    _strBtnActionType = "REFRESH";
+                    grdStudyLevelMas.DataSource = _dtStudyLevelMas;
+                    UpdateControlBehaviour();
+                }
+                else
+                {
+                    MessageBox.Show("Record not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void btnMainPanel1_btnSearchClick(object sender, EventArgs e)
         {
-            SearchData();
+            try
+            {
+                _strBtnActionType = "SEARCH";
+                UpdateControlBehaviour();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+                throw;
+            }
         }
         #endregion
 
         #region Private Methods
+        private void UpdateControlBehaviour()
+        {
+            getLibraryInstance("UTILITY");
+            switch (_strBtnActionType.ToUpper())
+            {
+                case "LOAD":
+                    grdStudyLevelMas.AllowUserToAddRows = false;
+                    grdStudyLevelMas.ReadOnly = true;
+                    SetAutoIncrement();
+                    break;
+                case "ADD":
+                    grdStudyLevelMas.ReadOnly = false;
+                    grdStudyLevelMas.AllowUserToAddRows = true;
+
+                    grdStudyLevelMas.Focus();
+                    grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[grdStudyLevelMas.Rows.Count - 1].Cells["STD_ID"];
+                    SetAutoIncrement();
+                    break;
+                case "EDIT":
+                    grdStudyLevelMas.AllowUserToAddRows = true;
+                    grdStudyLevelMas.ReadOnly = false;
+                    grdStudyLevelMas.Focus();
+                    break;
+                case "SAVE":
+                    grdStudyLevelMas.ReadOnly = true;
+                    grdStudyLevelMas.AllowUserToAddRows = false;
+                    break;
+                case "SEARCH":
+                    if (_dtStudyLevelMas != null)
+                    {
+                        _dtStudyLevelMas.Rows.Clear();
+                        _dtStudyLevelMas.AcceptChanges();
+                    }
+                    grdStudyLevelMas.AllowUserToAddRows = true;
+                    grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[0].Cells["STD_ID"];
+                    grdStudyLevelMas.Rows[0].Cells["STD_ID"].Value = DBNull.Value;
+                    grdStudyLevelMas.Focus();
+                    grdStudyLevelMas.ReadOnly = false;
+                    break;
+                case "REFRESH":
+                    grdStudyLevelMas.ReadOnly = true;
+                    grdStudyLevelMas.AllowUserToAddRows = false;
+                    break;
+                case "CANCEL":
+                    grdStudyLevelMas.AllowUserToAddRows = true;
+                    grdStudyLevelMas.ReadOnly = true;
+                    break;
+                default:
+                    MessageBox.Show("Form behavious is not set for following behaviuor" + _strBtnActionType);
+                    break;
+            }
+            UpdatePanelBehaviour(_strBtnActionType);
+        }
+
+        private void UpdatePanelBehaviour(string ActionType)//Do not call directly
+        {
+            //string BehaviourType = ActionType == null ? strBtnActionType.ToUpper() : ActionType.ToUpper();
+            string BehaviourType = ActionType.ToUpper();
+            getLibraryInstance("UTILITY");
+            switch (BehaviourType)
+            {
+                case "LOAD":
+                    btnMainPanel1.Select();
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "ADD":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "EDIT":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "SAVE":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                case "SEARCH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    break;
+                case "REFRESH":
+                    uti.SetPanelStatus(btnMainPanel1, BehaviourType);
+                    btnMainPanel1.Select();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Edit);
+                    break;
+                case "CANCEL":
+                    uti.SetPanelStatus(btnMainPanel1, "LOAD");
+                    btnMainPanel1.Focus();
+                    btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
+                    break;
+                default:
+                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", _strBtnActionType);
+                    break;
+            }
+        }
+
+        private void SetAutoIncrement()
+        {
+            if (_strBtnActionType != "SEARCH")
+            {
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
+                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
+            }
+        }
+        private void GetDataSet(string criteria = DefaultLoadCriteria)
+        {
+            try
+            {
+                getLibraryInstance();
+                _dtStudyLevelMas = _libStudyLevelMas.FetchData(criteria, out ErrorMsg);
+                if (!string.IsNullOrEmpty(ErrorMsg))
+                {
+                    throw new Exception(ErrorMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            finally
+            {
+
+            }
+        }
 
         private void LoadGrid()
         {
             try
             {
-                if (_libStudyLevelMas == null)
-                    _libStudyLevelMas = new StudyLevelMas();
-
+                getLibraryInstance();
                 _dtGridFields = _libStudyLevelMas.FetchGridFields(this.Tag.ToString(), "grdStudyLevelMas", out ErrorMsg);
                 if (!string.IsNullOrEmpty(ErrorMsg))
                     MessageBox.Show(ErrorMsg);
 
-                _dtStudyLevelMas = _libStudyLevelMas.FetchData("1=2", out ErrorMsg);
-                if (!string.IsNullOrEmpty(ErrorMsg))
-                    throw new Exception(ErrorMsg.ToString());
-                
+                GetDataSet();
+
                 Global.AcquireGridCheckBoxColumn(_dtGridFields, out strStudyLevelChkBxColName);
                 Global.AcquireComboListWithSource(_dtGridFields, out strStudyLevelCmbColName, out dgvcm_StudyLevel);
                 Global.GridBindingSource(ref grdStudyLevelMas, _dtGridFields, strStudyLevelCmbColName, dgvcm_StudyLevel, strStudyLevelChkBxColName, _dtStudyLevelMas);
-                uti.SetPanelStatus(btnMainPanel1, "LOAD");
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrement = true;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementSeed = -1;
-                _dtStudyLevelMas.Columns["STD_ID"].AutoIncrementStep = -1;
-                grdStudyLevelMas.AllowUserToAddRows = false;
-                grdStudyLevelMas.ReadOnly = true;
             }
             catch (Exception ex)
             {
@@ -240,7 +370,7 @@ namespace PeculiarTuitionERP.Master_Module
 
         }
 
-        private void getLibraryInstance(string libName)
+        private void getLibraryInstance(string libName= "STUDY_LEVEL")
         {
             if (libName.ToUpper() == "STUDY_LEVEL")
             {
@@ -259,10 +389,10 @@ namespace PeculiarTuitionERP.Master_Module
             Hashtable _htSave = new Hashtable();
             try
             {
-                getLibraryInstance("STUDY_LEVEL");
+                getLibraryInstance();
                 if (_dtStudyLevelMas.GetChanges() != null)
                 {
-                    _htSave = _libStudyLevelMas.SaveData("NULL", "", "RLT", Environment.MachineName, ref _dtStudyLevelMas, out ErrorMsg);
+                    _htSave = _libStudyLevelMas.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtStudyLevelMas, out ErrorMsg);
                     if (ErrorMsg != null) throw new Exception(ErrorMsg);
                 }
                 else
@@ -290,97 +420,6 @@ namespace PeculiarTuitionERP.Master_Module
             return null;
         }
 
-        private void SearchData()
-        {
-            try
-            {
-                
-
-                _strBtnActionType= "SEARCH";
-                if (_dtStudyLevelMas != null)
-                {
-                    _dtStudyLevelMas.Rows.Clear();
-                    _dtStudyLevelMas.AcceptChanges();
-                }
-                getLibraryInstance("UTILITY");
-                grdStudyLevelMas.AllowUserToAddRows = true;
-                uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                grdStudyLevelMas.CurrentCell = grdStudyLevelMas.Rows[0].Cells["STD_ID"];
-                grdStudyLevelMas.Rows[0].Cells["STD_ID"].Value = DBNull.Value;
-                grdStudyLevelMas.Focus();
-                grdStudyLevelMas.ReadOnly = false;
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message.ToString());
-            }
-            finally
-            {
-                //Nullify Objects
-            }
-        }
-
-        private void RefreshData()
-        {
-            try
-            {
-                getLibraryInstance("UTILITY");
-                string criteria = uti.GetGridCriteria(this.grdStudyLevelMas);
-
-                getLibraryInstance("STUDY_LEVEL");
-                if (!(string.IsNullOrEmpty(criteria)))
-                {
-                    _dtStudyLevelMas = _libStudyLevelMas.FetchData(criteria, out ErrorMsg);
-                    if (ErrorMsg == null) throw new Exception(ErrorMsg);
-                }
-                else
-                {
-                    _dtStudyLevelMas = _libStudyLevelMas.FetchData("1=1", out ErrorMsg);
-                    if (ErrorMsg == null) throw new Exception(ErrorMsg);
-                }
-                if (_dtStudyLevelMas.Rows.Count > 0)
-                {
-                    _strBtnActionType = "REFRESH";
-                    grdStudyLevelMas.DataSource = _dtStudyLevelMas;
-                    getLibraryInstance("UTILITY");
-                    uti.SetPanelStatus(btnMainPanel1, _strBtnActionType);
-                    grdStudyLevelMas.ReadOnly = true;
-                    grdStudyLevelMas.AllowUserToAddRows = false;
-                }
-                else
-                {
-                    MessageBox.Show("Record not found");
-                }
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.ToString());
-            }
-            finally
-            {
-                //Dispose or Nullify Objects
-            }
-        }
-
-        private void DeteleData()
-        {
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.ToString());
-            }
-            finally
-            {
-                //Dispose or Nullify Objects
-            }
-        }
-        
         #endregion
     }
 }

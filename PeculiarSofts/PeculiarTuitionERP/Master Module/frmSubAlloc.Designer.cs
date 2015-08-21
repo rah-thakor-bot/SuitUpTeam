@@ -58,6 +58,7 @@
             this.grdSubAlloc.Size = new System.Drawing.Size(1242, 603);
             this.grdSubAlloc.TabIndex = 0;
             this.grdSubAlloc.Tag = "grdSubAlloc";
+            this.grdSubAlloc.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSubAlloc_RowEnter);
             // 
             // btnMainPanel1
             // 
@@ -93,6 +94,12 @@
             this.btnMainPanel1.Size = new System.Drawing.Size(1248, 106);
             this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
             this.btnMainPanel1.TabIndex = 8;
+            this.btnMainPanel1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnAddClick);
+            this.btnMainPanel1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnEditClick);
+            this.btnMainPanel1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnDeleteClick);
+            this.btnMainPanel1.btnSearchClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnSearchClick);
+            this.btnMainPanel1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnRefreshClick);
+            this.btnMainPanel1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnCloseClick);
             // 
             // frmSubAlloc
             // 
@@ -104,8 +111,9 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmSubAlloc";
-            this.Tag = "SubjAlloc";
+            this.Tag = "SubAllocation";
             this.Text = "Subject Allocation";
+            this.Load += new System.EventHandler(this.frmSubAlloc_Load);
             this.grpDet.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdSubAlloc)).EndInit();
             this.ResumeLayout(false);

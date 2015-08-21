@@ -55,7 +55,6 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackgroundImage = global::PeculiarTuitionERP.Properties.Resources.wallpapers;
             this.flowLayoutPanel1.Controls.Add(this.btnNewAdmission);
             this.flowLayoutPanel1.Controls.Add(this.btnTimetable);
             this.flowLayoutPanel1.Controls.Add(this.btnExamDet);

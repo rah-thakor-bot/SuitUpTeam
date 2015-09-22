@@ -31,12 +31,6 @@ namespace PeculiarTuitionBase.ExamBase
         {
             #region variable Declaration
             int _intNumRecords = 0, tempExamID = 0;
-            string _strErrMsg = string.Empty;
-            string _strTimeStampErrMsg = TimestampMsg;
-            string _strInsertErrMsg = InsertMessage; ;
-            string _strUpdateErrMsg = UpdateMessage;
-            string _strDeleteErrMsg = DeleteMessage;
-
             p_err = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
@@ -113,7 +107,7 @@ namespace PeculiarTuitionBase.ExamBase
                         {
                             p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["EXAM_ID"] = tempExamID;
                         }
-                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["p_time_stamp"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -161,7 +155,7 @@ namespace PeculiarTuitionBase.ExamBase
                 _base.AddInParam("p_supervisor", DbType.String, p_dr["SUPERVISOR"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
+                _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_exam_id", DbType.Int32, 5);
@@ -170,7 +164,7 @@ namespace PeculiarTuitionBase.ExamBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("EXAM_ID", _base.GetParameterValue("p_exam_id"));
-                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -198,14 +192,14 @@ namespace PeculiarTuitionBase.ExamBase
                 _base.AddInParam("p_supervisor", DbType.String, p_dr["SUPERVISOR"]);
                 _base.AddInParam("p_upd_user", DbType.String, p_user);
                 _base.AddInParam("p_upd_term", DbType.String, p_term);
-                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.ExecSPWithTransaction("pkg_exam_mas.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }

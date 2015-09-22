@@ -71,12 +71,39 @@ namespace PeculiarTuitionERP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 = 2.
+        /// </summary>
+        internal static string DefaultLoadCriteria {
+            get {
+                return ResourceManager.GetString("DefaultLoadCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 = 1.
+        /// </summary>
+        internal static string DefaultRefreshCriteria {
+            get {
+                return ResourceManager.GetString("DefaultRefreshCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Enroll_Student {
             get {
                 object obj = ResourceManager.GetObject("Enroll Student", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error | Tuition Information System.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -107,6 +134,15 @@ namespace PeculiarTuitionERP.Properties {
             get {
                 object obj = ResourceManager.GetObject("Manage Batch", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tuition Information System.
+        /// </summary>
+        internal static string NormalDialogHeader {
+            get {
+                return ResourceManager.GetString("NormalDialogHeader", resourceCulture);
             }
         }
         
@@ -217,6 +253,15 @@ namespace PeculiarTuitionERP.Properties {
             get {
                 object obj = ResourceManager.GetObject("wallpapers", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning | Tuition Information System.
+        /// </summary>
+        internal static string WarningHeader {
+            get {
+                return ResourceManager.GetString("WarningHeader", resourceCulture);
             }
         }
         

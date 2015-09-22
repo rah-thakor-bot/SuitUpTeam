@@ -23,7 +23,7 @@ namespace PeculiarTuitionERP
             Global.LoginBranch = ConfigurationManager.AppSettings["Branch"].ToString() == null ? "Testing" : ConfigurationManager.AppSettings["Branch"].ToString();
             Global.DefaultUser = ConfigurationManager.AppSettings["DefaultUser"].ToString();
             Global.LoginUser = Global.LoginUser == null ? Global.DefaultUser : Global.LoginUser;
-            
+
             // Initialize MaterialSkinManager
             //materialSkinManager = MaterialSkinManager.Instance;
             //materialSkinManager.AddFormToManage(this);
@@ -66,7 +66,7 @@ namespace PeculiarTuitionERP
 
         private void subjectDetailsChapterWiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSubjectMas _child = new frmSubjectMas("CHAPTER"){ MdiParent = this, Dock = DockStyle.Fill };
+            frmSubjectMas _child = new frmSubjectMas("CHAPTER") { MdiParent = this, Dock = DockStyle.Fill };
             //_child.MdiParent = this;
             _child.Show();
         }
@@ -110,7 +110,7 @@ namespace PeculiarTuitionERP
 
         private void mnuEmpMas_Click(object sender, EventArgs e)
         {
-            
+
             frmEmpMas _child = new frmEmpMas { MdiParent = this, Dock = DockStyle.Fill };
             //_child.MdiParent = this;
             _child.Show();
@@ -118,7 +118,7 @@ namespace PeculiarTuitionERP
 
         private void mnuStudyLevelMas_Click(object sender, EventArgs e)
         {
-            
+
             frmStudyLevelMas _child = new frmStudyLevelMas { MdiParent = this, Dock = DockStyle.Fill };
             _child.Show();
         }
@@ -131,7 +131,7 @@ namespace PeculiarTuitionERP
 
         private void gridFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-             frmGridFields _child = new frmGridFields { MdiParent = this, Dock = DockStyle.Fill };
+            frmGridFields _child = new frmGridFields { MdiParent = this, Dock = DockStyle.Fill };
             _child.Show();
         }
 
@@ -155,6 +155,18 @@ namespace PeculiarTuitionERP
         private void hiren2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             test _child = new test { MdiParent = this, Dock = DockStyle.Fill };
+            _child.Show();
+        }
+
+        private void attendaceMasterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAttendanceMaster _child = new frmAttendanceMaster { MdiParent = this, Dock = DockStyle.Fill };
+            _child.Show();
+        }
+
+        private void timetableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmTimetable _child = new frmTimetable { MdiParent = this, Dock = DockStyle.Fill };
             _child.Show();
         }
     }

@@ -48,6 +48,8 @@
             this.grdPaymentMas.Size = new System.Drawing.Size(1289, 603);
             this.grdPaymentMas.TabIndex = 0;
             this.grdPaymentMas.Tag = "grdPaymentMas";
+            this.grdPaymentMas.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grdPaymentMas_CellBeginEdit);
+            this.grdPaymentMas.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdPaymentMas_RowEnter);
             // 
             // btnMainPanel1
             // 

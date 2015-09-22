@@ -128,16 +128,16 @@ namespace PeculiarTuitionBase.MasterBase
                     _base.Commit();
                 }
 
-                if (_strTimeStampErrMsg != TimestampMsg)
+                if (_strTimeStampErrMsg != CONST_TIMESTAMP)
                     _strErrMsg = _strTimeStampErrMsg + "\n \n";
 
-                if (_strInsertErrMsg != InsertMessage)
+                if (_strInsertErrMsg != CONST_INS_MSG)
                     _strErrMsg = _strInsertErrMsg + "\n \n";
 
-                if (_strUpdateErrMsg != UpdateMessage)
+                if (_strUpdateErrMsg != CONST_UPD_MSG)
                     _strErrMsg = _strUpdateErrMsg + "\n \n";
 
-                if (_strDeleteErrMsg != DeleteMessage)
+                if (_strDeleteErrMsg != CONST_DEL_MSG)
                     _strErrMsg = _strDeleteErrMsg + "\n \n";
 
 

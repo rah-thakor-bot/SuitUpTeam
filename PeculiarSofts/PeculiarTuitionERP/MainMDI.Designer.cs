@@ -42,6 +42,7 @@
             this.mnuBatchMaster = new System.Windows.Forms.ToolStripMenuItem();
             this.entityTypeMas = new System.Windows.Forms.ToolStripMenuItem();
             this.transactoinSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.attendaceMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hiren1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AccountToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +63,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.timetableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
@@ -104,7 +106,9 @@
             this.examMasterToolStripMenuItem,
             this.mnuBatchMaster,
             this.entityTypeMas,
-            this.transactoinSettingToolStripMenuItem});
+            this.transactoinSettingToolStripMenuItem,
+            this.attendaceMasterToolStripMenuItem,
+            this.timetableToolStripMenuItem});
             this.hirenToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hirenToolStripMenuItem.Margin = new System.Windows.Forms.Padding(2);
             this.hirenToolStripMenuItem.Name = "hirenToolStripMenuItem";
@@ -214,6 +218,13 @@
             this.transactoinSettingToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
             this.transactoinSettingToolStripMenuItem.Text = "Transaction Setting";
             // 
+            // attendaceMasterToolStripMenuItem
+            // 
+            this.attendaceMasterToolStripMenuItem.Name = "attendaceMasterToolStripMenuItem";
+            this.attendaceMasterToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.attendaceMasterToolStripMenuItem.Text = "Attendace Master";
+            this.attendaceMasterToolStripMenuItem.Click += new System.EventHandler(this.attendaceMasterToolStripMenuItem_Click);
+            // 
             // hiren1ToolStripMenuItem
             // 
             this.hiren1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -257,7 +268,7 @@
             // gridFieldsToolStripMenuItem
             // 
             this.gridFieldsToolStripMenuItem.Name = "gridFieldsToolStripMenuItem";
-            this.gridFieldsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gridFieldsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.gridFieldsToolStripMenuItem.Text = "Grid Fields";
             this.gridFieldsToolStripMenuItem.Click += new System.EventHandler(this.gridFieldsToolStripMenuItem_Click);
             // 
@@ -415,6 +426,13 @@
             this.pictureBox1.TabIndex = 25;
             this.pictureBox1.TabStop = false;
             // 
+            // timetableToolStripMenuItem
+            // 
+            this.timetableToolStripMenuItem.Name = "timetableToolStripMenuItem";
+            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.timetableToolStripMenuItem.Text = "Timetable";
+            this.timetableToolStripMenuItem.Click += new System.EventHandler(this.timetableToolStripMenuItem_Click);
+            // 
             // MainMDI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -489,5 +507,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem attendaceMasterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timetableToolStripMenuItem;
     }
 }

@@ -44,12 +44,6 @@ namespace PeculiarTuitionBase.MasterBase
             
             int _intNumRecords = 0, _intSubID = 0;
             string _strCriteria = string.Empty;
-            string _strErrMsg = "";
-            string _strTimeStampErrMsg = TimestampMsg;
-            string _strInsertErrMsg = InsertMessage; ;
-            string _strUpdateErrMsg = UpdateMessage;
-            string _strDeleteErrMsg = DeleteMessage;
-
             p_err = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
@@ -133,7 +127,7 @@ namespace PeculiarTuitionBase.MasterBase
                             {
                                 p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])]["SUB_ID"] = _intSubID;
                             }
-                            //p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                            p_ds.Tables["SubMas"].Rows[p_ds.Tables["SubMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["p_time_stamp"].ToString();
                         }
                         if (_drRow.RowState == DataRowState.Deleted)
                         {
@@ -167,14 +161,7 @@ namespace PeculiarTuitionBase.MasterBase
             #region variable Declaration
             int _intNumRecords = 0, _intSeqno = 0;
             string _strCriteria = string.Empty;
-            string _strErrMsg = "";
-            string _strTimeStampErrMsg = TimestampMsg;
-            string _strInsertErrMsg = InsertMessage; ;
-            string _strUpdateErrMsg = UpdateMessage;
-            string _strDeleteErrMsg = DeleteMessage;
-            //string _strDeleteErrMsg = "Record can't deleted due to child record exist : \n";
-
-            p_err = null;
+             p_err = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
             #endregion
@@ -249,7 +236,7 @@ namespace PeculiarTuitionBase.MasterBase
                         {
                             p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])]["SEQNO"] = _intSeqno;
                         }
-                        //p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        p_ds.Tables["ChpMas"].Rows[p_ds.Tables["ChpMas"].Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["p_time_stamp"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -302,7 +289,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_is_active", DbType.String, p_dr["IS_ACTIVE"].ToString() == "" ? "N" : p_dr["IS_ACTIVE"].ToString());
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
+                _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_sub_id", DbType.Int64, 6);
@@ -312,7 +299,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("p_sub_id", _base.GetParameterValue("p_sub_id"));
-                //_htAdd.Add("P_TIME_STAMP", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("P_TIME_STAMP", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -335,7 +322,7 @@ namespace PeculiarTuitionBase.MasterBase
 
                 _base.AddInParam("p_upd_user", DbType.String, p_user);
                 _base.AddInParam("p_upd_term", DbType.String, p_term);
-                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
 
@@ -344,7 +331,7 @@ namespace PeculiarTuitionBase.MasterBase
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }
@@ -364,7 +351,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.Connect();
                 _base.AddInParam("p_branch", DbType.String, p_brid);
                 _base.AddInParam("p_sub_id", DbType.Int32, p_dr["SUB_ID", DataRowVersion.Original]);
-                //_base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
+                _base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
 
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
@@ -394,7 +381,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
+                _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_seqno", DbType.Int64, 6);
@@ -404,7 +391,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("p_seqno", _base.GetParameterValue("p_seqno"));
-                ///_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -426,7 +413,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
                 _base.AddInParam("p_upd_user", DbType.String, p_user);
                 _base.AddInParam("p_upd_term", DbType.String, p_term);
-                //_base.AddParameter("P_TIME_STAMP", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("P_TIME_STAMP", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
 
@@ -434,7 +421,7 @@ namespace PeculiarTuitionBase.MasterBase
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }
@@ -454,7 +441,6 @@ namespace PeculiarTuitionBase.MasterBase
                 _base.Connect();
                 _base.AddInParam("p_brid", DbType.String, p_brid);
                 _base.AddInParam("p_seqno", DbType.Int32, p_dr["SEQNO", DataRowVersion.Original]);
-                //_base.AddInParam("p_time_stamp", DbType.String, p_dr["time_stamp", DataRowVersion.Original]);
 
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);

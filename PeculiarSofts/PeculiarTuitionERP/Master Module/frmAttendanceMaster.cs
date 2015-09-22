@@ -3,46 +3,42 @@ using System.Data;
 using System.Collections;
 using System.Windows.Forms;
 using Private.MyUserControls;
-using PeculiarTuitionBase.PaymentBase;
+using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
 
-
-namespace PeculiarTuitionERP.Transaction_Module
+namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmPaymentMaster : frmBaseChild
+    public partial class frmAttendanceMaster : frmBaseChild
     {
         #region Global Objects and Variable Declaration for Form
-        private PaymentMas libPaymentMas;
+        private AttendanceMas _libAttendanceMas;
         private Utility uti;
         string _strFormType = string.Empty;
-        string strBtnActionType = string.Empty;
+        string _strBtnActionType = string.Empty;
         string ErrorMsg = string.Empty;
         const string DefaultLoadCriteria = "1 = 2";
         const string DefaultRefreshCriteria = "1 = 1";
-        string[] strPayMasChkBxColName;
-        string[] strPayMasCmbColName;
+        string[] strAttendanceChkBxColName;
+        string[] strAttendanceCmbColName;
 
         DataTable _dtGridFields;
-        DataTable _dtPaymentMas;
-        DataGridViewComboBoxColumn[] dgvcm_PaymentMas;
+        DataTable _dtAttendanceMas;
+        DataGridViewComboBoxColumn[] dgvcm_StudyLevel;
         #endregion
 
-        #region Constructors
-
-        public frmPaymentMaster()
+        #region Constructor
+        public frmAttendanceMaster()
         {
             InitializeComponent();
         }
-
         #endregion
 
-        #region Form Events
-
-        private void frmPaymentMaster_Load(object sender, EventArgs e)
+        #region Form private Events
+        private void frmStudyLevelMas_Load(object sender, EventArgs e)
         {
             try
             {
-                strBtnActionType = "LOAD";
+                _strBtnActionType = "LOAD";
                 LoadGrid();
                 UpdateControlBehaviour();
             }
@@ -52,6 +48,21 @@ namespace PeculiarTuitionERP.Transaction_Module
             }
         }
 
+        private void grdAttendanceMas_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+        private void grdAttendanceMas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
+
+        private void grdAttendanceMas_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            SetAutoIncrement();
+        }
         #endregion
 
         #region Button Panel Events
@@ -61,13 +72,13 @@ namespace PeculiarTuitionERP.Transaction_Module
             {
                 if (btnMainPanel1.ButtonAddText == "&Add")
                 {
-                    strBtnActionType = "ADD";
+                    _strBtnActionType = "ADD";
                     UpdateControlBehaviour();
                 }
                 else
                 {
                     Hashtable ValGrid = new Hashtable();
-                    ValGrid = Global.ValidateGrid(grdPaymentMas, _dtGridFields);
+                    ValGrid = Global.ValidateGrid(grdAttendanceMas, _dtGridFields);
                     if (ValGrid["RESULT"].ToString() == "true")
                     {
                         Hashtable _htResult = new Hashtable();
@@ -77,26 +88,26 @@ namespace PeculiarTuitionERP.Transaction_Module
                         {
                             MessageBox.Show("Saved Succesfully.");
                             getLibraryInstance("UTILITY");
-                            strBtnActionType = "SAVE";
+                            _strBtnActionType = "SAVE";
                             UpdateControlBehaviour();
                         }
                         else
                         {
-                            //Unsuccessful attempt to save
+                            
                         }
                     }
 
                     else
                     {
                         MessageBox.Show("Some fields are required");
-                        if (grdPaymentMas != null && grdPaymentMas.CurrentCell != null && grdPaymentMas.CurrentCell.RowIndex != 0)
+                        if (grdAttendanceMas != null && grdAttendanceMas.CurrentCell != null && grdAttendanceMas.CurrentCell.RowIndex != 0)
                         {
-                            grdPaymentMas.Select();
-                            grdPaymentMas.CurrentCell = grdPaymentMas.Rows[grdPaymentMas.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
+                            grdAttendanceMas.Select();
+                            grdAttendanceMas.CurrentCell = grdAttendanceMas.Rows[grdAttendanceMas.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
                         }
                         else
                         {
-                            grdPaymentMas.Focus();
+                            grdAttendanceMas.Focus();
                         }
 
                         return;
@@ -119,18 +130,18 @@ namespace PeculiarTuitionERP.Transaction_Module
         {
             try
             {
-                grdPaymentMas.Select();
-                grdPaymentMas.Focus();
-                if (grdPaymentMas.Focused && grdPaymentMas.SelectedRows.Count > 0)
+                grdAttendanceMas.Select();
+                grdAttendanceMas.Focus();
+                if (grdAttendanceMas.Focused && grdAttendanceMas.SelectedRows.Count > 0)
                 {
-                    strBtnActionType = "DELETE";
+                    _strBtnActionType = "DELETE";
                     if (MessageBox.Show("Do you want to delete Record(s)?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        grdPaymentMas.AllowUserToDeleteRows = true;
-                        foreach (DataGridViewRow _drMasRow in grdPaymentMas.SelectedRows)
+                        grdAttendanceMas.AllowUserToDeleteRows = true;
+                        foreach (DataGridViewRow _drMasRow in grdAttendanceMas.SelectedRows)
                         {
                             if (_drMasRow.IsNewRow == false)
-                                grdPaymentMas.Rows.Remove(_drMasRow);
+                                grdAttendanceMas.Rows.Remove(_drMasRow);
                             else
                                 _drMasRow.Selected = false;
                         }
@@ -149,13 +160,12 @@ namespace PeculiarTuitionERP.Transaction_Module
             {
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
-                    strBtnActionType = "EDIT";
+                    _strBtnActionType = "EDIT";
                     UpdateControlBehaviour();
-
                 }
                 else
                 {
-                    strBtnActionType = "CANCEL";
+                    _strBtnActionType = "CANCEL";
                     UpdateControlBehaviour();
                 }
             }
@@ -170,13 +180,13 @@ namespace PeculiarTuitionERP.Transaction_Module
             try
             {
                 getLibraryInstance("UTILITY");
-                string criteria = uti.GetGridCriteria(grdPaymentMas);
+                string criteria = uti.GetGridCriteria(grdAttendanceMas);
                 criteria = (string.IsNullOrWhiteSpace(criteria) == true ? DefaultRefreshCriteria : criteria);
                 GetDataSet(criteria);
-                if (_dtPaymentMas.Rows.Count > 0)
+                if (_dtAttendanceMas.Rows.Count > 0)
                 {
-                    strBtnActionType = "REFRESH";
-                    grdPaymentMas.DataSource = _dtPaymentMas;
+                    grdAttendanceMas.DataSource = _dtAttendanceMas;
+                    _strBtnActionType = "REFRESH";
                     UpdateControlBehaviour();
                 }
                 else
@@ -194,7 +204,7 @@ namespace PeculiarTuitionERP.Transaction_Module
         {
             try
             {
-                strBtnActionType = "SEARCH";
+                _strBtnActionType = "SEARCH";
                 UpdateControlBehaviour();
             }
             catch (Exception ex)
@@ -209,60 +219,59 @@ namespace PeculiarTuitionERP.Transaction_Module
         private void UpdateControlBehaviour()
         {
             getLibraryInstance("UTILITY");
-            switch (strBtnActionType.ToUpper())
+            switch (_strBtnActionType.ToUpper())
             {
                 case "LOAD":
-                    grdPaymentMas.AllowUserToAddRows = false;
-                    grdPaymentMas.ReadOnly = true;
+                    grdAttendanceMas.AllowUserToAddRows = false;
+                    grdAttendanceMas.ReadOnly = true;
                     SetAutoIncrement();
                     break;
                 case "ADD":
-                    grdPaymentMas.ReadOnly = false;
-                    grdPaymentMas.AllowUserToAddRows = true;
+                    grdAttendanceMas.ReadOnly = false;
+                    grdAttendanceMas.AllowUserToAddRows = true;
+
+                    grdAttendanceMas.Focus();
+                    grdAttendanceMas.CurrentCell = grdAttendanceMas.Rows[grdAttendanceMas.Rows.Count - 1].Cells["SEQNO"];
                     SetAutoIncrement();
-                    grdPaymentMas.Focus();
-                    grdPaymentMas.CurrentCell = grdPaymentMas.Rows[grdPaymentMas.Rows.Count - 1].Cells["TRN_ID"];
                     break;
                 case "EDIT":
-                    grdPaymentMas.AllowUserToAddRows = true;
-                    grdPaymentMas.ReadOnly = false;
-                    SetAutoIncrement();
-                    grdPaymentMas.Focus();
+                    grdAttendanceMas.AllowUserToAddRows = true;
+                    grdAttendanceMas.ReadOnly = false;
+                    grdAttendanceMas.Focus();
                     break;
                 case "SAVE":
-                    grdPaymentMas.ReadOnly = true;
-                    grdPaymentMas.AllowUserToAddRows = false;
+                    grdAttendanceMas.ReadOnly = true;
+                    grdAttendanceMas.AllowUserToAddRows = false;
                     break;
                 case "SEARCH":
-                    if (_dtPaymentMas != null)
+                    if (_dtAttendanceMas != null)
                     {
-                        _dtPaymentMas.Rows.Clear();
-                        _dtPaymentMas.AcceptChanges();
+                        _dtAttendanceMas.Rows.Clear();
+                        _dtAttendanceMas.AcceptChanges();
                     }
-                    grdPaymentMas.AllowUserToAddRows = true;
-                    grdPaymentMas.CurrentCell = grdPaymentMas.Rows[0].Cells["TRN_ID"];
-                    grdPaymentMas.Rows[0].Cells["TRN_ID"].Value = DBNull.Value;
-                    grdPaymentMas.Focus();
-                    grdPaymentMas.ReadOnly = false;
+                    grdAttendanceMas.AllowUserToAddRows = true;
+                    grdAttendanceMas.CurrentCell = grdAttendanceMas.Rows[0].Cells["SEQNO"];
+                    grdAttendanceMas.Rows[0].Cells["SEQNO"].Value = DBNull.Value;
+                    grdAttendanceMas.Focus();
+                    grdAttendanceMas.ReadOnly = false;
                     break;
                 case "REFRESH":
-                    grdPaymentMas.ReadOnly = true;
-                    grdPaymentMas.AllowUserToAddRows = false;
+                    grdAttendanceMas.ReadOnly = true;
+                    grdAttendanceMas.AllowUserToAddRows = false;
                     break;
                 case "CANCEL":
-                    grdPaymentMas.AllowUserToAddRows = true;
-                    grdPaymentMas.ReadOnly = true;
+                    grdAttendanceMas.AllowUserToAddRows = true;
+                    grdAttendanceMas.ReadOnly = true;
                     break;
                 default:
-                    MessageBox.Show("Form behavious is not set for following behaviuor" + strBtnActionType);
+                    MessageBox.Show("Form behavious is not set for following behaviuor" + _strBtnActionType);
                     break;
             }
-            UpdatePanelBehaviour(strBtnActionType);
+            UpdatePanelBehaviour(_strBtnActionType);
         }
 
         private void UpdatePanelBehaviour(string ActionType)//Do not call directly
         {
-            //string BehaviourType = ActionType == null ? strBtnActionType.ToUpper() : ActionType.ToUpper();
             string BehaviourType = ActionType.ToUpper();
             getLibraryInstance("UTILITY");
             switch (BehaviourType)
@@ -297,18 +306,18 @@ namespace PeculiarTuitionERP.Transaction_Module
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 default:
-                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", strBtnActionType);
+                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", _strBtnActionType);
                     break;
             }
         }
 
         private void SetAutoIncrement()
         {
-            if (strBtnActionType != "SEARCH")
+            if (_strBtnActionType != "SEARCH")
             {
-                _dtPaymentMas.Columns["TRN_ID"].AutoIncrement = true;
-                _dtPaymentMas.Columns["TRN_ID"].AutoIncrementSeed = -1;
-                _dtPaymentMas.Columns["TRN_ID"].AutoIncrementStep = -1;
+                _dtAttendanceMas.Columns["SEQNO"].AutoIncrement = true;
+                _dtAttendanceMas.Columns["SEQNO"].AutoIncrementSeed = -1;
+                _dtAttendanceMas.Columns["SEQNO"].AutoIncrementStep = -1;
             }
         }
         private void GetDataSet(string criteria = DefaultLoadCriteria)
@@ -316,7 +325,7 @@ namespace PeculiarTuitionERP.Transaction_Module
             try
             {
                 getLibraryInstance();
-                _dtPaymentMas = libPaymentMas.FetchData(criteria, out ErrorMsg);
+                _dtAttendanceMas = _libAttendanceMas.FetchData(criteria, out ErrorMsg);
                 if (!string.IsNullOrEmpty(ErrorMsg))
                 {
                     throw new Exception(ErrorMsg);
@@ -337,29 +346,28 @@ namespace PeculiarTuitionERP.Transaction_Module
             try
             {
                 getLibraryInstance();
-                _dtGridFields = libPaymentMas.FetchGridFields(this.Tag.ToString(), "grdPaymentMas", out ErrorMsg);
+                _dtGridFields = _libAttendanceMas.FetchGridFields(this.Tag.ToString(), "grdAttendanceMas", out ErrorMsg);
                 if (!string.IsNullOrEmpty(ErrorMsg))
                     MessageBox.Show(ErrorMsg);
 
                 GetDataSet();
 
-                Global.AcquireGridCheckBoxColumn(_dtGridFields, out strPayMasChkBxColName);
-                Global.AcquireComboListWithSource(_dtGridFields, out strPayMasCmbColName, out dgvcm_PaymentMas);
-                Global.GridBindingSource(ref grdPaymentMas, _dtGridFields, strPayMasCmbColName, dgvcm_PaymentMas, strPayMasChkBxColName, _dtPaymentMas);
+                Global.AcquireGridCheckBoxColumn(_dtGridFields, out strAttendanceChkBxColName);
+                Global.AcquireComboListWithSource(_dtGridFields, out strAttendanceCmbColName, out dgvcm_StudyLevel);
+                Global.GridBindingSource(ref grdAttendanceMas, _dtGridFields, strAttendanceCmbColName, dgvcm_StudyLevel, strAttendanceChkBxColName, _dtAttendanceMas);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-
         }
 
-        private void getLibraryInstance(string libName = "PAYMENT")
+        private void getLibraryInstance(string libName = "ATTENDANCE")
         {
-            if (libName.ToUpper() == "PAYMENT")
+            if (libName.ToUpper() == "ATTENDANCE")
             {
-                if (libPaymentMas == null)
-                    libPaymentMas = new PaymentMas();
+                if (_libAttendanceMas == null)
+                    _libAttendanceMas = new AttendanceMas();
             }
             else if (libName.ToUpper() == "UTILITY")
             {
@@ -374,9 +382,9 @@ namespace PeculiarTuitionERP.Transaction_Module
             try
             {
                 getLibraryInstance();
-                if (_dtPaymentMas.GetChanges() != null)
+                if (_dtAttendanceMas.GetChanges() != null)
                 {
-                    _htSave = libPaymentMas.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtPaymentMas, out ErrorMsg);
+                    _htSave = _libAttendanceMas.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtAttendanceMas, out ErrorMsg);
                     if (ErrorMsg != null) throw new Exception(ErrorMsg);
                 }
                 else
@@ -405,67 +413,5 @@ namespace PeculiarTuitionERP.Transaction_Module
         }
 
         #endregion
-
-        private void grdPaymentMas_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (strBtnActionType != "SEARCH")
-            {
-                SetAutoIncrement();
-            }
-        }
-
-        private void grdPaymentMas_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            try
-            {
-                int? intEntityType = 0;
-                DataGridViewComboBoxCell dgvtc = new DataGridViewComboBoxCell();
-                switch (grdPaymentMas.Columns[e.ColumnIndex].Name)
-                {
-                    case "FROM_ENTITY_ID":
-                        getLibraryInstance();
-                        dgvtc = (DataGridViewComboBoxCell)grdPaymentMas.CurrentRow.Cells[e.ColumnIndex];
-                        intEntityType = int.Parse(grdPaymentMas.CurrentRow.Cells["FROM_TYPE"].Value.ToString());
-                        if (intEntityType != null)
-                        {
-                            DataTable dt = new DataTable();
-                            dt = libPaymentMas.GetEmpList(p_entity_type: intEntityType.ToString(), p_is_active: string.Empty, Error: out ErrorMsg);
-                            if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
-                            dgvtc.DataSource = dt.Copy();
-                            dgvtc.DisplayMember = "ENTITY_NAME";
-                            dgvtc.ValueMember = "ENTITY_ID";
-                        }
-                        else
-                        {
-                            grdPaymentMas.CurrentCell = grdPaymentMas.CurrentRow.Cells[e.ColumnIndex];
-                            return;
-                        }
-                        break;
-                    case "TO_ENTITY_ID":
-                        getLibraryInstance();
-                        dgvtc = (DataGridViewComboBoxCell)grdPaymentMas.CurrentRow.Cells[e.ColumnIndex];
-                        intEntityType = int.Parse(grdPaymentMas.CurrentRow.Cells["TO_TYPE"].Value.ToString());
-                        if (intEntityType != null)
-                        {
-                            DataTable dt = new DataTable();
-                            dt = libPaymentMas.GetEmpList(p_entity_type: intEntityType.ToString(), p_is_active: string.Empty, Error: out ErrorMsg);
-                            if (!(string.IsNullOrWhiteSpace(ErrorMsg))) throw new Exception(ErrorMsg);
-                            dgvtc.DataSource = dt.Copy();
-                            dgvtc.DisplayMember = "ENTITY_NAME";
-                            dgvtc.ValueMember = "ENTITY_ID";
-                        }
-                        else
-                        {
-                            grdPaymentMas.CurrentCell = grdPaymentMas.CurrentRow.Cells[e.ColumnIndex];
-                            return;
-                        }
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
     }
 }

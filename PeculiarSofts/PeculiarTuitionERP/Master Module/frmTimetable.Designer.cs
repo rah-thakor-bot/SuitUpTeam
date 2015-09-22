@@ -1,6 +1,6 @@
-﻿namespace PeculiarTuitionERP.Transaction_Module
+﻿namespace PeculiarTuitionERP.Master_Module
 {
-    partial class frmTransactionSetting
+    partial class frmTimetable
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.btnMainPanel1 = new Private.MyUserControls.ButtonPanelControl();
-            this.grpTransactionMas = new System.Windows.Forms.GroupBox();
-            this.grdTrnMas = new System.Windows.Forms.DataGridView();
-            this.grpTransactionMas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdTrnMas)).BeginInit();
+            this.grdTimetable = new System.Windows.Forms.DataGridView();
+            this.grpTimetable = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.grdTimetable)).BeginInit();
+            this.grpTimetable.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMainPanel1
@@ -59,16 +59,16 @@
             this.btnMainPanel1.ButtonSearchText = "Search";
             this.btnMainPanel1.ButtonSearchVisible = true;
             this.btnMainPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnMainPanel1.Location = new System.Drawing.Point(0, 726);
-            this.btnMainPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnMainPanel1.Location = new System.Drawing.Point(0, 683);
+            this.btnMainPanel1.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.btnMainPanel1.MessageText = "";
             this.btnMainPanel1.Name = "btnMainPanel1";
             this.btnMainPanel1.SetColor = System.Drawing.Color.Empty;
             this.btnMainPanel1.SetDuration = 0;
             this.btnMainPanel1.SetLightColor = System.Drawing.Color.Empty;
-            this.btnMainPanel1.Size = new System.Drawing.Size(1291, 81);
+            this.btnMainPanel1.Size = new System.Drawing.Size(1266, 90);
             this.btnMainPanel1.StartTime = new System.DateTime(((long)(0)));
-            this.btnMainPanel1.TabIndex = 11;
+            this.btnMainPanel1.TabIndex = 10;
             this.btnMainPanel1.btnAddClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnAddClick);
             this.btnMainPanel1.btnEditClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnEditClick);
             this.btnMainPanel1.btnDeleteClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnDeleteClick);
@@ -76,49 +76,45 @@
             this.btnMainPanel1.btnRefreshClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnRefreshClick);
             this.btnMainPanel1.btnCloseClick += new Private.MyUserControls.ButtonPanelControl.Button_Click(this.btnMainPanel1_btnCloseClick);
             // 
-            // grpTransactionMas
+            // grdTimetable
             // 
-            this.grpTransactionMas.Controls.Add(this.grdTrnMas);
-            this.grpTransactionMas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grpTransactionMas.Location = new System.Drawing.Point(0, 0);
-            this.grpTransactionMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTransactionMas.Name = "grpTransactionMas";
-            this.grpTransactionMas.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTransactionMas.Size = new System.Drawing.Size(1291, 629);
-            this.grpTransactionMas.TabIndex = 10;
-            this.grpTransactionMas.TabStop = false;
-            this.grpTransactionMas.Tag = "TrnMas";
-            this.grpTransactionMas.Text = "Transaction Settings";
+            this.grdTimetable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdTimetable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdTimetable.Location = new System.Drawing.Point(3, 22);
+            this.grdTimetable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grdTimetable.Name = "grdTimetable";
+            this.grdTimetable.Size = new System.Drawing.Size(1260, 603);
+            this.grdTimetable.TabIndex = 0;
+            this.grdTimetable.Tag = "grdSubAlloc";
             // 
-            // grdTrnMas
+            // grpTimetable
             // 
-            this.grdTrnMas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdTrnMas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdTrnMas.Location = new System.Drawing.Point(3, 22);
-            this.grdTrnMas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grdTrnMas.Name = "grdTrnMas";
-            this.grdTrnMas.RowHeadersVisible = false;
-            this.grdTrnMas.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdTrnMas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdTrnMas.Size = new System.Drawing.Size(1285, 603);
-            this.grdTrnMas.TabIndex = 0;
-            this.grdTrnMas.Tag = "grdTrnMas";
-            this.grdTrnMas.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdTrnMas_RowEnter);
+            this.grpTimetable.Controls.Add(this.grdTimetable);
+            this.grpTimetable.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpTimetable.Location = new System.Drawing.Point(0, 0);
+            this.grpTimetable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpTimetable.Name = "grpTimetable";
+            this.grpTimetable.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpTimetable.Size = new System.Drawing.Size(1266, 629);
+            this.grpTimetable.TabIndex = 9;
+            this.grpTimetable.TabStop = false;
+            this.grpTimetable.Text = "Timetable";
             // 
-            // frmTransactionSetting
+            // frmTimetable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1291, 807);
+            this.ClientSize = new System.Drawing.Size(1266, 773);
             this.Controls.Add(this.btnMainPanel1);
-            this.Controls.Add(this.grpTransactionMas);
+            this.Controls.Add(this.grpTimetable);
             this.Location = new System.Drawing.Point(0, 0);
-            this.Name = "frmTransactionSetting";
-            this.Tag = "TranSettings";
-            this.Text = "Transaction Settings";
-            this.Load += new System.EventHandler(this.frmTransactionSetting_Load);
-            this.grpTransactionMas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdTrnMas)).EndInit();
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.Name = "frmTimetable";
+            this.Tag = "frmTimetable";
+            this.Text = "TimeTable Master";
+            this.Load += new System.EventHandler(this.frmTimetable_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.grdTimetable)).EndInit();
+            this.grpTimetable.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -126,7 +122,7 @@
         #endregion
 
         private Private.MyUserControls.ButtonPanelControl btnMainPanel1;
-        private System.Windows.Forms.GroupBox grpTransactionMas;
-        private System.Windows.Forms.DataGridView grdTrnMas;
+        private System.Windows.Forms.DataGridView grdTimetable;
+        private System.Windows.Forms.GroupBox grpTimetable;
     }
 }

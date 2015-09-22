@@ -11,6 +11,8 @@
     <AssemblyName>PeculiarTuitionERP</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,10 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,6 +63,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -104,6 +105,12 @@
     </Compile>
     <Compile Include="MainMDI.Designer.cs">
       <DependentUpon>MainMDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master Module\frmAttendanceMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmAttendanceMaster.Designer.cs">
+      <DependentUpon>frmAttendanceMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="Master Module\frmBatchMaster.cs">
       <SubType>Form</SubType>
@@ -147,8 +154,20 @@
     <Compile Include="Master Module\frmSubjectMas.Designer.cs">
       <DependentUpon>frmSubjectMas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master Module\frmTimetable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master Module\frmTimetable.Designer.cs">
+      <DependentUpon>frmTimetable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\frmReportViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\frmReportViewer.Designer.cs">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Super\frmGridFields.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +210,9 @@
     <EmbeddedResource Include="MainMDI.resx">
       <DependentUpon>MainMDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmAttendanceMaster.resx">
+      <DependentUpon>frmAttendanceMaster.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master Module\frmBatchMaster.resx">
       <DependentUpon>frmBatchMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +234,9 @@
     <EmbeddedResource Include="Master Module\frmSubjectMas.resx">
       <DependentUpon>frmSubjectMas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Master Module\frmTimetable.resx">
+      <DependentUpon>frmTimetable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -222,6 +247,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\frmReportViewer.resx">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Super\frmGridFields.resx">
       <DependentUpon>frmGridFields.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,9 +277,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>

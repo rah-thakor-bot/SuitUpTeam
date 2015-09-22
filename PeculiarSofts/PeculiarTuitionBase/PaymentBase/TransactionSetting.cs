@@ -31,16 +31,10 @@ namespace PeculiarTuitionBase.PaymentBase
         {
             #region variable Declaration
             int _intNumRecords = 0, tempExamID = 0;
-            string _strErrMsg = string.Empty;
-            string _strTimeStampErrMsg = TimestampMsg;
-            string _strInsertErrMsg = InsertMessage; ;
-            string _strUpdateErrMsg = UpdateMessage;
-            string _strDeleteErrMsg = DeleteMessage;
-
-            p_err = null;
+            
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
-
+            p_err = null;
             #endregion
             try
             {
@@ -57,7 +51,7 @@ namespace PeculiarTuitionBase.PaymentBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strInsertErrMsg += "Exam Id " + _drRow["SEQNO"].ToString() + "";
+                                _strInsertErrMsg += "Seqno " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -72,13 +66,13 @@ namespace PeculiarTuitionBase.PaymentBase
 
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Exam Id. = " + _drRow["SEQNO"].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strUpdateErrMsg += "Exam Id. = " + _drRow["SEQNO"].ToString() + "";
+                                _strUpdateErrMsg += "Seqno. = " + _drRow["SEQNO"].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -92,13 +86,13 @@ namespace PeculiarTuitionBase.PaymentBase
                             _htSave = Delete(p_brid, p_user, p_terminal, _drRow);
                             if (_htSave["p_flg"].ToString().ToUpper() == "T")
                             {
-                                _strTimeStampErrMsg += "Exam Id. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
                             else if (_htSave["p_flg"].ToString().ToUpper() == "N")
                             {
-                                _strTimeStampErrMsg += "Exam Id. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
+                                _strTimeStampErrMsg += "Seqno. = " + _drRow["SEQNO", DataRowVersion.Original].ToString() + "";
                                 _base.Rollback();
                                 continue;
                             }
@@ -113,7 +107,7 @@ namespace PeculiarTuitionBase.PaymentBase
                         {
                             p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["SEQNO"] = tempExamID;
                         }
-                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["p_time_stamp"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -152,14 +146,14 @@ namespace PeculiarTuitionBase.PaymentBase
                 _base.AddInParam("p_ref_entity_type_id", DbType.Int32, Convert.ToInt32(p_dr["REF_ENTITY_TYPE_ID"] == null ? 0 : p_dr["REF_ENTITY_TYPE_ID"]));
                 _base.AddInParam("p_amount", DbType.Int32, Convert.ToInt32(p_dr["AMOUNT"] == null ? 0 : p_dr["AMOUNT"]));
                 _base.AddInParam("p_cash_chq_ratio", DbType.Int32, Convert.ToInt32(p_dr["CASH_CHQ_RATIO"] == null ? 0 : p_dr["CASH_CHQ_RATIO"]));
-                _base.AddInParam("p_allow_emi", DbType.String, p_dr["ALLOW_EMI"]);
-                _base.AddInParam("p_allow_advance", DbType.String, p_dr["ALLOW_ADVANCE"]);
-                _base.AddInParam("p_no_of_emi", DbType.Date, p_dr["NO_OF_EMI"]);
-                _base.AddInParam("p_discount", DbType.String, p_dr["DISCOUNT"]);
-                _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
+                _base.AddInParam("p_allow_emi", DbType.String, p_dr["ALLOW_EMI"].ToString());
+                _base.AddInParam("p_allow_advance", DbType.String, p_dr["ALLOW_ADVANCE"].ToString());
+                _base.AddInParam("p_no_of_emi", DbType.String, p_dr["NO_OF_EMI"].ToString());
+                _base.AddInParam("p_discount", DbType.String, p_dr["DISCOUNT"].ToString());
+                _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"].ToString());
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
+                _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_seqno", DbType.Int32, 5);
@@ -168,7 +162,7 @@ namespace PeculiarTuitionBase.PaymentBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("SEQNO", _base.GetParameterValue("p_seqno"));
-                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -189,19 +183,19 @@ namespace PeculiarTuitionBase.PaymentBase
                 _base.AddInParam("p_cash_chq_ratio", DbType.Int32, Convert.ToInt32(p_dr["CASH_CHQ_RATIO"] == null ? 0 : p_dr["CASH_CHQ_RATIO"]));
                 _base.AddInParam("p_allow_emi", DbType.String, p_dr["ALLOW_EMI"]);
                 _base.AddInParam("p_allow_advance", DbType.String, p_dr["ALLOW_ADVANCE"]);
-                _base.AddInParam("p_no_of_emi", DbType.Date, p_dr["NO_OF_EMI"]);
+                _base.AddInParam("p_no_of_emi", DbType.String, p_dr["NO_OF_EMI"]);
                 _base.AddInParam("p_discount", DbType.String, p_dr["DISCOUNT"]);
                 _base.AddInParam("p_remark", DbType.String, p_dr["REMARK"]);
                 _base.AddInParam("p_upd_user", DbType.String, p_user);
                 _base.AddInParam("p_upd_term", DbType.String, p_term);
-                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.ExecSPWithTransaction("pkg_transaction_setting.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }

@@ -9,10 +9,16 @@ namespace PeculiarTuitionBase
     {
 
         public OracleEntLibDataProvider.LibraryBase _base;
-        public static readonly string InsertMessage = ConfigurationManager.AppSettings["InsertErr"].ToString();
-        public static readonly string UpdateMessage = ConfigurationManager.AppSettings["UpdateErr"].ToString();
-        public static readonly string DeleteMessage = ConfigurationManager.AppSettings["DeleteErr"].ToString();
-        public static readonly string TimestampMsg = ConfigurationManager.AppSettings["TimeStampErr"].ToString();
+        private static readonly string CONST_INS_MSG = ConfigurationManager.AppSettings["InsertErr"].ToString();
+        private static readonly string CONST_UPD_MSG = ConfigurationManager.AppSettings["UpdateErr"].ToString();
+        private static readonly string CONST_DEL_MSG = ConfigurationManager.AppSettings["DeleteErr"].ToString();
+        private static readonly string CONST_TIMESTAMP = ConfigurationManager.AppSettings["TimeStampErr"].ToString();
+
+        public string _strErrMsg;
+        public string _strTimeStampErrMsg;
+        public string _strInsertErrMsg;
+        public string _strUpdateErrMsg;
+        public string _strDeleteErrMsg;
 
         /// <summary>
         /// 
@@ -22,6 +28,11 @@ namespace PeculiarTuitionBase
             try
             {
                 _base = new OracleEntLibDataProvider.LibraryBase(ConfigurationManager.AppSettings["TuitionBase"].ToString());
+                _strErrMsg = string.Empty;
+                _strTimeStampErrMsg = CONST_TIMESTAMP;
+                _strInsertErrMsg = CONST_INS_MSG;
+                _strUpdateErrMsg = CONST_UPD_MSG;
+                _strDeleteErrMsg = CONST_DEL_MSG;
             }
             catch (Exception ex)
             {
@@ -40,16 +51,16 @@ namespace PeculiarTuitionBase
         public void GetTransactionSummary(string insertMsg, string updateMsg, string DelMsg, string timestampMsg, out string ErrorMsg)
         {
             ErrorMsg = string.Empty;
-            if (timestampMsg != TimestampMsg)
+            if (timestampMsg != CONST_TIMESTAMP)
                 ErrorMsg = timestampMsg + "\n\n";
 
-            if (insertMsg != InsertMessage)
+            if (insertMsg != CONST_INS_MSG)
                 ErrorMsg = insertMsg + "\n\n";
 
-            if (updateMsg != UpdateMessage)
+            if (updateMsg != CONST_UPD_MSG)
                 ErrorMsg = updateMsg + "\n\n";
 
-            if (DelMsg != DeleteMessage)
+            if (DelMsg != CONST_DEL_MSG)
                 ErrorMsg = DelMsg + "\n\n";
         }
 

@@ -6,6 +6,10 @@ namespace PeculiarTuitionBase.Super
 {
     public class GridFields : TuitionBase
     {
+        public GridFields() : base()
+        {
+
+        }
         public DataTable FetchData(string p_criteria, out string Error)
         {
             try
@@ -31,11 +35,7 @@ namespace PeculiarTuitionBase.Super
         {
             #region variable Declaration
             int _intNumRecords = 0, _intStdID = 0;
-            string _strErrMsg = "";
-            string _strTimeStampErrMsg = TimestampMsg;
-            string _strInsertErrMsg = InsertMessage; ;
-            string _strUpdateErrMsg = UpdateMessage;
-            string _strDeleteErrMsg = DeleteMessage;
+            
 
             p_err = null;
             Hashtable _htSave = new Hashtable();
@@ -114,7 +114,7 @@ namespace PeculiarTuitionBase.Super
                         {
                             p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["SEQNO"] = _intStdID;
                         }
-                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        //Set TimeStamp
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -170,7 +170,6 @@ namespace PeculiarTuitionBase.Super
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("SEQNO", _base.GetParameterValue("P_SEQNO"));
-                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -199,12 +198,10 @@ namespace PeculiarTuitionBase.Super
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
 
-                _base.ExecSPWithTransaction("PKG_GRIDFIELD_MAS.prc_mas_upd");
+                _base.ExecSPWithTransaction("pkg_gridfield_mas.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
-
                 return _htUpd;
             }
             catch (Exception ex)
@@ -222,12 +219,11 @@ namespace PeculiarTuitionBase.Super
                 _base.Connect();
                 _base.AddInParam("p_branch_id", DbType.String, p_brid);
                 _base.AddInParam("p_seqno", DbType.String, p_dr["SEQNO", DataRowVersion.Original]);
-                //_base.AddInParam("p_time_stamp", DbType.String, p_dr["TIME_STAMP", DataRowVersion.Original]);
 
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_msg", DbType.String, 50);
 
-                _base.ExecSPWithTransaction("PKG_GRIDFIELD_MAS.prc_mas_del");
+                _base.ExecSPWithTransaction("pkg_gridfield_mas.prc_mas_del");
 
                 _htDel.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htDel.Add("p_msg", _base.GetParameterValue("p_msg"));

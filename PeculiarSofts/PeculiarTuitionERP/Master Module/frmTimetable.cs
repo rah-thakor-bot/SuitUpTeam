@@ -3,31 +3,34 @@ using System.Data;
 using System.Collections;
 using System.Windows.Forms;
 using Private.MyUserControls;
-using PeculiarTuitionBase.PaymentBase;
+using PeculiarTuitionBase.MasterBase;
 using PeculiarTuitionERP.Utility_Module;
 
-namespace PeculiarTuitionERP.Transaction_Module
+namespace PeculiarTuitionERP.Master_Module
 {
-    public partial class frmTransactionSetting : frmBaseChild
+    public partial class frmTimetable : frmBaseChild
     {
+        
+
         #region Global Objects and Variable Declaration for Form
-        private TransactionSetting libTranSetting;
-        private Utility uti;
-        string _strFormType = string.Empty;
-        string strBtnActionType = string.Empty;
-        string ErrorMsg = string.Empty;
+
         const string DefaultLoadCriteria = "1 = 2";
         const string DefaultRefreshCriteria = "1 = 1";
-        string[] strTranChkBxColName;
-        string[] strTranCmbColName;
+        string _strFormType = string.Empty;
+        string _strBtnActionType = string.Empty;
+        string ErrorMsg = string.Empty;
+        string[] arrTimetableChkBxName;
+        string[] arrTimetableCmbColName;
 
-        DataTable _dtGridFields;
-        DataTable _dtTranSetting;
-        DataGridViewComboBoxColumn[] dgvcm_TranSetting;
+        private Utility uti;
+        private DataTable _dtGridFields;
+        private DataTable _dtTimetable; 
+        private SubjectAllocation libTimetable; 
+        private DataGridViewComboBoxColumn[] dgvcm_SubAlloc;
         #endregion
 
         #region Constructor
-        public frmTransactionSetting()
+        public frmTimetable()
         {
             InitializeComponent();
         }
@@ -35,11 +38,11 @@ namespace PeculiarTuitionERP.Transaction_Module
 
         #region Form Events
 
-        private void frmTransactionSetting_Load(object sender, EventArgs e)
+        private void frmTimetable_Load(object sender, EventArgs e)
         {
             try
             {
-                strBtnActionType = "LOAD";
+                _strBtnActionType = "LOAD";
                 LoadGrid();
                 UpdateControlBehaviour();
             }
@@ -48,6 +51,7 @@ namespace PeculiarTuitionERP.Transaction_Module
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
         #endregion
 
         #region Button Panel Events
@@ -57,13 +61,13 @@ namespace PeculiarTuitionERP.Transaction_Module
             {
                 if (btnMainPanel1.ButtonAddText == "&Add")
                 {
-                    strBtnActionType = "ADD";
+                    _strBtnActionType = "ADD";
                     UpdateControlBehaviour();
                 }
                 else
                 {
                     Hashtable ValGrid = new Hashtable();
-                    ValGrid = Global.ValidateGrid(grdTrnMas, _dtGridFields);
+                    ValGrid = Global.ValidateGrid(grdTimetable, _dtGridFields);
                     if (ValGrid["RESULT"].ToString() == "true")
                     {
                         Hashtable _htResult = new Hashtable();
@@ -72,38 +76,36 @@ namespace PeculiarTuitionERP.Transaction_Module
                         if (_htResult["RESULT"].ToString().Trim() == "true")
                         {
                             MessageBox.Show("Saved Succesfully.");
-                            getLibraryInstance("UTILITY");
-                            strBtnActionType = "SAVE";
+                            _strBtnActionType = "SAVE";
                             UpdateControlBehaviour();
                         }
                         else
                         {
-                            //Unsuccessful attempt
+                            
                         }
                     }
-
                     else
                     {
                         MessageBox.Show("Some fields are required");
-                        if (grdTrnMas != null && grdTrnMas.CurrentCell != null && grdTrnMas.CurrentCell.RowIndex != 0)
+                        if (grdTimetable != null && grdTimetable.CurrentCell != null && grdTimetable.CurrentCell.RowIndex != 0)
                         {
-                            grdTrnMas.Select();
-                            grdTrnMas.CurrentCell = grdTrnMas.Rows[grdTrnMas.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
+                            grdTimetable.Select();
+                            grdTimetable.CurrentCell = grdTimetable.Rows[grdTimetable.CurrentCell.RowIndex].Cells[ValGrid["COLUMN"].ToString()];
                         }
                         else
                         {
-                            grdTrnMas.Focus();
+                            grdTimetable.Focus();
                         }
-
                         return;
-
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+
         }
 
         private void btnMainPanel1_btnCloseClick(object sender, EventArgs e)
@@ -115,18 +117,18 @@ namespace PeculiarTuitionERP.Transaction_Module
         {
             try
             {
-                grdTrnMas.Select();
-                grdTrnMas.Focus();
-                if (grdTrnMas.Focused && grdTrnMas.SelectedRows.Count > 0)
+                grdTimetable.Select();
+                grdTimetable.Focus();
+                if (grdTimetable.Focused && grdTimetable.SelectedRows.Count > 0)
                 {
-                    strBtnActionType = "DELETE";
+                    _strBtnActionType = "DELETE";
                     if (MessageBox.Show("Do you want to delete Record(s)?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        grdTrnMas.AllowUserToDeleteRows = true;
-                        foreach (DataGridViewRow _drMasRow in grdTrnMas.SelectedRows)
+                        grdTimetable.AllowUserToDeleteRows = true;
+                        foreach (DataGridViewRow _drMasRow in grdTimetable.SelectedRows)
                         {
                             if (_drMasRow.IsNewRow == false)
-                                grdTrnMas.Rows.Remove(_drMasRow);
+                                grdTimetable.Rows.Remove(_drMasRow);
                             else
                                 _drMasRow.Selected = false;
                         }
@@ -145,12 +147,12 @@ namespace PeculiarTuitionERP.Transaction_Module
             {
                 if (btnMainPanel1.ButtonEditText == "&Edit")
                 {
-                    strBtnActionType = "EDIT";
+                    _strBtnActionType = "EDIT";
                     UpdateControlBehaviour();
                 }
                 else
                 {
-                    strBtnActionType = "CANCEL";
+                    _strBtnActionType = "CANCEL";
                     UpdateControlBehaviour();
                 }
             }
@@ -165,19 +167,18 @@ namespace PeculiarTuitionERP.Transaction_Module
             try
             {
                 getLibraryInstance("UTILITY");
-                string criteria = uti.GetGridCriteria(grdTrnMas);
+                string criteria = uti.GetGridCriteria(grdTimetable);
                 criteria = (string.IsNullOrWhiteSpace(criteria) == true ? DefaultRefreshCriteria : criteria);
                 GetDataSet(criteria);
-                if (_dtTranSetting.Rows.Count > 0)
+                if (_dtTimetable.Rows.Count > 0)
                 {
-                    strBtnActionType = "REFRESH";
-                    grdTrnMas.DataSource = _dtTranSetting;
+                    grdTimetable.DataSource = _dtTimetable;
+                    _strBtnActionType = "REFRESH";
                     UpdateControlBehaviour();
                 }
                 else
                 {
                     MessageBox.Show("Record not found");
-                    return;
                 }
             }
             catch (Exception ex)
@@ -190,7 +191,7 @@ namespace PeculiarTuitionERP.Transaction_Module
         {
             try
             {
-                strBtnActionType = "SEARCH";
+                _strBtnActionType = "SEARCH";
                 UpdateControlBehaviour();
             }
             catch (Exception ex)
@@ -199,61 +200,66 @@ namespace PeculiarTuitionERP.Transaction_Module
                 throw;
             }
         }
+
+        private void grdSubAlloc_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            SetAutoIncrement();
+        }
         #endregion
 
         #region Private Methods
         private void UpdateControlBehaviour()
         {
             getLibraryInstance("UTILITY");
-            switch (strBtnActionType.ToUpper())
+            UpdatePanelBehaviour(_strBtnActionType);
+            switch (_strBtnActionType.ToUpper())
             {
                 case "LOAD":
-                    grdTrnMas.AllowUserToAddRows = false;
-                    grdTrnMas.ReadOnly = true;
+                    grdTimetable.AllowUserToAddRows = false;
+                    grdTimetable.ReadOnly = true;
                     SetAutoIncrement();
                     break;
                 case "ADD":
-                    grdTrnMas.ReadOnly = false;
-                    grdTrnMas.AllowUserToAddRows = true;
-
-                    grdTrnMas.Focus();
-                    grdTrnMas.CurrentCell = grdTrnMas.Rows[grdTrnMas.Rows.Count - 1].Cells["SEQNO"];
+                    grdTimetable.ReadOnly = false;
+                    grdTimetable.AllowUserToAddRows = true;
+                    grdTimetable.Focus();
+                    grdTimetable.CurrentCell = grdTimetable.Rows[grdTimetable.Rows.Count - 1].Cells["ALLOCATION_ID"];
                     SetAutoIncrement();
                     break;
                 case "EDIT":
-                    grdTrnMas.AllowUserToAddRows = true;
-                    grdTrnMas.ReadOnly = false;
-                    grdTrnMas.Focus();
+                    grdTimetable.AllowUserToAddRows = true;
+                    grdTimetable.ReadOnly = false;
+                    grdTimetable.Focus();
                     break;
                 case "SAVE":
-                    grdTrnMas.ReadOnly = true;
-                    grdTrnMas.AllowUserToAddRows = false;
+                    grdTimetable.ReadOnly = true;
+                    grdTimetable.AllowUserToAddRows = false;
                     break;
                 case "SEARCH":
-                    if (_dtTranSetting != null)
+                    if (_dtTimetable != null)
                     {
-                        _dtTranSetting.Rows.Clear();
-                        _dtTranSetting.AcceptChanges();
+                        _dtTimetable.Rows.Clear();
+                        _dtTimetable.AcceptChanges();
                     }
-                    grdTrnMas.AllowUserToAddRows = true;
-                    grdTrnMas.CurrentCell = grdTrnMas.Rows[0].Cells["SEQNO"];
-                    grdTrnMas.Rows[0].Cells["SEQNO"].Value = DBNull.Value;
-                    grdTrnMas.Focus();
-                    grdTrnMas.ReadOnly = false;
+                    grdTimetable.AllowUserToAddRows = true;
+                    grdTimetable.CurrentCell = grdTimetable.Rows[0].Cells["ALLOCATION_ID"];
+                    grdTimetable.Rows[0].Cells["ALLOCATION_ID"].Value = DBNull.Value;
+                    grdTimetable.Focus();
+                    grdTimetable.ReadOnly = false;
                     break;
                 case "REFRESH":
-                    grdTrnMas.ReadOnly = true;
-                    grdTrnMas.AllowUserToAddRows = false;
+                    grdTimetable.ReadOnly = true;
+                    grdTimetable.AllowUserToAddRows = false;
                     break;
                 case "CANCEL":
-                    grdTrnMas.AllowUserToAddRows = true;
-                    grdTrnMas.ReadOnly = true;
+                    grdTimetable.AllowUserToAddRows = false;
+                    grdTimetable.ReadOnly = true;
                     break;
                 default:
-                    MessageBox.Show("Form behavious is not set for following behaviuor" + strBtnActionType);
+                    MessageBox.Show("Form behavious is not set for following behaviuor" + _strBtnActionType);
                     break;
             }
-            UpdatePanelBehaviour(strBtnActionType);
+
         }
 
         private void UpdatePanelBehaviour(string ActionType)//Do not call directly
@@ -293,30 +299,65 @@ namespace PeculiarTuitionERP.Transaction_Module
                     btnMainPanel1.SetFocus(ButtonPanelControl.Action.Add);
                     break;
                 default:
-                    MessageBox.Show("Panel behaviour is not set \"{0}\" current action", strBtnActionType);
+                    MessageBox.Show(string.Format("Panel behaviour is not set \"{0}\" current action", _strBtnActionType));
                     break;
             }
         }
 
         private void SetAutoIncrement()
         {
-            if (strBtnActionType != "SEARCH")
+            if (_strBtnActionType != "SEARCH")
             {
-                _dtTranSetting.Columns["SEQNO"].AutoIncrement = true;
-                _dtTranSetting.Columns["SEQNO"].AutoIncrementSeed = -1;
-                _dtTranSetting.Columns["SEQNO"].AutoIncrementStep = -1;
+                _dtTimetable.Columns["ALLOCATION_ID"].AutoIncrement = true;
+                _dtTimetable.Columns["ALLOCATION_ID"].AutoIncrementSeed = -1;
+                _dtTimetable.Columns["ALLOCATION_ID"].AutoIncrementStep = -1;
             }
         }
+        private void LoadGrid()
+        {
+            try
+            {
+                getLibraryInstance();
+                _dtGridFields = libTimetable.FetchGridFields(this.Tag.ToString(), grdTimetable.Name, out ErrorMsg);
+                if (!string.IsNullOrEmpty(ErrorMsg))
+                    MessageBox.Show(ErrorMsg);
+
+                GetDataSet();
+
+                Global.AcquireGridCheckBoxColumn(_dtGridFields, out arrTimetableChkBxName);
+                Global.AcquireComboListWithSource(_dtGridFields, out arrTimetableCmbColName, out dgvcm_SubAlloc);
+                Global.GridBindingSource(ref grdTimetable, _dtGridFields, arrTimetableCmbColName, dgvcm_SubAlloc, arrTimetableChkBxName, _dtTimetable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+
+        }
+
+        private void getLibraryInstance(string libName = "TIMETABLE")
+        {
+            if (libName.ToUpper() == "TIMETABLE")
+            {
+                if (libTimetable == null)
+                    libTimetable = new SubjectAllocation();
+            }
+            else if (libName.ToUpper() == "UTILITY")
+            {
+                if (uti == null)
+                    uti = new Utility();
+            }
+        }
+
         private void GetDataSet(string criteria = DefaultLoadCriteria)
         {
             try
             {
                 getLibraryInstance();
-                _dtTranSetting = libTranSetting.FetchData(criteria, out ErrorMsg);
+                _dtTimetable = libTimetable.FetchData(criteria, out ErrorMsg);
                 if (!string.IsNullOrEmpty(ErrorMsg))
-                {
-                    throw new Exception(ErrorMsg);
-                }
+                    throw new Exception(ErrorMsg.ToString());
+
             }
             catch (Exception ex)
             {
@@ -328,51 +369,15 @@ namespace PeculiarTuitionERP.Transaction_Module
             }
         }
 
-        private void LoadGrid()
-        {
-            try
-            {
-                getLibraryInstance();
-                _dtGridFields = libTranSetting.FetchGridFields(this.Tag.ToString(), "grdTrnMas", out ErrorMsg);
-                if (!string.IsNullOrEmpty(ErrorMsg))
-                    MessageBox.Show(ErrorMsg);
-
-                GetDataSet();
-
-                Global.AcquireGridCheckBoxColumn(_dtGridFields, out strTranChkBxColName);
-                Global.AcquireComboListWithSource(_dtGridFields, out strTranCmbColName, out dgvcm_TranSetting);
-                Global.GridBindingSource(ref grdTrnMas, _dtGridFields, strTranCmbColName, dgvcm_TranSetting, strTranChkBxColName, _dtTranSetting);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-
-        }
-
-        private void getLibraryInstance(string libName = "TRN")
-        {
-            if (libName.ToUpper() == "TRN")
-            {
-                if (libTranSetting == null)
-                    libTranSetting = new TransactionSetting();
-            }
-            else if (libName.ToUpper() == "UTILITY")
-            {
-                if (uti == null)
-                    uti = new Utility();
-            }
-        }
-
         private Hashtable SaveData()
         {
-            Hashtable _htSave = new Hashtable();
+            Hashtable _htSave = null;
             try
             {
-                getLibraryInstance();
-                if (_dtTranSetting.GetChanges() != null)
+                getLibraryInstance("STUDY_LEVEL");
+                if (_dtTimetable.GetChanges() != null)
                 {
-                    _htSave = libTranSetting.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtTranSetting, out ErrorMsg);
+                    _htSave = libTimetable.SaveData(Global.LoginBranch, Global.LoginUser, Environment.MachineName, ref _dtTimetable, out ErrorMsg);
                     if (ErrorMsg != null) throw new Exception(ErrorMsg);
                 }
                 else
@@ -400,15 +405,7 @@ namespace PeculiarTuitionERP.Transaction_Module
             return null;
         }
 
-
         #endregion
 
-        private void grdTrnMas_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (strBtnActionType != "SEARCH")
-            {
-                SetAutoIncrement();
-            }
-        }
     }
 }

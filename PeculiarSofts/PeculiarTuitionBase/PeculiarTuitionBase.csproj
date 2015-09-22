@@ -62,16 +62,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterBase\AttendanceMas.cs" />
     <Compile Include="MasterBase\BatchMaster.cs" />
     <Compile Include="MasterBase\ChapterMas.cs" />
     <Compile Include="MasterBase\EmpMas.cs" />
     <Compile Include="MasterBase\EntityTypeMas.cs" />
     <Compile Include="ExamBase\ExamMaster.cs" />
     <Compile Include="ExamBase\ResultMaster.cs" />
-    <Compile Include="MasterBase\StudMas.cs" />
     <Compile Include="MasterBase\StudyLevelMas.cs" />
     <Compile Include="MasterBase\SubjectAllocation.cs" />
     <Compile Include="MasterBase\SubjectMas.cs" />
+    <Compile Include="MasterBase\Timetable.cs" />
     <Compile Include="PaymentBase\PaymentMas.cs" />
     <Compile Include="PaymentBase\TransactionSetting.cs" />
     <Compile Include="Super\GridFields.cs" />

@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace PeculiarTuitionBase.MasterBase
 {
-    public class SubjectAllocation : TuitionBase
+    public class Timetable :TuitionBase
     {
         public DataTable FetchData(string p_criteria, out string Error)
         {
@@ -30,7 +30,7 @@ namespace PeculiarTuitionBase.MasterBase
         public Hashtable SaveData(string p_brid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
-            int _intNumRecords = 0,seqno = 0;
+            int _intNumRecords = 0, seqno = 0;
             p_err = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
@@ -203,7 +203,7 @@ namespace PeculiarTuitionBase.MasterBase
 
         }
 
-        private Hashtable Delete(string p_brid,string p_user, string p_term, DataRow p_dr)
+        private Hashtable Delete(string p_brid, string p_user, string p_term, DataRow p_dr)
         {
             Hashtable _htDel = new Hashtable();
             try

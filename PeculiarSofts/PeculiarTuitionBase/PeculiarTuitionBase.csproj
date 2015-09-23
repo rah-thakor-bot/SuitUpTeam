@@ -49,7 +49,7 @@
       <HintPath>bin\Debug\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="Peculiar.DataProvider">
-      <HintPath>bin\Debug\Peculiar.DataProvider.dll</HintPath>
+      <HintPath>..\..\..\..\Peculiar Softs\Database Cofiguration Projects\Peculiar.DataProvider\Peculiar.DataProvider\bin\Debug\Peculiar.DataProvider.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -62,22 +62,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterBase\AttendanceMas.cs" />
     <Compile Include="MasterBase\BatchMaster.cs" />
     <Compile Include="MasterBase\ChapterMas.cs" />
     <Compile Include="MasterBase\EmpMas.cs" />
     <Compile Include="MasterBase\EntityTypeMas.cs" />
     <Compile Include="ExamBase\ExamMaster.cs" />
     <Compile Include="ExamBase\ResultMaster.cs" />
-    <Compile Include="MasterBase\StudMas.cs" />
     <Compile Include="MasterBase\StudyLevelMas.cs" />
     <Compile Include="MasterBase\SubjectAllocation.cs" />
     <Compile Include="MasterBase\SubjectMas.cs" />
+    <Compile Include="MasterBase\Timetable.cs" />
+    <Compile Include="PaymentBase\PaymentMas.cs" />
+    <Compile Include="PaymentBase\TransactionSetting.cs" />
+    <Compile Include="Super\GridFields.cs" />
     <Compile Include="TuitionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PaymentBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

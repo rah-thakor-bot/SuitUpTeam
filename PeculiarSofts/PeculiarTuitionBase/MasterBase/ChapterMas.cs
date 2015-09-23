@@ -8,6 +8,8 @@ namespace PeculiarTuitionBase.MasterBase
 {
     public class ChapterMas : TuitionBase
     {
+        #region Code Moved to SubjectMas Class
+        /*
         public DataTable FetchData(out string Error)
         {
             try
@@ -126,16 +128,16 @@ namespace PeculiarTuitionBase.MasterBase
                     _base.Commit();
                 }
 
-                if (_strTimeStampErrMsg != "Timestamp  Error : \n")
+                if (_strTimeStampErrMsg != CONST_TIMESTAMP)
                     _strErrMsg = _strTimeStampErrMsg + "\n \n";
 
-                if (_strInsertErrMsg != "Problem In Inserting Record : \n")
+                if (_strInsertErrMsg != CONST_INS_MSG)
                     _strErrMsg = _strInsertErrMsg + "\n \n";
 
-                if (_strUpdateErrMsg != "Problem In Updating Record : \n")
+                if (_strUpdateErrMsg != CONST_UPD_MSG)
                     _strErrMsg = _strUpdateErrMsg + "\n \n";
 
-                if (_strDeleteErrMsg != "Record can't deleted due to child record exist : \n")
+                if (_strDeleteErrMsg != CONST_DEL_MSG)
                     _strErrMsg = _strDeleteErrMsg + "\n \n";
 
 
@@ -243,6 +245,8 @@ namespace PeculiarTuitionBase.MasterBase
             {
                 throw ex;
             }
-        }
+        }*/
+        #endregion
     }
+
 }

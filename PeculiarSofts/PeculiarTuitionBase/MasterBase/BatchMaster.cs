@@ -27,16 +27,10 @@ namespace PeculiarTuitionBase.MasterBase
             return null;
         }
 
-        public Hashtable SaveData(string p_brid, string p_coid, string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
+        public Hashtable SaveData(string p_brid,string p_user, string p_terminal, ref DataTable p_dt, out string p_err)
         {
             #region variable Declaration
             int _intNumRecords = 0, tempBatchID = 0;
-            string _strErrMsg = "";
-            string _strTimeStampErrMsg = "Timestamp  Error : \n";
-            string _strInsertErrMsg = "Problem in inserting record : \n";
-            string _strUpdateErrMsg = "Problem in updating record : \n";
-            string _strDeleteErrMsg = "Problem in deleting record : \n";
-
             p_err = null;
             Hashtable _htSave = new Hashtable();
             _htSave.Add("TIMESTAMP", _strErrMsg);
@@ -113,7 +107,7 @@ namespace PeculiarTuitionBase.MasterBase
                         {
                             p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["BATCH_ID"] = tempBatchID;
                         }
-                        //p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["P_TIME_STAMP"].ToString();
+                        p_dt.Rows[p_dt.Rows.IndexOf(_drRows[0])]["TIME_STAMP"] = _htSave["p_time_stamp"].ToString();
                     }
                     if (_drRow.RowState == DataRowState.Deleted)
                     {
@@ -124,18 +118,7 @@ namespace PeculiarTuitionBase.MasterBase
                     _base.Commit();
                 }
 
-                if (_strTimeStampErrMsg != "Timestamp  Error : \n")
-                    _strErrMsg = _strTimeStampErrMsg + "\n \n";
-
-                if (_strInsertErrMsg != "Problem In Inserting Record : \n")
-                    _strErrMsg = _strInsertErrMsg + "\n \n";
-
-                if (_strUpdateErrMsg != "Problem In Updating Record : \n")
-                    _strErrMsg = _strUpdateErrMsg + "\n \n";
-
-                if (_strDeleteErrMsg != "Record can't deleted due to child record exist : \n")
-                    _strErrMsg = _strDeleteErrMsg + "\n \n";
-
+                GetTransactionSummary(_strInsertErrMsg, _strUpdateErrMsg, _strDeleteErrMsg, _strTimeStampErrMsg, out _strErrMsg);
 
                 _htSave.Add("RESULT", "true");
                 _htSave["TIMESTAMP"] = _strErrMsg;
@@ -169,7 +152,7 @@ namespace PeculiarTuitionBase.MasterBase
                 //_base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_ent_user", DbType.String, p_user);
                 _base.AddInParam("p_ent_term", DbType.String, p_term);
-                //_base.AddOutParam("p_time_stamp", DbType.String, 50);
+                _base.AddOutParam("p_time_stamp", DbType.String, 50);
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.AddOutParam("p_batch_id", DbType.Int32, 5);
@@ -178,7 +161,7 @@ namespace PeculiarTuitionBase.MasterBase
                 _htAdd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htAdd.Add("p_msg", _base.GetParameterValue("p_msg"));
                 _htAdd.Add("BATCH_ID", _base.GetParameterValue("p_batch_id"));
-                //_htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htAdd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
                 return _htAdd;
             }
             catch (Exception ex)
@@ -203,14 +186,14 @@ namespace PeculiarTuitionBase.MasterBase
                 //_base.AddInParam("p_remark", DbType.Int32, p_dr["REMARK"]);
                 _base.AddInParam("p_upd_user", DbType.String, p_user);
                 _base.AddInParam("p_upd_term", DbType.String, p_term);
-                //_base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
+                _base.AddParameter("p_time_stamp", DbType.String, 50, ParameterDirection.InputOutput, p_dr["time_stamp"].ToString());
                 _base.AddOutParam("p_msg", DbType.String, 50);
                 _base.AddOutParam("p_flg", DbType.String, 1);
                 _base.ExecSPWithTransaction("pkg_batch_mas.prc_mas_upd");
 
                 _htUpd.Add("p_flg", _base.GetParameterValue("p_flg"));
                 _htUpd.Add("p_msg", _base.GetParameterValue("p_msg"));
-                //_htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
+                _htUpd.Add("p_time_stamp", _base.GetParameterValue("p_time_stamp"));
 
                 return _htUpd;
             }
